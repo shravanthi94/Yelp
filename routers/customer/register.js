@@ -8,15 +8,17 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const router = express.Router();
 
-// @route  POST yelp/customer
+// @route  POST yelp/customer/register
 // @desc   Customer SIGNUP route
 // @access Public
 router.post(
   "/",
   [
-    check("name", "Name is required").notEmpty(),
-    check("email", "Email is required").notEmpty(),
-    check("password", "Password must be 8 characters long").isLength({ min: 8 })
+    check("name", "Name is required.").notEmpty(),
+    check("email", "Please include a valid email.").isEmail(),
+    check("password", "Password must be 8 characters long.").isLength({
+      min: 8
+    })
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -28,9 +30,9 @@ router.post(
 
     try {
       //1. Query to check if customer exists
-      const sql = `SELECT customer_email_id FROM customer WHERE customer_email_id = '${email}'`;
+      const checkCustomerQuery = `SELECT customer_email_id FROM customer WHERE customer_email_id = '${email}'`;
 
-      dbPool.query(sql, async (error, result) => {
+      dbPool.query(checkCustomerQuery, async (error, result) => {
         if (error) {
           return res.status(500).send("Server Error");
         }
