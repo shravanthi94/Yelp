@@ -28,6 +28,7 @@ router.post(
       const fetchCustomerQuery = `SELECT customer_id, customer_password FROM customer WHERE customer_email_id='${email}'`;
       dbPool.query(fetchCustomerQuery, async (error, result) => {
         if (error) {
+          console.log(error);
           return res.status(500).send("Server Error");
         }
 

@@ -28,6 +28,7 @@ router.post(
       const fetchrestaurantQuery = `SELECT restaurant_id, restaurant_password FROM restaurant WHERE restaurant_email_id='${email}'`;
       dbPool.query(fetchrestaurantQuery, async (error, result) => {
         if (error) {
+          console.log(error);
           return res.status(500).send("Server Error");
         }
 
