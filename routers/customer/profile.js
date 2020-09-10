@@ -2,6 +2,24 @@ const express = require("express");
 const router = express.Router();
 const dbPool = require("../../config/db");
 
+// @route  GET yelp/customer/profile
+// @desc   Get all customer profiles
+// @access Public
+router.get("/", (req, res) => {
+  try {
+    const allCustomersQuery = `SELECT * FROM customer`;
+    dbPool.query(allCustomersQuery, (error, result) => {
+      if (error) {
+        return res.status(500).send("Server Error");
+      }
+      res.status(200).json({ result });
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route  GET yelp/customer/profile/customer_id
 // @desc   Get customer profiles using customer id
 // @access Public
