@@ -151,15 +151,48 @@ router.post("/about", auth, (req, res) => {
   } = req.body;
 
   try {
-    const updateAboutQuery = `INSERT into customer_about_data (yelping_since, things_i_love, find_me_in, my_blog, when_not_yelping,why_read_my_reviews,recent_discovery, customer_id)
+    const addAboutQuery = `INSERT into customer_about_data (yelping_since, things_i_love, find_me_in, my_blog, when_not_yelping,why_read_my_reviews,recent_discovery, customer_id)
     VALUES ('${yelping_since}', '${things_i_love}', '${find_me_in}', '${my_blog}', '${when_not_yelping}', '${why_read_my_reviews}', '${recent_discovery}', ${customer_id})`;
+
+    dbPool.query(addAboutQuery, (error, result) => {
+      if (error) {
+        console.log(error.sqlMessage);
+        return res.status(500).send("Server Error");
+      }
+      res.send("About me details added.");
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error.");
+  }
+});
+
+// @route  PUT yelp/customer/profile/about
+// @desc   Update current customer about me details
+// @access Private
+router.put("/about", auth, (req, res) => {
+  const customer_id = req.user.id;
+  const {
+    yelping_since,
+    things_i_love,
+    find_me_in,
+    my_blog,
+    when_not_yelping,
+    why_read_my_reviews,
+    recent_discovery
+  } = req.body;
+
+  try {
+    const updateAboutQuery = `UPDATE customer_about_data set yelping_since='${yelping_since}', things_i_love='${things_i_love}', 
+    find_me_in='${find_me_in}', my_blog='${my_blog}', when_not_yelping='${when_not_yelping}', 
+    why_read_my_reviews='${why_read_my_reviews}', recent_discovery='${recent_discovery}' WHERE (customer_id=${customer_id})`;
 
     dbPool.query(updateAboutQuery, (error, result) => {
       if (error) {
         console.log(error.sqlMessage);
         return res.status(500).send("Server Error");
       }
-      res.send("About me details added.");
+      res.send("About me details updated.");
     });
   } catch (err) {
     console.log(err);
