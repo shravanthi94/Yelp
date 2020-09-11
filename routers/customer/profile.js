@@ -108,4 +108,31 @@ router.post("/basic", auth, (req, res) => {
   }
 });
 
+// @route  GET yelp/customer/profile/about/customer_id
+// @desc   Get customer profile details using customer id
+// @access Public
+router.get("/about/:customer_id", async (req, res) => {
+  const customer_id = req.params.customer_id;
+
+  try {
+    const findCustomerQuery = `SELECT * FROM customer_about_data WHERE customer_id = '${customer_id}'`;
+
+    dbPool.query(findCustomerQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Server Error");
+      }
+      if (result.length == 0) {
+        return res
+          .status(201)
+          .json({ errors: [{ msg: "Customer about details not added." }] });
+      }
+      res.status(200).json(result[0]);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
