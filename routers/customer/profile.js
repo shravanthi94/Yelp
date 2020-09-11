@@ -3,6 +3,8 @@ const router = express.Router();
 const dbPool = require("../../config/db");
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
+const path = require("path");
+const fs = require("fs");
 
 // @route  GET yelp/customer/profile/all
 // @desc   Get all customer profile details
@@ -241,5 +243,23 @@ router.post(
     }
   }
 );
+
+// @route  GET yelp/customer/profile/profile_picture/:image
+// @desc   Upload profile picture of the customer
+// @access Public
+router.get("/profile_picture/:image", (req, res) => {
+  var image =
+    path.join(__dirname, "../..") +
+    "/public/uploads/customers/" +
+    req.params.image;
+  if (fs.existsSync(image)) {
+    res.sendFile(image);
+  } else {
+    res.sendFile(
+      path.join(__dirname, "../..") +
+        "/public/uploads/customers/userplaceholder.jpg"
+    );
+  }
+});
 
 module.exports = router;
