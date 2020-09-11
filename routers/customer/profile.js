@@ -135,4 +135,36 @@ router.get("/about/:customer_id", async (req, res) => {
   }
 });
 
+// @route  POST yelp/customer/profile/about
+// @desc   Add current customer about me details
+// @access Private
+router.post("/about", auth, (req, res) => {
+  const customer_id = req.user.id;
+  const {
+    yelping_since,
+    things_i_love,
+    find_me_in,
+    my_blog,
+    when_not_yelping,
+    why_read_my_reviews,
+    recent_discovery
+  } = req.body;
+
+  try {
+    const updateAboutQuery = `INSERT into customer_about_data (yelping_since, things_i_love, find_me_in, my_blog, when_not_yelping,why_read_my_reviews,recent_discovery, customer_id)
+    VALUES ('${yelping_since}', '${things_i_love}', '${find_me_in}', '${my_blog}', '${when_not_yelping}', '${why_read_my_reviews}', '${recent_discovery}', ${customer_id})`;
+
+    dbPool.query(updateAboutQuery, (error, result) => {
+      if (error) {
+        console.log(error.sqlMessage);
+        return res.status(500).send("Server Error");
+      }
+      res.send("About me details added.");
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error.");
+  }
+});
+
 module.exports = router;
