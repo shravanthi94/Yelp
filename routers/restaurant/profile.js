@@ -125,4 +125,45 @@ router.post(
     }
   }
 );
+
+// @route  POST yelp/restaurant/profile/contact
+// @desc   Update current restaurant contact information
+// @access Private
+router.post(
+  "/contact",
+  [
+    auth,
+    [
+      check("restaurant_email_id", "Restaurant email is required.")
+        .notEmpty()
+        .isEmail()
+    ]
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const restaurant_id = req.user.id;
+    const { restaurant_email_id, restaurant_phone } = req.body;
+
+    try {
+      const contactUpdateQuery = `UPDATE restaurant set restaurant_email_id='${restaurant_email_id}', 
+      restaurant_phone='${restaurant_phone}' WHERE restaurant_id = ${restaurant_id}`;
+
+      dbPool.query(contactUpdateQuery, (error, result) => {
+        if (error) {
+          console.log(error.sqlMessage);
+          return res.status(500).send("Server Error");
+        }
+        res.status(200).send("Contact details updated.");
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 module.exports = router;
