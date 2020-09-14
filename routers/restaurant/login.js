@@ -54,7 +54,7 @@ router.post(
         //Send the web token
         const payload = {
           user: {
-            id: email,
+            id: result[0].restaurant_id,
             usertype: "restaurant"
           }
         };

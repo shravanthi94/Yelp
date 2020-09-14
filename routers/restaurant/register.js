@@ -67,7 +67,7 @@ router.post(
           //Pass the jsonwebtoken for that restaurant
           const payload = {
             user: {
-              id: email,
+              id: result.insertId,
               usertype: "restaurant"
             }
           };
