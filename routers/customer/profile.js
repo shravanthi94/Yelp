@@ -80,36 +80,44 @@ router.get("/:customer_id", async (req, res) => {
 // @route  Update yelp/customer/profile/basic
 // @desc   Update current user basic details
 // @access Private
-router.post("/basic", auth, (req, res) => {
-  const customer_id = req.user.id;
-  const {
-    name,
-    date_of_birth,
-    city,
-    state,
-    country,
-    nick_name,
-    headline
-  } = req.body;
+router.post(
+  "/basic",
+  [auth, [check("name", "Customer name is required").notEmpty()]],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const customer_id = req.user.id;
+    const {
+      name,
+      date_of_birth,
+      city,
+      state,
+      country,
+      nick_name,
+      headline
+    } = req.body;
 
-  try {
-    const updateCustomerQuery = `UPDATE customer set customer_name = '${name}', date_of_birth = '${date_of_birth}', 
+    try {
+      const updateCustomerQuery = `UPDATE customer set customer_name = '${name}', date_of_birth = '${date_of_birth}', 
     city = '${city}', state = '${state}', country = '${country}', nick_name = '${nick_name}', headline = '${headline}' 
     WHERE customer_id = ${customer_id}`;
 
-    dbPool.query(updateCustomerQuery, (error, result) => {
-      if (error) {
-        console.log(error);
-        return res.status(500).send("Server Error");
-      }
+      dbPool.query(updateCustomerQuery, (error, result) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).send("Server Error");
+        }
 
-      return res.status(200).json(result);
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Server Error");
+        return res.status(200).json(result);
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Server Error");
+    }
   }
-});
+);
 
 // @route  GET yelp/customer/profile/about/customer_id
 // @desc   Get customer profile details using customer id
