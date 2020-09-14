@@ -47,4 +47,31 @@ router.get("/", auth, (req, res) => {
   }
 });
 
+// @route  GET yelp/restaurant/profile/customer_id
+// @desc   Get customer profile details using restaurant id
+// @access Public
+router.get("/:res_id", (req, res) => {
+  const res_id = req.params.res_id;
+
+  try {
+    const findResQuery = `SELECT * FROM restaurant WHERE restaurant_id = '${res_id}'`;
+
+    dbPool.query(findResQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Server Error");
+      }
+      if (result.length == 0) {
+        return res
+          .status(201)
+          .json({ errors: [{ msg: "Customer not found" }] });
+      }
+      res.status(200).json(result[0]);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
