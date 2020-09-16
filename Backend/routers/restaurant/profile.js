@@ -214,4 +214,53 @@ router.post(
     }
   }
 );
+
+// @route  PUT yelp/restaurant/profile/menu/item_id
+// @desc   Update current restaurant menu item
+// @access Private
+router.put(
+  "/menu/:item_id",
+  [
+    auth,
+    [
+      check("item_name", "Dish name is required").notEmpty(),
+      check(
+        "item_ingredients",
+        "Dish main ingredients are required"
+      ).notEmpty(),
+      check("item_category", "Dish category is required").notEmpty()
+    ]
+  ],
+  (req, res) => {
+    const item_id = req.params.item_id;
+    const restaurant_id = req.user.id;
+
+    const {
+      item_name,
+      item_ingredients,
+      item_price,
+      item_description,
+      item_category
+    } = req.body;
+
+    try {
+      const updateItemQuery = `UPDATE menu_items set item_name = '${item_name}', 
+      item_ingredients = '${item_ingredients}', item_price=${item_price}, 
+      item_description='${item_description}', item_category='${item_category}', 
+      restaurant_id=${restaurant_id} WHERE (item_id=${item_id})`;
+
+      dbPool.query(updateItemQuery, (error, result) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).send("Database Error");
+        }
+        res.status(200).send("Dish details updated.");
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 module.exports = router;
