@@ -161,4 +161,31 @@ router.get("/customers/:event_id", (req, res) => {
   }
 });
 
+// @route  Get yelp/events/events/:customer_id
+// @desc   Display all events registered by a customer
+// @access Public
+router.get("/events/me", auth, (req, res) => {
+  const customer_id = req.user.id;
+  try {
+    const eventsQuery = `SELECT events.* FROM event_register LEFT JOIN events
+      ON events.event_id = event_register.event_id WHERE event_register.customer_id = ${customer_id}`;
+
+    dbPool.query(eventsQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Database Error");
+      }
+      if (result.length == 0) {
+        return res.status(201).json({
+          errors: [{ msg: "No events registered." }]
+        });
+      }
+      res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
