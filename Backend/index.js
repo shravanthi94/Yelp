@@ -6,6 +6,7 @@ const profileCustomer = require("./routers/customer/profile");
 const registerRestaurant = require("./routers/restaurant/register");
 const loginRestaurant = require("./routers/restaurant/login");
 const profileRestaurant = require("./routers/restaurant/profile");
+const events = require("./routers/events");
 
 //Routes for Customers
 
@@ -24,6 +25,9 @@ app.use("/restaurant/register", registerRestaurant);
 app.use("/restaurant/login", loginRestaurant);
 //Restaurant - PROFILE
 app.use("/restaurant/profile", profileRestaurant);
+
+// Events
+app.use("/events", events);
 
 //Connection to a port
 const PORT = process.env.PORT || 3000;
