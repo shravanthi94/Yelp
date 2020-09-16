@@ -27,6 +27,31 @@ router.get("/", (req, res) => {
   }
 });
 
+// @route  GET yelp/events/event_name
+// @desc   Get events by event name
+// @access Public
+router.get("/:event_name", (req, res) => {
+  const event_name = req.params.event_name;
+  try {
+    const getEventNameQuery = `SELECT * FROM events WHERE event_name = '${event_name}'`;
+    dbPool.query(getEventNameQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Database Error");
+      }
+      if (result.length == 0) {
+        return res
+          .status(201)
+          .json({ errors: [{ msg: "No events with that name" }] });
+      }
+      res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route  POST yelp/events
 // @desc   Create an event
 // @access Public
