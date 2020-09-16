@@ -166,4 +166,52 @@ router.post(
   }
 );
 
+// @route  POST yelp/restaurant/profile/menu
+// @desc   Insert current restaurant menu item
+// @access Private
+router.post(
+  "/menu",
+  [
+    auth,
+    [
+      check("item_name", "Dish name is required").notEmpty(),
+      check(
+        "item_ingredients",
+        "Dish main ingredients are required"
+      ).notEmpty(),
+      check("item_category", "Dish category is required").notEmpty()
+    ]
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const restaurant_id = req.user.id;
+    const {
+      item_name,
+      item_ingredients,
+      item_price,
+      item_description,
+      item_category
+    } = req.body;
+
+    try {
+      const addItemQuery = `INSERT into menu_items (item_name, item_ingredients, item_price, item_description, item_category, restaurant_id) 
+      VALUES ('${item_name}','${item_ingredients}',${item_price},'${item_description}','${item_category}', ${restaurant_id})`;
+
+      dbPool.query(addItemQuery, (error, result) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).send("Database Error");
+        }
+        res.status(200).send("Dish details added.");
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 module.exports = router;
