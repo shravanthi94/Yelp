@@ -263,4 +263,30 @@ router.put(
   }
 );
 
+// @route  GET yelp/restaurant/profile/menu
+// @desc   Get all the items added by current restaurant using res_id
+// @access Public
+router.get("/menu/:res_id", (req, res) => {
+  const res_id = req.params.res_id;
+  try {
+    const getMenuQuery = `SELECT * FROM menu_items WHERE (restaurant_id=${res_id})`;
+
+    dbPool.query(getMenuQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Database Error");
+      }
+      if (result.length == 0) {
+        return res
+          .status(201)
+          .json({ errors: [{ msg: "Menu details not added" }] });
+      }
+      res.status(200).send(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
