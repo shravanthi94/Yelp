@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const dbPool = require("../config/db");
 const { check, validationResult } = require("express-validator");
+const auth = require("../middleware/auth");
 
 // @route  GET yelp/events
 // @desc   Get all list of events sorted by date
@@ -95,5 +96,42 @@ router.post(
     }
   }
 );
+
+// @route  POST yelp/events/register
+// @desc   Create an event
+// @access Public
+router.post("/register/:event_id", auth, (req, res) => {
+  const event_id = req.params.event_id;
+  const customer_id = req.user.id;
+  try {
+    const checkEventQuery = `SELECT * FROM events WHERE event_id= ${event_id}`;
+
+    dbPool.query(checkEventQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Database Error");
+      }
+      if (result.length == 0) {
+        return res
+          .status(201)
+          .json({ errors: [{ msg: "No events with that id" }] });
+      } else {
+        const registerQuery = `INSERT into event_register (event_id, customer_id)
+        VALUES ('${event_id}','${customer_id}')`;
+
+        dbPool.query(registerQuery, (error, result) => {
+          if (error) {
+            console.log(error);
+            return res.status(500).send("Database Error");
+          }
+          res.status(200).send("Registered for the event");
+        });
+      }
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
