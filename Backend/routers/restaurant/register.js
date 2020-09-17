@@ -1,24 +1,29 @@
-const express = require("express");
+/* eslint-disable object-curly-newline */
+/* eslint-disable no-shadow */
+/* eslint-disable no-console */
+/* eslint-disable consistent-return */
+const express = require('express');
+
 const router = express.Router();
-const { check, validationResult } = require("express-validator");
-const dbPool = require("../../config/db");
-const bcrypt = require("bcryptjs");
-const gravatar = require("gravatar");
-const jwt = require("jsonwebtoken");
-const config = require("config");
+const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const gravatar = require('gravatar');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const dbPool = require('../../config/db');
 
 // @route  POST yelp/restaurant/register
 // @desc   Restaurant SIGNUP route
 // @access Public
 router.post(
-  "/",
+  '/',
   [
-    check("name", "Name is required.").notEmpty(),
-    check("email", "Please include a valid email.").isEmail(),
-    check("password", "Password must be 8 characters long.").isLength({
-      min: 8
+    check('name', 'Name is required.').notEmpty(),
+    check('email', 'Please include a valid email.').isEmail(),
+    check('password', 'Password must be 8 characters long.').isLength({
+      min: 8,
     }),
-    check("location", "Location is required.").notEmpty()
+    check('location', 'Location is required.').notEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -29,65 +34,65 @@ router.post(
     const { name, email, password, location } = req.body;
 
     try {
-      //1. Query to check if restaurant already exists
+      //  1. Query to check if restaurant already exists
       const checkResQuery = `SELECT restaurant_email_id FROM restaurant WHERE restaurant_email_id = '${email}'`;
 
       dbPool.query(checkResQuery, async (error, result) => {
         if (error) {
           console.log(error);
-          return res.status(500).send("Server Error");
+          return res.status(500).send('Server Error');
         }
 
         if (result.length > 0) {
           return res
             .status(201)
-            .json({ errors: [{ msg: "Restaurant already exists." }] });
+            .json({ errors: [{ msg: 'Restaurant already exists.' }] });
         }
 
-        //2. If restaurant does not exist, hash the password
+        //  2. If restaurant does not exist, hash the password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        //3. Add gravatar to restaurant
+        //  3. Add gravatar to restaurant
         const avatar = gravatar.url(email, {
-          s: "200",
-          r: "pg",
-          d: "mm"
+          s: '200',
+          r: 'pg',
+          d: 'mm',
         });
 
-        //4. save to restaurant database
+        //  4. save to restaurant database
         const insertDataQuery = `INSERT into restaurant (restaurant_name, restaurant_email_id, restaurant_password, restaurant_location, restaurant_image )
               VALUES ('${name}', '${email}', '${hashedPassword}', '${location}', '${avatar}')`;
 
         dbPool.query(insertDataQuery, (error, result) => {
           if (error) {
             console.log(error);
-            return res.status(500).send("Server Error");
+            return res.status(500).send('Server Error');
           }
-          //Pass the jsonwebtoken for that restaurant
+          //  Pass the jsonwebtoken for that restaurant
           const payload = {
             user: {
               id: result.insertId,
-              usertype: "restaurant"
-            }
+              usertype: 'restaurant',
+            },
           };
 
           jwt.sign(
             payload,
-            config.get("jwtSecret"),
+            config.get('jwtSecret'),
             { expiresIn: 6000000 },
             (err, token) => {
               if (err) throw err;
               res.json({ token, id: result.insertId });
-            }
+            },
           );
         });
       });
     } catch (err) {
       console.log(err);
-      res.status(500).send("Server Error");
+      res.status(500).send('Server Error');
     }
-  }
+  },
 );
 
 module.exports = router;
