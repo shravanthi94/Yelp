@@ -8,6 +8,7 @@ const registerRestaurant = require('./routers/restaurant/register');
 const loginRestaurant = require('./routers/restaurant/login');
 const profileRestaurant = require('./routers/restaurant/profile');
 const events = require('./routers/events');
+const resOrders = require('./routers/restaurant/orders');
 
 //  Routes for Customers
 
@@ -26,6 +27,8 @@ app.use('/restaurant/register', registerRestaurant);
 app.use('/restaurant/login', loginRestaurant);
 //  Restaurant - PROFILE
 app.use('/restaurant/profile', profileRestaurant);
+//  Restaurant - ORDERS
+app.use('/restaurant/orders', resOrders);
 
 // Events
 app.use('/events', events);

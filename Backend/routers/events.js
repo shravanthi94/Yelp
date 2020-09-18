@@ -166,10 +166,10 @@ router.get('/customers/:event_id', (req, res) => {
   }
 });
 
-// @route  Get yelp/events/events/:customer_id
+// @route  Get yelp/events/myevent/me
 // @desc   Display all events registered by a customer
 // @access Public
-router.get('/events/me', auth, (req, res) => {
+router.get('/myevent/me', auth, (req, res) => {
   const customerId = req.user.id;
   try {
     const eventsQuery = `SELECT events.* FROM event_register LEFT JOIN events
