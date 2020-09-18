@@ -9,18 +9,19 @@ const loginRestaurant = require('./routers/restaurant/login');
 const profileRestaurant = require('./routers/restaurant/profile');
 const events = require('./routers/events');
 const resOrders = require('./routers/restaurant/orders');
+const cusOrders = require('./routers/customer/orders');
 
-//  Routes for Customers
-
+/*  Routes for Customers */
 //  Customer - SIGNUP
 app.use('/customer/register', registerCustomer);
 //  Customer - LOGIN
 app.use('/customer/login', loginCustomer);
 //  Customer - PROFILE
 app.use('/customer/profile', profileCustomer);
+//  Customer - ORDERS
+app.use('/customer/orders', cusOrders);
 
-//  Routes for Restaurant
-
+/* Routes for Restaurant */
 //  Restaurant SIGNUP
 app.use('/restaurant/register', registerRestaurant);
 //  Restaurant - LOGIN
