@@ -1,20 +1,21 @@
-//Require the backend database - mysql
-const mysql = require("mysql");
+/* eslint-disable no-console */
+//  Require the backend database - mysql
+const mysql = require('mysql');
 
 const mysqlConnect = mysql.createPool({
   connectionLimit: 100,
-  host: "localhost",
-  user: "root",
-  password: "password",
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
   port: 3306,
-  database: "yelp"
+  database: 'yelp',
 });
 
 mysqlConnect.getConnection((err) => {
   if (err) {
     console.log(`Errors: ${err}`);
   } else {
-    console.log(`Successfully connected to the DB.`);
+    console.log('Successfully connected to the DB.');
   }
 });
 

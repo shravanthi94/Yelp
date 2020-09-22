@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
 const express = require('express');
 
 const router = express.Router();
+const { check, validationResult } = require('express-validator');
 const dbPool = require('../../config/db');
 const auth = require('../../middleware/auth');
 
@@ -62,7 +64,7 @@ router.get('/new', auth, (req, res) => {
 router.get('/delivered', auth, (req, res) => {
   const resId = req.user.id;
   try {
-    const delorderQuery = `SELECT * FROM orders WHERE restaurant_id = ${resId} AND order_type='DELIVERED'`;
+    const delorderQuery = `SELECT * FROM orders WHERE restaurant_id = ${resId} AND order_type='COMPLETED'`;
     dbPool.query(delorderQuery, (error, result) => {
       if (error) {
         console.log(error);
@@ -99,6 +101,65 @@ router.get('/cancelled', auth, (req, res) => {
           .json({ errors: [{ msg: 'No orders to display' }] });
       }
       res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route  Update yelp/restaurant/orders/status/1
+// @desc   restaurant update to the status route
+// @access Private
+router.post(
+  '/status/:order_id',
+  [auth, [check('order_status', 'Order status is required').notEmpty()]],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const orderId = req.params.order_id;
+    const status = req.body.order_status;
+    try {
+      let orderType;
+      if (status === 'RECIEVED' || status === 'PREPARING') {
+        orderType = 'NEW';
+      } else if (status === 'PICK UP READY' || status === 'ON THE WAY') {
+        orderType = 'NEW';
+      } else if (status === 'PICKED UP' || status === 'DELIVERED') {
+        orderType = 'COMPLETED';
+      }
+      const updateQuery = `UPDATE orders SET order_status= '${status}', 
+                        order_type='${orderType}' WHERE order_id=${orderId}`;
+      dbPool.query(updateQuery, (error, result) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).send('Database Error');
+        }
+        res.status(200).send('Status updated');
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Server Error');
+    }
+  },
+);
+
+// @route  Get yelp/restaurant/orders/recieved
+// @desc   restaurant update to recieved route
+// @access Private
+router.post('/cancelorder/:order_id', auth, (req, res) => {
+  const orderId = req.params.order_id;
+  try {
+    const cancelQuery = `UPDATE orders SET order_status= '', 
+                          order_type='CANCELLED' WHERE order_id = ${orderId}`;
+    dbPool.query(cancelQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send('Database Error');
+      }
+      res.status(200).send('Order Cancelled');
     });
   } catch (err) {
     console.log(err);
