@@ -82,4 +82,29 @@ router.post(
   },
 );
 
+// @route  Get yelp/restaurant/orders/status/1
+// @desc   restaurant update to the status route
+// @access Private
+router.get('/status/:order_status', auth, (req, res) => {
+  const status = req.params.order_status.toUpperCase();
+  console.log(status);
+  const customerId = req.user.id;
+  try {
+    const query = `SELECT * FROM orders WHERE customer_id=${customerId} AND order_status='${status}'`;
+    dbPool.query(query, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send('Database Error');
+      }
+      if (result.length === 0) {
+        return res.status(201).json({ errors: [{ msg: 'No orders' }] });
+      }
+      res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
