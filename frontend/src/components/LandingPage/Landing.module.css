@@ -1,0 +1,15 @@
+.landing {
+  background-image: url('https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_large_assets/eea3522f4348/assets/img/home/hero_photos/BWRT755ImlKnGpjV4udRdQ.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 20%;
+  margin: auto;
+  opacity: 0.75;
+}
+
+.logo {
+  width: 180px;
+  height: 80px;
+  margin: auto;
+  display: block;
+}
