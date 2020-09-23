@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './form.module.css';
 
 const Signup = () => {
+  const [formData, setformData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const { name, email, password } = formData;
+
+  const onChange = (e) =>
+    setformData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log('success');
+  };
+
   return (
     <div className='container'>
       <div className={styles.form_flow}>
         <h2 className={styles.form_title}>Sign Up for Yelp</h2>
         <div className={styles.container}>
-          <form
-            action='/login'
-            className={styles.yform}
-            id='ajax-login'
-            method='POST'
-          >
+          <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
             <label className={styles.placeholder_sub}>Name</label>
             <input
               className={styles.my_text}
@@ -21,7 +32,8 @@ const Signup = () => {
               name='name'
               placeholder='Name'
               type='text'
-              value=''
+              value={name}
+              onChange={(e) => onChange(e)}
               required
             />
             <br />
@@ -32,7 +44,8 @@ const Signup = () => {
               name='email'
               placeholder='Email'
               type='email'
-              value=''
+              value={email}
+              onChange={(e) => onChange(e)}
               required
             />
             <br />
@@ -43,7 +56,8 @@ const Signup = () => {
               name='password'
               placeholder='Password'
               type='password'
-              value=''
+              value={password}
+              onChange={(e) => onChange(e)}
               required
             />
             <br />
@@ -52,7 +66,7 @@ const Signup = () => {
               Yelp’s products, services, and local events. You can unsubscribe
               at any time.
             </p>
-            <button type='submit' value='submit' className={styles.btn}>
+            <button type='submit' value='Signup' className={styles.btn}>
               Sign Up
             </button>
           </form>

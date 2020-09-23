@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './form.module.css';
 
 const Login = () => {
+  const [formData, setformData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = formData;
+
+  const onChange = (e) =>
+    setformData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log('success');
+  };
   return (
     <div className='container'>
       <div className={styles.form_flow}>
         <h2 className={styles.form_title}>Log in to Yelp</h2>
         <div className={styles.container}>
-          <form
-            action='/login'
-            className={styles.yform}
-            id='ajax-login'
-            method='POST'
-          >
+          <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
             <label className={styles.placeholder_sub}>Email</label>
             <input
               className={styles.my_text}
@@ -21,7 +30,8 @@ const Login = () => {
               name='email'
               placeholder='Email'
               type='email'
-              value=''
+              value={email}
+              onChange={(e) => onChange(e)}
               required
             />
             <br />
@@ -32,10 +42,11 @@ const Login = () => {
               name='password'
               placeholder='Password'
               type='password'
-              value=''
+              value={password}
+              onChange={(e) => onChange(e)}
               required
             />
-            <button type='submit' value='submit' className={styles.btn}>
+            <button type='submit' value='login' className={styles.btn}>
               Log In
             </button>
           </form>

@@ -29,7 +29,8 @@ const Navbar = () => {
         </Link>
         <Link
           to='/signup'
-          className={(styles.header_nav_link, styles.header_nav_button)}
+          className={styles.header_nav_link}
+          className={styles.header_nav_button}
         >
           Sign Up
         </Link>

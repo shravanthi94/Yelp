@@ -51,9 +51,10 @@ input {
   color: #ffffff;
   font-size: 15px;
   background: #d32323;
-  padding: 10px 40px;
+  padding: 10px 70px;
   text-decoration: none;
   line-height: 1.3125em;
+  margin-left: 40px;
   margin-top: 25px;
   margin-bottom: 10px;
 }
