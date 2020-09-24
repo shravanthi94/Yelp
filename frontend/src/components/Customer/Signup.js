@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './form.module.css';
+import { setAlert } from '../../actions/alert';
+import { signup } from '../../actions/auth';
+import PropTypes from 'prop-types';
+import Alert from '../layout/Alert';
 
-const Signup = () => {
+const Signup = ({ setAlert, signup }) => {
   const [formData, setformData] = useState({
     name: '',
     email: '',
@@ -16,7 +21,7 @@ const Signup = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('success');
+    signup({ name, email, password });
   };
 
   return (
@@ -59,6 +64,7 @@ const Signup = () => {
               value={password}
               onChange={(e) => onChange(e)}
               required
+              minLength='8'
             />
             <br />
             <p className={styles.legal_copy}>
@@ -81,8 +87,14 @@ const Signup = () => {
           </small>
         </div>
       </div>
+      <Alert />
     </div>
   );
 };
 
-export default Signup;
+Signup.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert, signup })(Signup);

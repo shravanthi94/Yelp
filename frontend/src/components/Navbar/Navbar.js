@@ -27,11 +27,7 @@ const Navbar = () => {
         <Link to='/login' className={styles.header_nav_link}>
           Log In
         </Link>
-        <Link
-          to='/signup'
-          className={styles.header_nav_link}
-          className={styles.header_nav_button}
-        >
+        <Link to='/signup' className={styles.header_nav_button}>
           Sign Up
         </Link>
       </div>
