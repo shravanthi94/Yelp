@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styles from './form.module.css';
 import { setAlert } from '../../actions/alert';
 import { signup } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alert from '../layout/Alert';
 
-const Signup = ({ setAlert, signup }) => {
+const Signup = ({ setAlert, signup, isAuthenticated }) => {
   const [formData, setformData] = useState({
     name: '',
     email: '',
@@ -23,6 +23,10 @@ const Signup = ({ setAlert, signup }) => {
     e.preventDefault();
     signup({ name, email, password });
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/profile' />;
+  }
 
   return (
     <div className='container'>
@@ -95,6 +99,10 @@ const Signup = ({ setAlert, signup }) => {
 Signup.propTypes = {
   setAlert: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
-export default connect(null, { setAlert, signup })(Signup);
+export default connect(mapStateToProps, { setAlert, signup })(Signup);

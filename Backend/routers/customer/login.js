@@ -38,8 +38,8 @@ router.post(
         //  2. Handle for invalid credentials
         if (result.length === 0) {
           return res
-            .status(201)
-            .send({ errors: [{ msg: 'Invalid Credentails.' }] });
+            .status(400)
+            .json({ errors: [{ msg: 'Invalid Credentails' }] });
         }
 
         //  3. Decrypt the password
@@ -51,7 +51,7 @@ router.post(
         if (!isMatch) {
           return res
             .status(201)
-            .send({ errors: [{ msg: 'Invalid Credentials.' }] });
+            .json({ errors: [{ msg: 'Invalid Credentials.' }] });
         }
 
         //  Send the web token
