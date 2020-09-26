@@ -1,0 +1,35 @@
+/* Utilities */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 2rem;
+  margin-top: 6rem;
+  margin-bottom: 3rem;
+}
+
+.title {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  font-weight: bold;
+  margin-bottom: 6px;
+  line-height: 1.28571em;
+  color: #d32323;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.btn_update {
+  display: inline-block;
+  border-radius: 10px;
+  color: #333;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: opacity 0.2s ease-in;
+  outline: none;
+  background: red;
+  color: #fff;
+}

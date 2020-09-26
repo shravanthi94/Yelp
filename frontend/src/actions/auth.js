@@ -6,6 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  CLEAR_PROFILE,
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
@@ -73,21 +74,16 @@ export const login = (email, password) => async (dispatch) => {
 
   try {
     const res = await axios.post('/customer/login', body, config);
+    //dispatch(setAlert('Successfully registered', 'success'));
 
-    if (res.data.errors) {
-      const error = res.data.errors[0];
-      dispatch(setAlert(error.msg, 'danger'));
-    } else {
-      dispatch(setAlert('Successfully registered', 'success'));
-
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data,
-      });
-
-      dispatch(loadUser());
-    }
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+    console.log(res.data);
+    dispatch(loadUser());
   } catch (err) {
+    console.log(err.response.data.errors);
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -100,6 +96,9 @@ export const login = (email, password) => async (dispatch) => {
 
 // Logout
 export const logout = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_PROFILE,
+  });
   dispatch({
     type: LOGOUT,
   });

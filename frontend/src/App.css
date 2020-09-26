@@ -79,3 +79,18 @@
 .btn:hover {
   opacity: 0.8;
 }
+
+/* Forms */
+.form .form-group {
+  margin: 1.2rem 0;
+}
+
+.form .form-text {
+  display: block;
+  margin-top: 0.3rem;
+  color: #888;
+}
+
+.profile-title {
+  margin-top: 20px;
+}

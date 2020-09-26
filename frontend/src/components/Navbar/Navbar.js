@@ -9,7 +9,10 @@ import { logout } from '../../actions/auth';
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <div className={styles.right}>
-      <a href='#!' onClick={logout} className={styles.header_nav_link}>
+      <Link to='/profile' className={styles.header_nav_link}>
+        <i className='fas fa-user'></i> Profile
+      </Link>
+      <a href='/' onClick={logout} className={styles.header_nav_link}>
         Logout
       </a>
     </div>
@@ -39,9 +42,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
         <Link to='!#' className={styles.header_nav_link}>
           Orders
-        </Link>
-        <Link to='!#' className={styles.header_nav_link}>
-          Profile
         </Link>
       </div>
       {!loading && (

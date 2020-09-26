@@ -50,7 +50,7 @@ router.post(
 
         if (!isMatch) {
           return res
-            .status(201)
+            .status(400)
             .json({ errors: [{ msg: 'Invalid Credentials.' }] });
         }
 

@@ -123,14 +123,17 @@ router.post(
   },
 );
 
-// @route  GET yelp/customer/profile/about/customer_id
+// @route  GET yelp/customer/profile/about
 // @desc   Get customer profile details using customer id
 // @access Public
-router.get('/about/:customer_id', async (req, res) => {
-  const customerId = req.params.customer_id;
+router.get('/about', auth, async (req, res) => {
+  const customerId = req.user.id;
 
   try {
-    const findCustomerQuery = `SELECT * FROM customer_about_data WHERE customer_id = '${customerId}'`;
+    const findCustomerQuery = `SELECT yelping_since, 
+    things_i_love, find_me_in, my_blog, 
+    when_not_yelping, why_read_my_reviews, 
+    recent_discovery FROM customer WHERE customer_id = '${customerId}'`;
 
     dbPool.query(findCustomerQuery, (error, result) => {
       if (error) {
@@ -153,6 +156,38 @@ router.get('/about/:customer_id', async (req, res) => {
 // @route  POST yelp/customer/profile/about
 // @desc   Add current customer about me details
 // @access Private
+// router.post('/about', auth, (req, res) => {
+//   const customerId = req.user.id;
+//   const {
+//     yelpingSince,
+//     thingsILove,
+//     findMeIn,
+//     myBlog,
+//     whenNotYelping,
+//     whyReadMyReviews,
+//     recentDiscovery,
+//   } = req.body;
+
+//   try {
+//     const addAboutQuery = `INSERT into customer_about_data (yelping_since, things_i_love, find_me_in, my_blog, when_not_yelping,why_read_my_reviews,recent_discovery, customer_id)
+//     VALUES ('${yelpingSince}', '${thingsILove}', '${findMeIn}', '${myBlog}', '${whenNotYelping}', '${whyReadMyReviews}', '${recentDiscovery}', ${customerId})`;
+
+//     dbPool.query(addAboutQuery, (error, result) => {
+//       if (error) {
+//         console.log(error.sqlMessage);
+//         return res.status(500).send('Server Error');
+//       }
+//       res.status(200).send('About me details added.');
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).send('Server Error.');
+//   }
+// });
+
+// @route  POST yelp/customer/profile/about
+// @desc   Update current customer about me details
+// @access Private
 router.post('/about', auth, (req, res) => {
   const customerId = req.user.id;
   const {
@@ -166,39 +201,7 @@ router.post('/about', auth, (req, res) => {
   } = req.body;
 
   try {
-    const addAboutQuery = `INSERT into customer_about_data (yelping_since, things_i_love, find_me_in, my_blog, when_not_yelping,why_read_my_reviews,recent_discovery, customer_id)
-    VALUES ('${yelpingSince}', '${thingsILove}', '${findMeIn}', '${myBlog}', '${whenNotYelping}', '${whyReadMyReviews}', '${recentDiscovery}', ${customerId})`;
-
-    dbPool.query(addAboutQuery, (error, result) => {
-      if (error) {
-        console.log(error.sqlMessage);
-        return res.status(500).send('Server Error');
-      }
-      res.status(200).send('About me details added.');
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Server Error.');
-  }
-});
-
-// @route  PUT yelp/customer/profile/about
-// @desc   Update current customer about me details
-// @access Private
-router.put('/about', auth, (req, res) => {
-  const customerId = req.user.id;
-  const {
-    yelpingSince,
-    thingsILove,
-    findMeIn,
-    myBlog,
-    whenNotYelping,
-    whyReadMyReviews,
-    recentDiscovery,
-  } = req.body;
-
-  try {
-    const updateAboutQuery = `UPDATE customer_about_data set yelping_since='${yelpingSince}', 
+    const updateAboutQuery = `UPDATE customer set yelping_since='${yelpingSince}', 
     things_i_love='${thingsILove}', find_me_in='${findMeIn}', my_blog='${myBlog}', 
     when_not_yelping='${whenNotYelping}', why_read_my_reviews='${whyReadMyReviews}', 
     recent_discovery='${recentDiscovery}' WHERE (customer_id=${customerId})`;
@@ -221,14 +224,7 @@ router.put('/about', auth, (req, res) => {
 // @access Private
 router.post(
   '/contact',
-  [
-    auth,
-    [
-      check('customer_email_id', 'Customer email is required.')
-        .notEmpty()
-        .isEmail(),
-    ],
-  ],
+  [auth, [check('email', 'Customer email is required.').notEmpty().isEmail()]],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

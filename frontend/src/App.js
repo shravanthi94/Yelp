@@ -4,6 +4,12 @@ import Navbar from './components/Navbar/Navbar';
 import Landing from './components/LandingPage/Landing';
 import Login from './components/Customer/Login';
 import Signup from './components/Customer/Signup';
+import Profile from './components/Profile/Profile';
+import CreateProfile from './components/profile-forms/CreateProfile';
+import updateAbout from './components/profile-forms/EditAbout';
+import updateContact from './components/profile-forms/EditContact';
+import PrivateRoute from './components/routing/PrivateRoute';
+import Alert from './components/layout/Alert';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -31,6 +37,22 @@ const App = () => {
             <Switch>
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Signup} />
+              <PrivateRoute exact path='/profile' component={Profile} />
+              <PrivateRoute
+                exact
+                path='/update/basic'
+                component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/update/about'
+                component={updateAbout}
+              />
+              <PrivateRoute
+                exact
+                path='/update/contact'
+                component={updateContact}
+              />
             </Switch>
           </section>
         </Fragment>
