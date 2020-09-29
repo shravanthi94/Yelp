@@ -61,10 +61,6 @@ const EditAbout = ({
       <div className='container profile-title'>
         {' '}
         <h1 className={styles.form_title}>Update About</h1>
-        <p className='lead'>
-          <i className='fas fa-user'></i> Let's get some information to make
-          your profile stand out
-        </p>
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
           <div className={styles.form_group}>
             <label className={styles.form_label}>I Love...</label>

@@ -20,25 +20,48 @@ const Profile = ({
   ) : (
     <Fragment>
       <div className={styles.container}>
-        <img src={profile.customer_image} alt='Profile_pic' />
-        <h3 className={styles.title}>{profile.customer_name}'s Profile</h3>
-
-        {/* {profile !== null ? (
-        <Fragment>HAS</Fragment>
-      ) : (
-        <Fragment>HAS NOT</Fragment>
-      )} */}
-        <Fragment>
-          <Link to='/update/basic' className={styles.btn_update}>
-            Update Basics
-          </Link>
-          <Link to='/update/about' className={styles.btn_update}>
-            Update About
-          </Link>
-          <Link to='/update/contact' className={styles.btn_update}>
-            Update Contact
-          </Link>
-        </Fragment>
+        <div className={styles.left}>
+          <img src={profile.customer_image} alt='Profile_pic' />
+          <h3 className={styles.title}>{profile.customer_name}'s Profile</h3>
+        </div>
+        <div className={styles.middle}>
+          <div className={styles.middle_heading}>
+            <h1 className={styles.name}>{profile.customer_name}</h1>
+            <h3>
+              {profile.city}, {profile.state}, {profile.country}
+            </h3>
+          </div>
+          <hr />
+          <h2 className={styles.activity}>Recent Activity</h2>
+        </div>
+        <div className={styles.right}>
+          <div className={styles.update_links}>
+            <Link to='/update/basic' className={styles.btn_update}>
+              <i class='fas fa-address-card'></i> Update Basics
+            </Link>
+            <Link to='/update/about' className={styles.btn_update}>
+              <i class='fas fa-user'></i> Update About
+            </Link>
+            <Link to='/update/contact' className={styles.btn_update}>
+              <i class='fas fa-phone-alt'></i> Update Contact
+            </Link>
+          </div>
+          <div>
+            <h3 className={styles.title}>About {profile.customer_name}</h3>
+            <h4 className={styles.title}>Location</h4>
+            <p>
+              {profile.city}, {profile.state}, {profile.country}
+            </p>
+            <h4 className={styles.title}>Yelping Since</h4>
+            <p>{profile.yelping_since}</p>
+            <h4 className={styles.title}>Things I Love</h4>
+            {!profile.things_i_love ? (
+              <p>You haven't added anything yet</p>
+            ) : (
+              <p>{profile.things_i_love}</p>
+            )}
+          </div>
+        </div>
       </div>
     </Fragment>
   );

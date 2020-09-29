@@ -8,6 +8,11 @@ import Profile from './components/Profile/Profile';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import updateAbout from './components/profile-forms/EditAbout';
 import updateContact from './components/profile-forms/EditContact';
+import Event from './components/events/Event';
+import CreateEvent from './components/events/CreateEvent';
+import RegisteredEvent from './components/events/RegisteredEvent';
+import SubmittedEvent from './components/events/SubmittedEvent';
+import AttendeeList from './components/events/AttendeeList';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
 
@@ -34,6 +39,7 @@ const App = () => {
           <Navbar />
           <Route exact path='/' component={Landing} />
           <section className='container'>
+            <Alert />
             <Switch>
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Signup} />
@@ -52,6 +58,27 @@ const App = () => {
                 exact
                 path='/update/contact'
                 component={updateContact}
+              />
+              <Route exact path='/event' component={Event} />
+              <PrivateRoute
+                exact
+                path='/event/create'
+                component={CreateEvent}
+              />
+              <PrivateRoute
+                exact
+                path='/event/registered'
+                component={RegisteredEvent}
+              />
+              <PrivateRoute
+                exact
+                path='/event/submitted'
+                component={SubmittedEvent}
+              />
+              <PrivateRoute
+                exact
+                path='/event/attendeelist'
+                component={AttendeeList}
               />
             </Switch>
           </section>

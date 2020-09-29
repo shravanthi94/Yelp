@@ -60,8 +60,26 @@ router.post(
         });
 
         //  4. save to database
-        const insertDataQuery = `INSERT into customer (customer_name, customer_email_id, customer_password, customer_image )
-            VALUES ('${name}', '${email}', '${hashedPassword}', '${avatar}')`;
+        const monthNames = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ];
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = monthNames[date.getMonth()];
+        const yelpingSince = `${month}, ${year}`;
+        const insertDataQuery = `INSERT into customer (customer_name, customer_email_id, customer_password, customer_image, yelping_since )
+            VALUES ('${name}', '${email}', '${hashedPassword}', '${avatar}', '${yelpingSince}')`;
 
         dbPool.query(insertDataQuery, (error, result) => {
           if (error) {

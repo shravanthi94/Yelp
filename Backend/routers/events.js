@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
@@ -23,7 +24,7 @@ router.get('/', (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'No events to display' }] });
       }
       res.status(200).json(result);
@@ -48,7 +49,7 @@ router.get('/:event_name', (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'No events with that name' }] });
       }
       res.status(200).json(result);
@@ -65,29 +66,26 @@ router.get('/:event_name', (req, res) => {
 router.post(
   '/',
   [
-    check('event_name', 'Event name is required').notEmpty(),
-    check('event_time', 'Event time is required').notEmpty(),
-    check('event_date', 'Event date is required').notEmpty(),
+    auth,
+    [
+      check('name', 'Event name is required').notEmpty(),
+      check('time', 'Event time is required').notEmpty(),
+      check('date', 'Event date is required').notEmpty(),
+    ],
   ],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    const createrId = req.user.id;
 
-    const {
-      eventName,
-      eventDescription,
-      eventTime,
-      eventDate,
-      eventLocation,
-      eventHashtags,
-    } = req.body;
+    const { name, description, time, date, location, hashtags } = req.body;
 
     try {
       const createEventQuery = `INSERT into events 
-      (event_name, event_description, event_time, event_date, event_location, event_hashtags)
-      VALUES ('${eventName}','${eventDescription}','${eventTime}','${eventDate}','${eventLocation}','${eventHashtags}')`;
+      (event_name, event_description, event_time, event_date, event_location, event_hashtags, creater_id)
+      VALUES ('${name}','${description}','${time}','${date}','${location}','${hashtags}', ${createrId})`;
 
       dbPool.query(createEventQuery, (error, result) => {
         if (error) {
@@ -104,7 +102,7 @@ router.post(
 );
 
 // @route  POST yelp/events/register
-// @desc   Create an event
+// @desc   Register for an event
 // @access Public
 router.post('/register/:event_id', auth, (req, res) => {
   const eventId = req.params.event_id;
@@ -119,7 +117,7 @@ router.post('/register/:event_id', auth, (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'No events with that id' }] });
       }
       const registerQuery = `INSERT into event_register (event_id, customer_id)
@@ -139,10 +137,36 @@ router.post('/register/:event_id', auth, (req, res) => {
   }
 });
 
+// @route  Get yelp/events/created/all
+// @desc   Display all events created by current customer
+// @access Public
+router.get('/created/all', auth, (req, res) => {
+  const createrId = req.user.id;
+  try {
+    const customersQuery = `SELECT * FROM events  WHERE creater_id = ${createrId}`;
+
+    dbPool.query(customersQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send('Database Error');
+      }
+      if (result.length === 0) {
+        return res.status(400).json({
+          errors: [{ msg: 'No events created by you.' }],
+        });
+      }
+      res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route  Get yelp/events/customers/:event_id
 // @desc   Display all customers registered for an event
 // @access Public
-router.get('/customers/:event_id', (req, res) => {
+router.get('/customers/list/:event_id', (req, res) => {
   const eventId = req.params.event_id;
   try {
     const customersQuery = `SELECT customer.* FROM event_register LEFT JOIN customer
@@ -154,7 +178,7 @@ router.get('/customers/:event_id', (req, res) => {
         return res.status(500).send('Database Error');
       }
       if (result.length === 0) {
-        return res.status(201).json({
+        return res.status(400).json({
           errors: [{ msg: 'No customers registered for the event.' }],
         });
       }
@@ -181,7 +205,7 @@ router.get('/myevent/me', auth, (req, res) => {
         return res.status(500).send('Database Error');
       }
       if (result.length === 0) {
-        return res.status(201).json({
+        return res.status(400).json({
           errors: [{ msg: 'No events registered.' }],
         });
       }

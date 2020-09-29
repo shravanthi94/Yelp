@@ -105,13 +105,13 @@ router.post(
 
     try {
       const updateCustomerQuery = `UPDATE customer set customer_name = '${name}', date_of_birth = '${dateOfBirth}', 
-    city = '${city}', state = '${state}', country = '${country}', nick_name = '${nickName}', headline = '${headline}' 
-    WHERE customer_id = ${customerId}`;
+          city = '${city}', state = '${state}', country = '${country}', nick_name = '${nickName}', 
+          headline = '${headline}' WHERE customer_id = ${customerId}`;
 
       dbPool.query(updateCustomerQuery, (error, result) => {
         if (error) {
           console.log(error);
-          return res.status(500).send('Server Error');
+          return res.status(500).send('Database Error');
         }
 
         return res.status(200).json(result);
@@ -152,38 +152,6 @@ router.get('/about', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-// @route  POST yelp/customer/profile/about
-// @desc   Add current customer about me details
-// @access Private
-// router.post('/about', auth, (req, res) => {
-//   const customerId = req.user.id;
-//   const {
-//     yelpingSince,
-//     thingsILove,
-//     findMeIn,
-//     myBlog,
-//     whenNotYelping,
-//     whyReadMyReviews,
-//     recentDiscovery,
-//   } = req.body;
-
-//   try {
-//     const addAboutQuery = `INSERT into customer_about_data (yelping_since, things_i_love, find_me_in, my_blog, when_not_yelping,why_read_my_reviews,recent_discovery, customer_id)
-//     VALUES ('${yelpingSince}', '${thingsILove}', '${findMeIn}', '${myBlog}', '${whenNotYelping}', '${whyReadMyReviews}', '${recentDiscovery}', ${customerId})`;
-
-//     dbPool.query(addAboutQuery, (error, result) => {
-//       if (error) {
-//         console.log(error.sqlMessage);
-//         return res.status(500).send('Server Error');
-//       }
-//       res.status(200).send('About me details added.');
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).send('Server Error.');
-//   }
-// });
 
 // @route  POST yelp/customer/profile/about
 // @desc   Update current customer about me details

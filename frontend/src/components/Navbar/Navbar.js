@@ -37,7 +37,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Link to='!#' className={styles.header_nav_link}>
           Restaurants
         </Link>
-        <Link to='!#' className={styles.header_nav_link}>
+        <Link to='/event' className={styles.header_nav_link}>
           Events
         </Link>
         <Link to='!#' className={styles.header_nav_link}>
