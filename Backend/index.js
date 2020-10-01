@@ -10,6 +10,7 @@ const profileRestaurant = require('./routers/restaurant/profile');
 const events = require('./routers/events');
 const resOrders = require('./routers/restaurant/orders');
 const cusOrders = require('./routers/customer/orders');
+const reviews = require('./routers/reviews');
 
 /*  Routes for Customers */
 //  Customer - SIGNUP
@@ -33,6 +34,9 @@ app.use('/restaurant/orders', resOrders);
 
 // Events
 app.use('/events', events);
+
+//  Reviews
+app.use('/reviews', reviews);
 
 //  Connection to a port
 const PORT = process.env.PORT || 3001;

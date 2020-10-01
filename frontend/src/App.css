@@ -7,6 +7,25 @@
   --success-color: #28a745;
 }
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  text-align: left;
+  padding: 8px;
+  background-color: #a8acb1;
+  height: 30px;
+}
+
 /* Utilities */
 .container {
   max-width: 1100px;

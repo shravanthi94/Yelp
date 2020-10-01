@@ -22,7 +22,7 @@ router.post(
     check('name', 'Name is required.').notEmpty(),
     check('email', 'Please include a valid email.').isEmail(),
     check('password', 'Password must be 8 characters long.').isLength({
-      min: 8,
+      min: 4,
     }),
   ],
   async (req, res) => {

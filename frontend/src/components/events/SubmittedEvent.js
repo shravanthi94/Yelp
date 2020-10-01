@@ -28,16 +28,15 @@ const SubmittedEvent = ({
           </p>
           <p className={styles.event_description}>{event.event_description}</p>
           <p className={styles.event_hashtags}>{event.event_hashtags}</p>
-          <div className={styles.btn_update}>
-            <Link
-              to={{
-                pathname: '/event/attendeelist',
-                state: { eventId: event.event_id },
-              }}
-            >
-              View Attendees
-            </Link>
-          </div>
+          <Link
+            className={styles.color_white}
+            to={{
+              pathname: '/event/attendeelist',
+              state: { eventId: event.event_id },
+            }}
+          >
+            View Attendees
+          </Link>
         </div>
       );
     });

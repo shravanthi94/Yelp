@@ -96,6 +96,8 @@ export default function (state = initialState, action) {
         event: '',
         events: [],
         customers: [],
+        registered: [],
+        submitted: [],
         loading: false,
       };
 

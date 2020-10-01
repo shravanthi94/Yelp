@@ -13,6 +13,7 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
+  restaurant: false,
 };
 
 export default function (state = initialState, action) {
@@ -24,7 +25,8 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload,
+        user: payload.data,
+        restaurant: payload.restaurant,
       };
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
@@ -35,6 +37,7 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
+
     case SIGNUP_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
@@ -45,6 +48,7 @@ export default function (state = initialState, action) {
         token: null,
         isAuthenticated: false,
         loading: false,
+        restaurant: false,
       };
     default:
       return state;

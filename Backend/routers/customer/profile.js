@@ -159,7 +159,6 @@ router.get('/about', auth, async (req, res) => {
 router.post('/about', auth, (req, res) => {
   const customerId = req.user.id;
   const {
-    yelpingSince,
     thingsILove,
     findMeIn,
     myBlog,
@@ -169,7 +168,7 @@ router.post('/about', auth, (req, res) => {
   } = req.body;
 
   try {
-    const updateAboutQuery = `UPDATE customer set yelping_since='${yelpingSince}', 
+    const updateAboutQuery = `UPDATE customer set 
     things_i_love='${thingsILove}', find_me_in='${findMeIn}', my_blog='${myBlog}', 
     when_not_yelping='${whenNotYelping}', why_read_my_reviews='${whyReadMyReviews}', 
     recent_discovery='${recentDiscovery}' WHERE (customer_id=${customerId})`;

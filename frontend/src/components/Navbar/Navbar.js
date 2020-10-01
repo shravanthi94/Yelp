@@ -6,12 +6,21 @@ import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, restaurant }, logout }) => {
   const authLinks = (
     <div className={styles.right}>
-      <Link to='/profile' className={styles.header_nav_link}>
+      {restaurant ? (
+        <Link to='/restaurant/profile' className={styles.header_nav_link}>
+          <i className='fas fa-user'></i> Dashboard
+        </Link>
+      ) : (
+        <Link to='/profile' className={styles.header_nav_link}>
+          <i className='fas fa-user'></i> Profile
+        </Link>
+      )}
+      {/* <Link to='/profile' className={styles.header_nav_link}>
         <i className='fas fa-user'></i> Profile
-      </Link>
+      </Link> */}
       <a href='/' onClick={logout} className={styles.header_nav_link}>
         Logout
       </a>

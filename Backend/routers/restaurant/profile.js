@@ -89,14 +89,9 @@ router.post(
   [
     auth,
     [
-      check('restaurant_name', 'Restaurant name is required').notEmpty(),
-      check('restaurant_email_id', 'Restaurant email is required')
-        .isEmail()
-        .notEmpty(),
-      check(
-        'restaurant_location',
-        'Restaurant location is required',
-      ).notEmpty(),
+      check('name', 'Restaurant name is required').notEmpty(),
+      check('email', 'Restaurant email is required').isEmail().notEmpty(),
+      check('location', 'Restaurant location is required').notEmpty(),
     ],
   ],
   (req, res) => {
@@ -176,12 +171,9 @@ router.post(
   [
     auth,
     [
-      check('item_name', 'Dish name is required').notEmpty(),
-      check(
-        'item_ingredients',
-        'Dish main ingredients are required',
-      ).notEmpty(),
-      check('item_category', 'Dish category is required').notEmpty(),
+      check('name', 'Dish name is required').notEmpty(),
+      check('ingredients', 'Dish main ingredients are required').notEmpty(),
+      check('category', 'Dish category is required').notEmpty(),
     ],
   ],
   (req, res) => {
@@ -254,10 +246,10 @@ router.put(
 );
 
 // @route  GET yelp/restaurant/profile/menu
-// @desc   Get all the items added by current restaurant using res_id
+// @desc   Get all the items added by current restaurant using resId
 // @access Public
-router.get('/menu/:res_id', (req, res) => {
-  const resId = req.params.res_id;
+router.get('/menuitems/all', auth, (req, res) => {
+  const resId = req.user.id;
   try {
     const getMenuQuery = `SELECT * FROM menu_items WHERE (restaurant_id=${resId})`;
 
@@ -269,7 +261,7 @@ router.get('/menu/:res_id', (req, res) => {
       if (result.length === 0) {
         return res
           .status(201)
-          .json({ errors: [{ msg: 'Menu details not added' }] });
+          .json({ errors: [{ msg: 'Menu items not added' }] });
       }
       res.status(200).send(result);
     });

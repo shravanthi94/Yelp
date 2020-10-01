@@ -24,7 +24,7 @@ export const loadUser = () => async (dispatch) => {
 
     dispatch({
       type: USER_LOADED,
-      payload: res.data,
+      payload: { data: res.data, restaurant: false },
     });
   } catch (err) {
     dispatch({
@@ -32,6 +32,27 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
+
+//  Load User
+export const loadRestaurant = () => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    const res = await axios.get('/restaurant/profile');
+
+    dispatch({
+      type: USER_LOADED,
+      payload: { data: res.data, restaurant: true },
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
 //  Customer Signup
 export const signup = ({ name, email, password }) => async (dispatch) => {
   const config = {
@@ -83,6 +104,71 @@ export const login = (email, password) => async (dispatch) => {
     });
     console.log(res.data);
     dispatch(loadUser());
+  } catch (err) {
+    console.log(err.response.data.errors);
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: LOGIN_FAIL,
+    });
+  }
+};
+
+//Restaurant Sign up
+export const signupRestaurant = ({ name, email, password, location }) => async (
+  dispatch,
+) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify({ name, email, password, location });
+
+  try {
+    const res = await axios.post('/restaurant/register', body, config);
+
+    dispatch(setAlert('Successfully registered', 'success'));
+
+    dispatch({
+      type: SIGNUP_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(loadRestaurant());
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: SIGNUP_FAIL,
+    });
+  }
+};
+
+//  Restaurant Login
+export const loginRestaurant = (email, password) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify({ email, password });
+
+  try {
+    const res = await axios.post('/restaurant/login', body, config);
+    //dispatch(setAlert('Successfully registered', 'success'));
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+    console.log(res.data);
+    dispatch(loadRestaurant());
   } catch (err) {
     console.log(err.response.data.errors);
     const errors = err.response.data.errors;

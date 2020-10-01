@@ -69,6 +69,14 @@
   color: #0073bb;
 }
 
+.title_right {
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 6px;
+  margin-top: 20px;
+  color: black;
+}
+
 .btn_update {
   display: inline-block;
   border-radius: 10px;
@@ -118,6 +126,21 @@
   border: none;
   cursor: pointer;
   margin: 0.5rem 0;
+  transition: opacity 0.2s ease-in;
+  outline: none;
+  font-weight: bold;
+  background-color: #d32323;
+  color: white;
+}
+
+.color_white {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 0.2rem 1rem;
+  margin: 3% 0;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
   transition: opacity 0.2s ease-in;
   outline: none;
   font-weight: bold;

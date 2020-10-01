@@ -23,6 +23,11 @@ const Profile = ({
         <div className={styles.left}>
           <img src={profile.customer_image} alt='Profile_pic' />
           <h3 className={styles.title}>{profile.customer_name}'s Profile</h3>
+          <h3 className={styles.subheading}>Contact information</h3>
+          <h4 className={styles.title}>Email</h4>
+          <p>{profile.customer_email_id}</p>
+          <h4 className={styles.title}>Phone</h4>
+          <p>{profile.customer_phone}</p>
         </div>
         <div className={styles.middle}>
           <div className={styles.middle_heading}>
@@ -47,7 +52,7 @@ const Profile = ({
             </Link>
           </div>
           <div>
-            <h3 className={styles.title}>About {profile.customer_name}</h3>
+            <h3 className={styles.subheading}>About {profile.customer_name}</h3>
             <h4 className={styles.title}>Location</h4>
             <p>
               {profile.city}, {profile.state}, {profile.country}

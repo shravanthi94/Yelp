@@ -82,7 +82,7 @@ router.post(
   },
 );
 
-// @route  Get yelp/restaurant/orders/status/1
+// @route  Get yelp/customer/orders/status/1
 // @desc   restaurant update to the status route
 // @access Private
 router.get('/status/:order_status', auth, (req, res) => {

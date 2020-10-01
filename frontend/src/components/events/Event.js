@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
@@ -9,6 +9,7 @@ import { getAllEvents, registerEvent } from '../../actions/event';
 const Event = ({
   getAllEvents,
   event: { events, loading },
+  auth: { restaurant, isAuthenticated },
   history,
   registerEvent,
 }) => {
@@ -16,10 +17,15 @@ const Event = ({
     getAllEvents();
   }, []);
 
+  if (!isAuthenticated) {
+    return <Redirect to='/login' />;
+  }
+
   const register = (e, eventId) => {
     e.preventDefault();
     registerEvent(eventId, history);
   };
+
   const listAllEvents = () => {
     return events.map((event) => {
       return (
@@ -34,17 +40,22 @@ const Event = ({
           </p>
           <p className={styles.event_description}>{event.event_description}</p>
           <p className={styles.event_hashtags}>{event.event_hashtags}</p>
-          <button
-            type='submit'
-            className={styles.event_register}
-            onClick={(e) => register(e, event.event_id)}
-          >
-            Register
-          </button>
+          {!restaurant ? (
+            <button
+              type='submit'
+              className={styles.event_register}
+              onClick={(e) => register(e, event.event_id)}
+            >
+              Register
+            </button>
+          ) : (
+            ''
+          )}
         </div>
       );
     });
   };
+
   return loading ? (
     spinner
   ) : (
@@ -54,15 +65,24 @@ const Event = ({
         <div className={styles.left}>{listAllEvents()}</div>
         <div className={styles.right}>
           <div className={styles.update_links}>
-            <Link to='/event/create' className={styles.btn_update}>
-              Create Event
-            </Link>
-            <Link to='/event/registered' className={styles.btn_update}>
-              Attending
-            </Link>
-            <Link to='/event/submitted' className={styles.btn_update}>
-              Events Submitted
-            </Link>
+            {restaurant ? (
+              <Fragment>
+                <h2 className={styles.title_right}>Your Schedule</h2>
+                <Link to='/event/create' className={styles.btn_update}>
+                  Create Event
+                </Link>{' '}
+                <Link to='/event/submitted' className={styles.btn_update}>
+                  Events Submitted
+                </Link>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <h2 className={styles.title_right}>Your Schedule</h2>
+                <Link to='/event/registered' className={styles.btn_update}>
+                  Events Attending
+                </Link>
+              </Fragment>
+            )}
           </div>
         </div>
       </div>
@@ -74,9 +94,11 @@ Event.propTypes = {
   getAllEvents: PropTypes.func.isRequired,
   registerEvent: PropTypes.func.isRequired,
   event: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   event: state.event,
+  auth: state.auth,
 });
 export default connect(mapStateToProps, { getAllEvents, registerEvent })(Event);

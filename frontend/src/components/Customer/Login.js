@@ -29,6 +29,9 @@ const Login = ({ login, isAuthenticated }) => {
     <div className='container'>
       <div className={styles.form_flow}>
         <h2 className={styles.form_title}>Log in to Yelp</h2>
+        <small className={styles.restaurant}>
+          Restaurant Owner? <Link to='/restaurant/login'>Login here</Link>
+        </small>
         <div className={styles.container}>
           <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
             <label className={styles.placeholder_sub}>Email</label>

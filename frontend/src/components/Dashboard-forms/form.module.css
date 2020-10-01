@@ -5,6 +5,8 @@ input {
 
 .container {
   width: 250px;
+  padding: 20%;
+  margin: auto;
 }
 
 .form_flow {
@@ -21,7 +23,7 @@ input {
   font-size: 40px;
   line-height: 1.28571em;
   color: #d32323;
-  margin-top: 150px;
+  margin-top: 50px;
   margin-bottom: 20px;
 }
 
@@ -43,20 +45,33 @@ input {
   width: 300px;
 }
 
+.my_headline {
+  width: 500px;
+}
+
+.display {
+  display: inline-block;
+  width: 1000px;
+}
+
 .btn {
-  -webkit-border-radius: 5;
-  -moz-border-radius: 5;
+  display: inline-block;
   border-radius: 5px;
   font-family: Arial;
   color: #ffffff;
   font-size: 15px;
   background: #d32323;
-  padding: 10px 70px;
+  padding: 8px 20px;
   text-decoration: none;
-  line-height: 1.3125em;
-  margin-left: 40px;
   margin-top: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
+  font-weight: bold;
+}
+
+.btn_grey {
+  margin-left: 20px;
+  display: inline-block;
+  margin-bottom: 50px;
 }
 
 .btn:hover {
@@ -64,14 +79,20 @@ input {
   text-decoration: none;
 }
 
-.legal_copy {
-  color: #333;
-  font-size: 12px;
-  line-height: 1.5em;
+/* Forms */
+.form_group {
+  width: 300px;
+  margin-top: 20px;
 }
 
-.restaurant {
+.form_text {
+  display: block;
+  margin-top: 0.3rem;
+  margin-top: 0;
+  width: 500px;
+}
+
+.form_label {
+  font-weight: bold;
   color: black;
-  background-color: rgb(201, 198, 198);
-  border-radius: 5px;
 }
