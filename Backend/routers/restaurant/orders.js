@@ -22,7 +22,7 @@ router.get('/', auth, (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'No orders to display' }] });
       }
       res.status(200).json(result);
@@ -113,17 +113,17 @@ router.get('/cancelled', auth, (req, res) => {
 // @access Private
 router.post(
   '/status/:order_id',
-  [auth, [check('order_status', 'Order status is required').notEmpty()]],
+  [auth, [check('status', 'Order status is required').notEmpty()]],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
     const orderId = req.params.order_id;
-    const status = req.body.order_status;
+    const { status } = req.body;
     try {
-      let orderType;
-      if (status === 'RECIEVED' || status === 'PREPARING') {
+      let orderType = '';
+      if (status === 'RECIEVED') {
         orderType = 'NEW';
       } else if (status === 'PICK UP READY' || status === 'ON THE WAY') {
         orderType = 'NEW';
@@ -146,13 +146,13 @@ router.post(
   },
 );
 
-// @route  Get yelp/restaurant/orders/recieved
+// @route  Get yelp/restaurant/orders/cancelorder
 // @desc   restaurant update to recieved route
 // @access Private
 router.post('/cancelorder/:order_id', auth, (req, res) => {
   const orderId = req.params.order_id;
   try {
-    const cancelQuery = `UPDATE orders SET order_status= '', 
+    const cancelQuery = `UPDATE orders SET order_status= 'CANCELLED', 
                           order_type='CANCELLED' WHERE order_id = ${orderId}`;
     dbPool.query(cancelQuery, (error, result) => {
       if (error) {

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
@@ -66,15 +67,24 @@ router.post(
         mm = `0${mm}`;
       }
       today = `${yyyy}-${mm}-${dd}`;
-      const createOrderQuery = `INSERT into orders (restaurant_id, customer_id, order_date, delivery_option)
-      VALUES (${restaurantId},${customerId},'${today}','${deliveryOpt}')`;
-      dbPool.query(createOrderQuery, (error, result) => {
-        if (error) {
-          console.log(error);
-          return res.status(500).send('Database Error');
-        }
-        res.status(200).send('Order has been placed');
-      });
+
+      dbPool.query(
+        `SELECT customer_name FROM customer WHERE customer_id=${customerId}`,
+        (error, result) => {
+          if (!error) {
+            const customerName = result[0].customer_name;
+            const createOrderQuery = `INSERT into orders (restaurant_id, customer_id, customer_name, order_date, delivery_option)
+            VALUES (${restaurantId}, ${customerId}, ${customerName},'${today}','${deliveryOpt}')`;
+            dbPool.query(createOrderQuery, (error2, result) => {
+              if (error2) {
+                console.log(error2);
+                return res.status(500).send('Database Error');
+              }
+              res.status(200).send('Order has been placed');
+            });
+          }
+        },
+      );
     } catch (err) {
       console.log(err);
       res.status(500).send('Server Error');

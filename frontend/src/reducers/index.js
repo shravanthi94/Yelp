@@ -4,6 +4,7 @@ import auth from './auth';
 import profile from './profile';
 import event from './event';
 import dashboard from './dashboard';
+import resOrder from './resOrder';
 
 export default combineReducers({
   alert,
@@ -11,4 +12,5 @@ export default combineReducers({
   profile,
   event,
   dashboard,
+  resOrder,
 });

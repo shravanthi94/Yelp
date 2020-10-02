@@ -33,7 +33,8 @@ const Profile = ({
           <div className={styles.middle_heading}>
             <h1 className={styles.name}>{profile.customer_name}</h1>
             <h3>
-              {profile.city}, {profile.state}, {profile.country}
+              <i class='fas fa-home'></i> {profile.city}, {profile.state},{' '}
+              {profile.country}
             </h3>
           </div>
           <hr />

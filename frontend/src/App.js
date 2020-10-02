@@ -19,6 +19,10 @@ import RestaurantUpdateProfile from './components/Dashboard-forms/UpdateProfile'
 import AddDish from './components/Dashboard-forms/AddDish';
 import UpdateDish from './components/Dashboard-forms/UpdateItem';
 import ViewReview from './components/Dashboard-forms/ViewReview';
+import OrdersRes from './components/Restaurant/Orders';
+import NewOrders from './components/Restaurant/OrdersNew';
+import OrdersDelivered from './components/Restaurant/OrdersDelivered';
+import OrdersCancelled from './components/Restaurant/OrdersCancelled';
 
 import Event from './components/events/Event';
 import CreateEvent from './components/events/CreateEvent';
@@ -99,6 +103,26 @@ const App = () => {
                 exact
                 path='/restaurant/view/reviews'
                 component={ViewReview}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/orders'
+                component={OrdersRes}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/orders/new'
+                component={NewOrders}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/orders/delivered'
+                component={OrdersDelivered}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/orders/cancelled'
+                component={OrdersCancelled}
               />
 
               <Route exact path='/event' component={Event} />

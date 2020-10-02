@@ -18,9 +18,6 @@ const Navbar = ({ auth: { isAuthenticated, loading, restaurant }, logout }) => {
           <i className='fas fa-user'></i> Profile
         </Link>
       )}
-      {/* <Link to='/profile' className={styles.header_nav_link}>
-        <i className='fas fa-user'></i> Profile
-      </Link> */}
       <a href='/' onClick={logout} className={styles.header_nav_link}>
         Logout
       </a>
@@ -37,21 +34,38 @@ const Navbar = ({ auth: { isAuthenticated, loading, restaurant }, logout }) => {
       </Link>
     </div>
   );
+
+  const restLinks = (
+    <Link to='/restaurant/orders' className={styles.header_nav_link}>
+      Orders
+    </Link>
+  );
+
+  const custLinks = (
+    <Fragment>
+      <Link to='/customer/orders' className={styles.header_nav_link}>
+        Orders
+      </Link>
+      <Link to='!#' className={styles.header_nav_link}>
+        Restaurants
+      </Link>
+    </Fragment>
+  );
+
   return (
     <div className={styles['top-nav']}>
       <div className={styles.left}>
         <Link to='/' className={styles.header_nav_link}>
           <img src={logo} className={styles.logo} alt='logo-img' />
         </Link>
-        <Link to='!#' className={styles.header_nav_link}>
-          Restaurants
-        </Link>
         <Link to='/event' className={styles.header_nav_link}>
           Events
         </Link>
-        <Link to='!#' className={styles.header_nav_link}>
-          Orders
-        </Link>
+        {!loading && (
+          <Fragment>
+            {isAuthenticated && restaurant ? restLinks : custLinks}
+          </Fragment>
+        )}
       </div>
       {!loading && (
         <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
