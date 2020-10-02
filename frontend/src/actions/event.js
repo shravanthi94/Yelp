@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 import {
+  GET_EVENT,
   GET_EVENTS,
   CREATE_EVENT,
   EVENT_ERROR,
@@ -154,6 +155,28 @@ export const attendeeList = (eventId) => async (dispatch) => {
     }
     dispatch({
       type: LIST_ERROR,
+    });
+  }
+};
+
+//   Get event by event name
+export const getEventByName = (eventName) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/events/${eventName}`);
+    dispatch({
+      type: GET_EVENT,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: EVENT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };

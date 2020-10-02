@@ -13,6 +13,7 @@ import Profile from './components/Profile/Profile';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import updateAbout from './components/profile-forms/EditAbout';
 import updateContact from './components/profile-forms/EditContact';
+import OrdersCus from './components/Customer/Orders';
 
 import Dashboard from './components/Dashboard/Dashboard';
 import RestaurantUpdateProfile from './components/Dashboard-forms/UpdateProfile';
@@ -25,10 +26,12 @@ import OrdersDelivered from './components/Restaurant/OrdersDelivered';
 import OrdersCancelled from './components/Restaurant/OrdersCancelled';
 
 import Event from './components/events/Event';
+import EventDetails from './components/events/EventDetails';
 import CreateEvent from './components/events/CreateEvent';
 import RegisteredEvent from './components/events/RegisteredEvent';
 import SubmittedEvent from './components/events/SubmittedEvent';
 import AttendeeList from './components/events/AttendeeList';
+
 import PrivateRoute from './components/routing/PrivateRoute';
 import Alert from './components/layout/Alert';
 
@@ -125,7 +128,18 @@ const App = () => {
                 component={OrdersCancelled}
               />
 
+              <PrivateRoute
+                exact
+                path='/customer/orders'
+                component={OrdersCus}
+              />
+
               <Route exact path='/event' component={Event} />
+              <Route
+                exact
+                path='/event/details/:event_name'
+                component={EventDetails}
+              />
               <PrivateRoute
                 exact
                 path='/event/create'

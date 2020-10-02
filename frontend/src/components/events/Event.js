@@ -33,7 +33,8 @@ const Event = ({
           <h1 className={styles.title}>{event.event_name}</h1>
           <p>
             <i class='fas fa-calendar-day'></i>{' '}
-            {event.event_date.substring(0, 10)}, {event.event_time}
+            {event.event_date && event.event_date.substring(0, 10)},{' '}
+            {event.event_time}
           </p>
           <p>
             <i class='fas fa-map-marker-alt'></i> {event.event_location}
@@ -51,6 +52,8 @@ const Event = ({
           ) : (
             ''
           )}
+          <br />
+          <Link to={`/event/details/${event.event_name}`}>Show details</Link>
         </div>
       );
     });

@@ -9,7 +9,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 const dbPool = require('../../config/db');
 
-// @route  GET yelp/orders/customer/all
+// @route  GET yelp/customer/orders/all
 // @desc   Get all customer orders placed
 // @access Private
 router.get('/all', auth, (req, res) => {
@@ -22,7 +22,7 @@ router.get('/all', auth, (req, res) => {
         return res.status(500).send('Database Error');
       }
       if (result.length === 0) {
-        return res.status(201).json({ errors: [{ msg: 'No orders placed' }] });
+        return res.status(400).json({ errors: [{ msg: 'No orders placed' }] });
       }
       res.status(200).json(result);
     });

@@ -1,5 +1,6 @@
 import {
   GET_EVENTS,
+  GET_EVENT,
   CREATE_EVENT,
   EVENT_ERROR,
   EVENT_REGISTER_SUCCESS,
@@ -31,6 +32,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         events: payload,
+        loading: false,
+      };
+    case GET_EVENT:
+      return {
+        ...state,
+        event: payload,
         loading: false,
       };
     case CREATE_EVENT:
