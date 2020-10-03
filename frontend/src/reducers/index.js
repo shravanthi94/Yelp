@@ -6,6 +6,7 @@ import event from './event';
 import dashboard from './dashboard';
 import resOrder from './resOrder';
 import cusOrder from './cusOrder';
+import restaurant from './restaurant';
 
 export default combineReducers({
   alert,
@@ -15,4 +16,5 @@ export default combineReducers({
   dashboard,
   resOrder,
   cusOrder,
+  restaurant,
 });

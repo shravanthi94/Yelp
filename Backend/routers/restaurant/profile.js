@@ -21,7 +21,7 @@ router.get('/all', (req, res) => {
         console.log(error);
         return res.status(500).send('Server Error');
       }
-      res.status(200).json({ result });
+      res.status(200).json(result);
     });
   } catch (err) {
     console.log(err);

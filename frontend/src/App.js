@@ -19,6 +19,10 @@ import OrdersCusPrep from './components/Customer/OrdersPrep';
 import OrdersCusPick from './components/Customer/OrdersPick';
 import OrdersCusDel from './components/Customer/OrdersDel';
 
+import AllRest from './components/Searchbar/AllRestaurants';
+import Restaurant from './components/Searchbar/Restaurant';
+import Placeorder from './components/Searchbar/Placeorder';
+
 import Dashboard from './components/Dashboard/Dashboard';
 import RestaurantUpdateProfile from './components/Dashboard-forms/UpdateProfile';
 import AddDish from './components/Dashboard-forms/AddDish';
@@ -186,6 +190,22 @@ const App = () => {
                 exact
                 path='/event/attendeelist'
                 component={AttendeeList}
+              />
+
+              <PrivateRoute
+                exact
+                path='/customer/restaurants'
+                component={AllRest}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/details/:res_id'
+                component={Restaurant}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/placeorder/:res_id'
+                component={Placeorder}
               />
             </Switch>
           </section>
