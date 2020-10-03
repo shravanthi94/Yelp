@@ -3,11 +3,11 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './createEvent.module.css';
-import { createEvent, getAllEvents } from '../../actions/event';
+import { placeOrder, getAllEvents } from '../../actions/event';
 
-const CreateEvent = ({
+const CreateOrder = ({
   event: { events, loading },
-  createEvent,
+  placeOrder,
   history,
   getAllEvents,
 }) => {
@@ -27,7 +27,7 @@ const CreateEvent = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createEvent(formData, history);
+    placeOrder(formData, history);
   };
 
   return (
@@ -134,8 +134,8 @@ const CreateEvent = ({
   );
 };
 
-CreateEvent.propTypes = {
-  createEvent: PropTypes.func.isRequired,
+CreateOrder.propTypes = {
+  placeOrder: PropTypes.func.isRequired,
   getAllEvents: PropTypes.func.isRequired,
   event: PropTypes.object.isRequired,
 };
@@ -145,6 +145,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  createEvent,
+  placeOrder,
   getAllEvents,
-})(withRouter(CreateEvent));
+})(withRouter(CreateOrder));

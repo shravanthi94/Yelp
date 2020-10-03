@@ -72,16 +72,23 @@ router.post(
         `SELECT customer_name FROM customer WHERE customer_id=${customerId}`,
         (error, result) => {
           if (!error) {
-            const customerName = result[0].customer_name;
-            const createOrderQuery = `INSERT into orders (restaurant_id, customer_id, customer_name, order_date, delivery_option)
-            VALUES (${restaurantId}, ${customerId}, ${customerName},'${today}','${deliveryOpt}')`;
-            dbPool.query(createOrderQuery, (error2, result) => {
-              if (error2) {
-                console.log(error2);
-                return res.status(500).send('Database Error');
-              }
-              res.status(200).send('Order has been placed');
-            });
+            dbPool.query(
+              `SELECT restaurant_name FROM restaurant WHERE restaurant_id=${restaurantId}`,
+              (error, result) => {
+                if (!error) {
+                  const customerName = result[0].customer_name;
+                  const createOrderQuery = `INSERT into orders (restaurant_id, customer_id, customer_name, order_date, delivery_option)
+                  VALUES (${restaurantId}, ${customerId}, ${customerName},'${today}','${deliveryOpt}')`;
+                  dbPool.query(createOrderQuery, (error2, result) => {
+                    if (error2) {
+                      console.log(error2);
+                      return res.status(500).send('Database Error');
+                    }
+                    res.status(200).send('Order has been placed');
+                  });
+                }
+              },
+            );
           }
         },
       );

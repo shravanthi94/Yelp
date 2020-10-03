@@ -14,6 +14,10 @@ import CreateProfile from './components/profile-forms/CreateProfile';
 import updateAbout from './components/profile-forms/EditAbout';
 import updateContact from './components/profile-forms/EditContact';
 import OrdersCus from './components/Customer/Orders';
+import OrdersCusRec from './components/Customer/OrdersRec';
+import OrdersCusPrep from './components/Customer/OrdersPrep';
+import OrdersCusPick from './components/Customer/OrdersPick';
+import OrdersCusDel from './components/Customer/OrdersDel';
 
 import Dashboard from './components/Dashboard/Dashboard';
 import RestaurantUpdateProfile from './components/Dashboard-forms/UpdateProfile';
@@ -49,8 +53,11 @@ if (localStorage.token) {
 const App = () => {
   //  Component did mount
   useEffect(() => {
-    store.dispatch(loadUser());
-    store.dispatch(loadRestaurant());
+    if (localStorage.usertype === 'customer') {
+      store.dispatch(loadUser());
+    } else {
+      store.dispatch(loadRestaurant());
+    }
   });
   return (
     <Provider store={store}>
@@ -132,6 +139,26 @@ const App = () => {
                 exact
                 path='/customer/orders'
                 component={OrdersCus}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/orders/received'
+                component={OrdersCusRec}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/orders/preparing'
+                component={OrdersCusPrep}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/orders/pickup'
+                component={OrdersCusPick}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/orders/delivery'
+                component={OrdersCusDel}
               />
 
               <Route exact path='/event' component={Event} />

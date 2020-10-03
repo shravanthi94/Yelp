@@ -2,6 +2,7 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   USER_LOADED,
+  RESTAURANT_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -11,12 +12,15 @@ import {
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import setAuthToken from '../utils/setAuthToken';
 
-//  Load User
+//  Load Customer
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
+    const decoded = jwt_decode(localStorage.token);
+    localStorage.setItem('usertype', decoded.user.usertype);
   }
 
   try {
@@ -37,13 +41,15 @@ export const loadUser = () => async (dispatch) => {
 export const loadRestaurant = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
+    const decoded = jwt_decode(localStorage.token);
+    localStorage.setItem('usertype', decoded.user.usertype);
   }
 
   try {
     const res = await axios.get('/restaurant/profile');
 
     dispatch({
-      type: USER_LOADED,
+      type: RESTAURANT_LOADED,
       payload: { data: res.data, restaurant: true },
     });
   } catch (err) {

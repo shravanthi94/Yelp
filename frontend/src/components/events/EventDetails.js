@@ -15,7 +15,7 @@ const EventDetails = ({ match, getEventByName, event: { event, loading } }) => {
 
   event = event[0];
 
-  return loading ? (
+  return loading || !event ? (
     spinner
   ) : (
     <Fragment>

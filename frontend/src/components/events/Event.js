@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,6 +16,8 @@ const Event = ({
   useEffect(() => {
     getAllEvents();
   }, []);
+
+  const [eventSearch, seteventSearch] = useState('');
 
   if (!isAuthenticated) {
     return <Redirect to='/login' />;
@@ -64,6 +66,21 @@ const Event = ({
   ) : (
     <Fragment>
       <div className={styles.container}>
+        <div>
+          <label className={styles.search_title}>Search event</label>
+          <input
+            type='text'
+            name='eventSearch'
+            value={eventSearch}
+            onChange={(e) => seteventSearch(e.target.value)}
+          />
+          <Link
+            to={`/event/details/${eventSearch}`}
+            className={styles.btn_update}
+          >
+            Search
+          </Link>
+        </div>
         <h1 className={styles.heading}>Official Yelp Events</h1>
         <div className={styles.left}>{listAllEvents()}</div>
         <div className={styles.right}>

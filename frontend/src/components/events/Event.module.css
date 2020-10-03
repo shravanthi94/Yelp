@@ -156,3 +156,13 @@
   background-color: #d32323;
   color: white;
 }
+
+.search_title {
+  font-weight: bold;
+  margin-bottom: 6px;
+  line-height: 1.28571em;
+  margin-top: 20px;
+  height: 50px;
+  font-size: 25px;
+  color: #0073bb;
+}

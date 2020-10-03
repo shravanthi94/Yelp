@@ -25,6 +25,16 @@ input {
   margin-bottom: 20px;
 }
 
+.title {
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 40px;
+  line-height: 1.28571em;
+  color: #d32323;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 .yform {
   display: block;
   padding: 0;
@@ -57,6 +67,20 @@ input {
   margin-left: 40px;
   margin-top: 25px;
   margin-bottom: 10px;
+}
+
+.top_btn {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #d32323;
+  padding: 10px 20px;
+  text-decoration: none;
+  line-height: 1.3125em;
+  margin: 25px 10px 10px 0;
 }
 
 .btn:hover {
