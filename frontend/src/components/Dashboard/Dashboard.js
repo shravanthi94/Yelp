@@ -83,7 +83,6 @@ const Dashboard = ({
             </tr>
             {displayMenuItems()}
           </table>
-          {/* <div>{displayMenuItems()}</div> */}
         </div>
         <div className={styles.right}>
           <div className={styles.update_links}>

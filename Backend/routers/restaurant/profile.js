@@ -100,13 +100,23 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     const resId = req.user.id;
-    const { name, email, location, phone, description, timings } = req.body;
+    const {
+      name,
+      email,
+      location,
+      phone,
+      description,
+      timings,
+      delivery,
+      cuisine,
+    } = req.body;
 
     try {
       const updateCustomerQuery = `UPDATE restaurant set restaurant_name = '${name}', 
       restaurant_email_id = '${email}', restaurant_location = '${location}', 
       restaurant_phone = '${phone}', description = '${description}', 
-      timings = '${timings}' WHERE restaurant_id = ${resId}`;
+      timings = '${timings}', delivery_method = '${delivery}', cuisine = '${cuisine}'
+      WHERE restaurant_id = ${resId}`;
 
       dbPool.query(updateCustomerQuery, (error, result) => {
         if (error) {

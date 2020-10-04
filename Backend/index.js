@@ -11,6 +11,7 @@ const events = require('./routers/events');
 const resOrders = require('./routers/restaurant/orders');
 const cusOrders = require('./routers/customer/orders');
 const reviews = require('./routers/reviews');
+const search = require('./routers/restaurant/search');
 
 /*  Routes for Customers */
 //  Customer - SIGNUP
@@ -37,6 +38,9 @@ app.use('/events', events);
 
 //  Reviews
 app.use('/reviews', reviews);
+
+// Restaurant search bar
+app.use('/search', search);
 
 //  Connection to a port
 const PORT = process.env.PORT || 3001;

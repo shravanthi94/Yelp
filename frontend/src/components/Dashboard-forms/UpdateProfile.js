@@ -21,6 +21,8 @@ const UpdateProfile = ({
     description: '',
     phone: '',
     timings: '',
+    delivery: '',
+    cuisine: '',
   });
 
   useEffect(() => {
@@ -44,10 +46,22 @@ const UpdateProfile = ({
         loading || !profile.restaurant_phone ? '' : profile.restaurant_phone,
       timings:
         loading || !profile.restaurant_timing ? '' : profile.restaurant_timing,
+      delivery:
+        loading || !profile.delivery_method ? '' : profile.delivery_method,
+      cuisine: loading || !profile.cuisine ? '' : profile.cuisine,
     });
   }, [loading]);
 
-  const { name, email, location, description, timings, phone } = formData;
+  const {
+    name,
+    email,
+    location,
+    description,
+    timings,
+    phone,
+    delivery,
+    cuisine,
+  } = formData;
 
   const onChange = (e) =>
     setformData({ ...formData, [e.target.name]: e.target.value });
@@ -140,6 +154,36 @@ const UpdateProfile = ({
               type='text'
               name='phone'
               value={phone}
+              onChange={(e) => onChange(e)}
+              required
+            />
+          </div>
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Mode of Delivery</label>
+            <br />
+            <small className={styles.form_text}>
+              Dine In, Curb Side Pick Up...
+            </small>
+            <input
+              className={styles.my_text}
+              type='text'
+              name='delivery'
+              value={delivery}
+              onChange={(e) => onChange(e)}
+              required
+            />
+          </div>
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Select Cuisine</label>
+            <br />
+            <small className={styles.form_text}>
+              Indian, Italian, Chinese...
+            </small>
+            <input
+              className={styles.my_text}
+              type='text'
+              name='cuisine'
+              value={cuisine}
               onChange={(e) => onChange(e)}
               required
             />
