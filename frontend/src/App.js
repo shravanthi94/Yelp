@@ -19,9 +19,10 @@ import OrdersCusPrep from './components/Customer/OrdersPrep';
 import OrdersCusPick from './components/Customer/OrdersPick';
 import OrdersCusDel from './components/Customer/OrdersDel';
 
-import AllRest from './components/Searchbar/AllRestaurants';
-import Restaurant from './components/Searchbar/Restaurant';
-import Placeorder from './components/Searchbar/Placeorder';
+import AllRest from './components/RestaurantTab/AllRestaurants';
+import Restaurant from './components/RestaurantTab/Restaurant';
+import Placeorder from './components/RestaurantTab/Placeorder';
+import AddReview from './components/RestaurantTab/AddReview';
 
 import Dashboard from './components/Dashboard/Dashboard';
 import RestaurantUpdateProfile from './components/Dashboard-forms/UpdateProfile';
@@ -206,6 +207,11 @@ const App = () => {
                 exact
                 path='/customer/placeorder/:res_id'
                 component={Placeorder}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/restaurant/review/:res_id'
+                component={AddReview}
               />
             </Switch>
           </section>

@@ -52,7 +52,7 @@ const Restaurant = ({
               to={`/customer/restaurant/review/${restaurant_id}`}
               className={styles.top_btn}
             >
-              Write a Review
+              🌟 Write a Review
             </Link>
             <Link
               to={`/customer/placeorder/${restaurant_id}`}

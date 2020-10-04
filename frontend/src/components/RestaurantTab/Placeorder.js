@@ -3,16 +3,21 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './form.module.css';
+import { setAlert } from '../../actions/alert';
 import { placeorder } from '../../actions/restaurants';
 
-const Placeorder = ({ match, placeorder, history }) => {
+const Placeorder = ({ match, setAlert, placeorder, history }) => {
   const [deliveryOpt, setdeliveryOpt] = useState('');
 
   const resId = match.params.res_id;
-  console.log(resId);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    placeorder(resId, deliveryOpt, history);
+    if (deliveryOpt == 'DELIVERY' || deliveryOpt == 'PICKUP') {
+      placeorder(resId, deliveryOpt, history);
+    } else {
+      setAlert('Delivery options are either DELIVERY / PICKUP only', 'danger');
+    }
   };
 
   return (
@@ -28,6 +33,7 @@ const Placeorder = ({ match, placeorder, history }) => {
             <input
               className={styles.my_text}
               type='text'
+              placeholder='DELIVERY/PICKUP'
               name='deliveryOpt'
               value={deliveryOpt}
               onChange={(e) => setdeliveryOpt(e.target.value)}
@@ -46,6 +52,7 @@ const Placeorder = ({ match, placeorder, history }) => {
 
 Placeorder.propTypes = {
   placeorder: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { placeorder })(withRouter(Placeorder));
+export default connect(null, { placeorder, setAlert })(withRouter(Placeorder));

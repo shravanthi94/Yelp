@@ -7,6 +7,8 @@ import {
   RESTAURANT_ERROR,
   PLACEORDER,
   PLACEORDER_ERROR,
+  ADD_REVIEW,
+  ADD_REVIEW_ERROR,
 } from './types';
 
 export const getAllRestaurants = () => async (dispatch) => {
@@ -79,6 +81,36 @@ export const placeorder = (resId, deliveryOpt, history) => async (dispatch) => {
     }
     dispatch({
       type: PLACEORDER_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const writeReview = (resId, formData, history) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.post(`/reviews/insert/${resId}`, formData, config);
+
+    dispatch(setAlert('Review added', 'success'));
+
+    dispatch({
+      type: ADD_REVIEW,
+    });
+
+    history.push(`/restaurant/details/${resId}`);
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: ADD_REVIEW_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

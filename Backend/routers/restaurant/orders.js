@@ -125,8 +125,6 @@ router.post(
       let orderType = '';
       if (status === 'RECIEVED') {
         orderType = 'NEW';
-      } else if (status === 'PICK UP READY' || status === 'ON THE WAY') {
-        orderType = 'NEW';
       } else if (status === 'PICKED UP' || status === 'DELIVERED') {
         orderType = 'COMPLETED';
       }

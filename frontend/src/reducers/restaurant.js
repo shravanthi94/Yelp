@@ -5,6 +5,8 @@ import {
   RESTAURANT_ERROR,
   PLACEORDER,
   PLACEORDER_ERROR,
+  ADD_REVIEW,
+  ADD_REVIEW_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -38,6 +40,7 @@ export default function (state = initialState, action) {
     case ALL_RESTAURANTS_ERROR:
     case RESTAURANT_ERROR:
     case PLACEORDER_ERROR:
+    case ADD_REVIEW_ERROR:
       return {
         ...state,
         error: payload,
