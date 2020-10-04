@@ -9,6 +9,8 @@ import {
   PLACEORDER_ERROR,
   ADD_REVIEW,
   ADD_REVIEW_ERROR,
+  GET_RES_MENU,
+  GET_RES_MENU_ERROR,
 } from './types';
 
 export const getAllRestaurants = () => async (dispatch) => {
@@ -48,6 +50,29 @@ export const getRestaurant = (id) => async (dispatch) => {
 
     dispatch({
       type: RESTAURANT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const getMenuDetails = (resId) => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `/restaurant/profile/menuitems/restaurant/${resId}`,
+    );
+    dispatch({
+      type: GET_RES_MENU,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: GET_RES_MENU_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

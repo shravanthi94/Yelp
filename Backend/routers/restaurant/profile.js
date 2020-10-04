@@ -256,7 +256,7 @@ router.put(
 );
 
 // @route  GET yelp/restaurant/profile/menu
-// @desc   Get all the items added by current restaurant using resId
+// @desc   Get all the items added by current restaurant using resId of current restaurant
 // @access Public
 router.get('/menuitems/all', auth, (req, res) => {
   const resId = req.user.id;
@@ -270,7 +270,33 @@ router.get('/menuitems/all', auth, (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
+          .json({ errors: [{ msg: 'Menu items not added' }] });
+      }
+      res.status(200).send(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route  GET yelp/restaurant/profile//menuitems/restaurant/:res_id
+// @desc   Get all the items added by current restaurant using resId
+// @access Public
+router.get('/menuitems/restaurant/:res_id', auth, (req, res) => {
+  const resId = req.params.res_id;
+  try {
+    const getMenuQuery = `SELECT * FROM menu_items WHERE (restaurant_id=${resId})`;
+
+    dbPool.query(getMenuQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send('Database Error');
+      }
+      if (result.length === 0) {
+        return res
+          .status(400)
           .json({ errors: [{ msg: 'Menu items not added' }] });
       }
       res.status(200).send(result);

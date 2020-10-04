@@ -7,10 +7,13 @@ import {
   PLACEORDER_ERROR,
   ADD_REVIEW,
   ADD_REVIEW_ERROR,
+  GET_RES_MENU,
+  GET_RES_MENU_ERROR,
 } from '../actions/types';
 
 const initialState = {
   restaurant: '',
+  menu: '',
   restaurants: [],
   loading: true,
   error: {},
@@ -23,6 +26,8 @@ export default function (state = initialState, action) {
     case ALL_RESTAURANTS:
       return {
         ...state,
+        restaurant: '',
+        menu: '',
         restaurants: payload,
         loading: false,
       };
@@ -30,6 +35,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         restaurant: payload,
+        loading: false,
+      };
+    case GET_RES_MENU:
+      return {
+        ...state,
+        menu: payload,
         loading: false,
       };
     case PLACEORDER:
@@ -41,6 +52,7 @@ export default function (state = initialState, action) {
     case RESTAURANT_ERROR:
     case PLACEORDER_ERROR:
     case ADD_REVIEW_ERROR:
+    case GET_RES_MENU_ERROR:
       return {
         ...state,
         error: payload,

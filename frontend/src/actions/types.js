@@ -54,3 +54,5 @@ export const PLACEORDER = 'PLACEORDER';
 export const PLACEORDER_ERROR = 'PLACEORDER_ERROR';
 export const ADD_REVIEW = 'ADD_REVIEW';
 export const ADD_REVIEW_ERROR = 'ADD_REVIEW_ERROR';
+export const GET_RES_MENU = 'GET_RES_MENU';
+export const GET_RES_MENU_ERROR = 'GET_RES_MENU_ERROR';

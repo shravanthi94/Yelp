@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './searchbar.module.css';
-import { getRestaurant } from '../../actions/restaurants';
+import { getRestaurant, getMenuDetails } from '../../actions/restaurants';
 
 const Restaurant = ({
   match,
   getRestaurant,
-  restaurant: { restaurant, loading },
+  getMenuDetails,
+  restaurant: { restaurant, menu, loading },
 }) => {
   const resId = match.params.res_id;
 
   useEffect(() => {
     getRestaurant(resId);
+    getMenuDetails(resId);
   }, []);
 
   const {
@@ -27,25 +29,45 @@ const Restaurant = ({
     timings,
   } = restaurant;
 
+  const displayMenuItems = () => {
+    return menu.map((item) => {
+      return (
+        <Fragment>
+          <tr>
+            <td>
+              <div>
+                {item.item_name} <br />
+                {item.item_description}
+              </div>
+            </td>
+            <td>{item.item_ingredients}</td>
+            <td>{item.item_category}</td>
+            <td>$ {item.item_price}</td>
+          </tr>
+        </Fragment>
+      );
+    });
+  };
+
   return loading || !restaurant ? (
     spinner
   ) : (
     <Fragment>
       <div className={styles.container}>
-        <div class='columns is-vcentered'>
-          <div class='column is-8'>
+        <div className='columns is-vcentered'>
+          <div className='column is-8'>
             <h1 className={styles.name}>{restaurant_name}</h1>
             <p className={styles.headers}>
-              <i class='far fa-envelope-open'></i> {restaurant_email_id}
+              <i className='far fa-envelope-open'></i> {restaurant_email_id}
             </p>
             <p className={styles.headers}>
-              <i class='fas fa-phone'></i> {restaurant_phone}
+              <i className='fas fa-phone'></i> {restaurant_phone}
             </p>
             <p className={styles.headers}>
-              <i class='fas fa-map-marker-alt'></i> {restaurant_location}
+              <i className='fas fa-map-marker-alt'></i> {restaurant_location}
             </p>
             <p className={styles.headers}>
-              <i class='fas fa-clock'></i> {timings}
+              <i className='fas fa-clock'></i> {timings}
             </p>
             <br />
             <Link
@@ -63,7 +85,31 @@ const Restaurant = ({
             <h1 className={styles.form_title}>Description</h1>
             <hr />
             <p className={styles.headers}>{description}</p>
-            <br />
+            <hr />
+            <h1 className={styles.form_title}>Menu</h1>
+            <hr />
+            {menu ? (
+              <table>
+                <tr>
+                  <th>Dish Name</th>
+                  <th>Ingredients</th>
+                  <th>Item Category</th>
+                  <th>Price</th>
+                </tr>
+                {displayMenuItems()}
+              </table>
+            ) : (
+              ''
+            )}
+            {/* <table>
+              <tr>
+                <th>Dish Name</th>
+                <th>Ingredients</th>
+                <th>Item Category</th>
+                <th>Price</th>
+              </tr>
+              {displayMenuItems()}
+            </table> */}
             <hr />
             <Link to='/customer/restaurants' className={styles.top_btn}>
               Back to Restaurants
@@ -78,6 +124,7 @@ const Restaurant = ({
 
 Restaurant.propTypes = {
   getRestaurant: PropTypes.func.isRequired,
+  getMenuDetails: PropTypes.func.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
 
@@ -85,4 +132,6 @@ const mapStateToProps = (state) => ({
   restaurant: state.restaurant,
 });
 
-export default connect(mapStateToProps, { getRestaurant })(Restaurant);
+export default connect(mapStateToProps, { getRestaurant, getMenuDetails })(
+  Restaurant,
+);
