@@ -119,7 +119,10 @@ export const getSubmittedEvents = () => async (dispatch) => {
 // Register for an event
 export const registerEvent = (eventId, history) => async (dispatch) => {
   try {
-    const res = await axios.post(`events/register/${eventId}`);
+    console.log('1', eventId);
+    const res = await axios.post(`/events/register/${eventId}`);
+
+    console.log('1', res);
     dispatch(setAlert('Successfully registered for the event', 'success'));
 
     dispatch({

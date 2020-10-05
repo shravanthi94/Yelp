@@ -4,9 +4,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './Event.module.css';
-import { getEventByName } from '../../actions/event';
+import { getEventByName, registerEvent } from '../../actions/event';
 
-const EventDetails = ({ match, getEventByName, event: { event, loading } }) => {
+const EventDetails = ({
+  match,
+  getEventByName,
+  registerEvent,
+  event: { event, loading },
+  history,
+}) => {
   const eventName = match.params.event_name;
 
   useEffect(() => {
@@ -14,6 +20,11 @@ const EventDetails = ({ match, getEventByName, event: { event, loading } }) => {
   }, []);
 
   event = event[0];
+
+  const register = (e, eventId) => {
+    e.preventDefault();
+    registerEvent(eventId, history);
+  };
 
   return loading || !event ? (
     spinner
@@ -25,6 +36,13 @@ const EventDetails = ({ match, getEventByName, event: { event, loading } }) => {
         <br />
         <h1 className='title is-1'>{event.event_name}</h1>
         <hr />
+        <button
+          type='submit'
+          className={styles.event_register}
+          onClick={(e) => register(e, event.event_id)}
+        >
+          Register
+        </button>
         <br />
         <h3 className='title is-4'>Event Date</h3>
         <p>{event.event_date && event.event_date.substring(0, 10)}</p>
@@ -54,6 +72,7 @@ const EventDetails = ({ match, getEventByName, event: { event, loading } }) => {
 
 EventDetails.propTypes = {
   getEventByName: PropTypes.func.isRequired,
+  registerEvent: PropTypes.func.isRequired,
   event: PropTypes.object.isRequired,
 };
 
@@ -61,4 +80,6 @@ const mapStateToProps = (state) => ({
   event: state.event,
 });
 
-export default connect(mapStateToProps, { getEventByName })(EventDetails);
+export default connect(mapStateToProps, { getEventByName, registerEvent })(
+  EventDetails,
+);

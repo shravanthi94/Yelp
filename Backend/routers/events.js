@@ -108,7 +108,7 @@ router.post('/register/:event_id', auth, (req, res) => {
   const eventId = req.params.event_id;
   const customerId = req.user.id;
   try {
-    const checkEventQuery = `SELECT * FROM events WHERE event_id= ${eventId}`;
+    const checkEventQuery = `SELECT * FROM events WHERE event_id= '${eventId}'`;
 
     dbPool.query(checkEventQuery, (error, result) => {
       if (error) {
