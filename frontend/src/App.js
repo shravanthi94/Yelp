@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Landing from './components/LandingPage/Landing';
 import SearchRestaurants from './components/LandingPage/Results';
+import SearchFilters from './components/LandingPage/Filters';
 
 import Login from './components/Customer/Login';
 import Signup from './components/Customer/Signup';
@@ -75,6 +76,11 @@ const App = () => {
             exact
             path='/search/restaurants/:query'
             component={SearchRestaurants}
+          />
+          <Route
+            exact
+            path='/search/results/:filterData'
+            component={SearchFilters}
           />
           <section className='container'>
             <Alert />

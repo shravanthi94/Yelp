@@ -4,25 +4,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './Landing.module.css';
-import { getQueryResults } from '../../actions/search';
-import { getAllRestaurants } from '../../actions/restaurants';
 
-const Results = ({
+const Filters = ({
   match,
-  getQueryResults,
-  getAllRestaurants,
   search: { restaurantlist, loading },
   restaurant: { restaurants },
+  location,
 }) => {
-  const [filterData, setfilterData] = useState('');
-
-  const searchData = match.params.query;
-  //   console.log('searchData: ', searchData);
-
-  useEffect(() => {
-    getAllRestaurants();
-    getQueryResults(searchData);
-  }, []);
+  const data = match.params.filterData;
+  const backData = location.state.query;
 
   const displayRestaurants = () => {
     if (restaurantlist.length === 0) {
@@ -30,8 +20,9 @@ const Results = ({
     }
     const ids = restaurantlist.map((each) => each.restaurant_id);
     console.log('ID:', ids);
+
     return restaurants.map((res) => {
-      if (ids.includes(res.restaurant_id)) {
+      if (ids.includes(res.restaurant_id) && res.delivery_method == data) {
         return (
           <Fragment>
             <div className='box'>
@@ -71,55 +62,24 @@ const Results = ({
     });
   };
 
-  const displayFilters = () => {
-    return (
-      <Fragment>
-        <select
-          className='select-css'
-          name='status'
-          onChange={(e) => setfilterData(e.target.value)}
-        >
-          <option>Select filter</option>
-          <option value='DINE IN'>Dine In</option>
-          <option value='YELP DELIVERY'>Yelp Delivery</option>
-          <option value='CURBSIDE'>Curbside Pickup</option>
-          <option value='NEARBY'>Nearby</option>
-        </select>
-        <br />
-        <Link
-          className={styles.submit_btn}
-          to={{
-            pathname: `/search/results/${filterData}`,
-            state: { query: searchData },
-          }}
-        >
-          Apply
-        </Link>
-      </Fragment>
-    );
-  };
-
   return loading ? (
     spinner
   ) : (
     <Fragment>
       <div className='container'>
         <h1 className={styles.form_title}>Search Results</h1>
-        {displayFilters()}
         {displayRestaurants()}
         <hr />
         <br />
-        <Link to='/' className={styles.top_btn}>
-          Back to Search
+        <Link to={`/search/restaurants/${backData}`} className={styles.top_btn}>
+          Back
         </Link>
       </div>
     </Fragment>
   );
 };
 
-Results.propTypes = {
-  getQueryResults: PropTypes.func.isRequired,
-  getAllRestaurants: PropTypes.func.isRequired,
+Filters.propTypes = {
   search: PropTypes.object.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
@@ -129,7 +89,4 @@ const mapStateToProps = (state) => ({
   restaurant: state.restaurant,
 });
 
-export default connect(mapStateToProps, {
-  getQueryResults,
-  getAllRestaurants,
-})(Results);
+export default connect(mapStateToProps)(Filters);

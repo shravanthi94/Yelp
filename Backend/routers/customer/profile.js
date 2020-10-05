@@ -57,7 +57,7 @@ router.get('/', auth, (req, res) => {
 // @route  GET yelp/customer/profile/customer_id
 // @desc   Get customer profile details using customer id
 // @access Public
-router.get('/:customer_id', async (req, res) => {
+router.get('/display/:customer_id', async (req, res) => {
   const customerId = req.params.customer_id;
 
   try {

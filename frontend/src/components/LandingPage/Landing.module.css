@@ -39,3 +39,19 @@
   margin-top: 80px;
   margin-bottom: 20px;
 }
+
+.submit_btn {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #d32323;
+  padding: 8px 30px;
+  text-decoration: none;
+  line-height: 1.3125em;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  display: inline-block;
+}

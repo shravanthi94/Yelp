@@ -48,6 +48,7 @@ const Orders = ({
               <Fragment>
                 {/* <form action='/action_page.php'> */}
                 <select
+                  className='select-css select-css-width'
                   name='status'
                   onChange={(e) =>
                     setorderData({

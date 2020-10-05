@@ -67,9 +67,10 @@ const Event = ({
     <Fragment>
       <div className={styles.container}>
         <div>
-          <label className={styles.search_title}>Search event</label>
           <input
+            className={styles.search_bar}
             type='text'
+            placeholder='Search by Event Name'
             name='eventSearch'
             value={eventSearch}
             onChange={(e) => seteventSearch(e.target.value)}
