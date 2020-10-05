@@ -9,8 +9,8 @@ const dbPool = require('../../config/db');
 // @route  GET yelp/search/restaurants
 // @desc   Get restaurants using item name,cuisine,location,mode of delivery
 // @access Public
-router.get('/restaurants', (req, res) => {
-  const { searchData } = req.body;
+router.get('/restaurants/:data', (req, res) => {
+  const searchData = req.params.data;
   try {
     const query = `SELECT r.restaurant_id
     FROM restaurant r
@@ -25,7 +25,9 @@ router.get('/restaurants', (req, res) => {
         return res.status(500).send('Database error');
       }
       if (result.length === 0) {
-        return res.status(400).json({ errors: [{ msg: 'Not found' }] });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'No restaurants found' }] });
       }
       res.status(200).json(result);
     });
@@ -35,4 +37,32 @@ router.get('/restaurants', (req, res) => {
   }
 });
 
+// @route  GET yelp/search/restaurants/display/all
+// @desc   Get restaurants using item name,cuisine,location,mode of delivery
+// @access Public
+router.get('/display/all', (req, res) => {
+  const { restaurants } = req.body;
+  try {
+    const final = restaurants.join(', ');
+    console.log('backend', final);
+
+    const query = `SELECT * FROM restaurant WHERE restaurant_id IN (${final})`;
+
+    dbPool.query(query, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send('Database error');
+      }
+      if (result.length === 0) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'No restaurants found' }] });
+      }
+      res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
 module.exports = router;
