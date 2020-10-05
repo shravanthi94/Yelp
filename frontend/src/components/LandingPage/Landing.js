@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import search from '../../assets/search.png';
 import styles from './Landing.module.css';
+import { clearResults } from '../../actions/search';
 
-const Landing = () => {
+const Landing = ({ clearResults }) => {
+  useEffect(() => {
+    clearResults();
+  }, []);
+  const [query, setquery] = useState('');
   return (
     <div className={styles.landing}>
-      <div class='main-logo'>
+      <div className='main-logo'>
         <a href='javascript:void(0);'>
           <img
             src='https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/c3484759c57a/assets/img/logos/logo_desktop_xlarge.png'
@@ -19,14 +26,20 @@ const Landing = () => {
       <input
         type='text'
         placeholder="tacos, cheap dinner, Max's"
-        class='field request'
+        className='field request'
+        name='query'
+        value={query}
+        onChange={(e) => setquery(e.target.value)}
       />
-      {/* <i class='fas fa-search'></i> */}
-      <Link to='javascript.void(0);' class='search-button'>
-        <i class='fas fa-search'></i>
+      <Link to={`/search/restaurants/${query}`} className='search-button'>
+        Search
       </Link>
     </div>
   );
 };
 
-export default Landing;
+Landing.propTypes = {
+  clearResults: PropTypes.func.isRequired,
+};
+
+export default connect(null, { clearResults })(Landing);

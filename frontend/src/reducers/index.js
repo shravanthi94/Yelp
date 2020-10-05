@@ -7,6 +7,7 @@ import dashboard from './dashboard';
 import resOrder from './resOrder';
 import cusOrder from './cusOrder';
 import restaurant from './restaurant';
+import search from './search';
 
 export default combineReducers({
   alert,
@@ -17,4 +18,5 @@ export default combineReducers({
   resOrder,
   cusOrder,
   restaurant,
+  search,
 });

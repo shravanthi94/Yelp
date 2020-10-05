@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Landing from './components/LandingPage/Landing';
+import SearchRestaurants from './components/LandingPage/Results';
 
 import Login from './components/Customer/Login';
 import Signup from './components/Customer/Signup';
@@ -70,6 +71,11 @@ const App = () => {
         <Fragment>
           <Navbar />
           <Route exact path='/' component={Landing} />
+          <Route
+            exact
+            path='/search/restaurants/:query'
+            component={SearchRestaurants}
+          />
           <section className='container'>
             <Alert />
             <Switch>

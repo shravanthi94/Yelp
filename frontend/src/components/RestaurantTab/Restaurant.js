@@ -101,15 +101,6 @@ const Restaurant = ({
             ) : (
               ''
             )}
-            {/* <table>
-              <tr>
-                <th>Dish Name</th>
-                <th>Ingredients</th>
-                <th>Item Category</th>
-                <th>Price</th>
-              </tr>
-              {displayMenuItems()}
-            </table> */}
             <hr />
             <Link to='/customer/restaurants' className={styles.top_btn}>
               Back to Restaurants
