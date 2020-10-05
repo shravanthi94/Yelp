@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
@@ -18,7 +19,14 @@ const AttendeeList = ({
     return customers.map((customer) => {
       return (
         <div className={styles.event_card}>
-          <h1 className={styles.title}>{customer.customer_name}</h1>
+          <h1 className={styles.title}>
+            <Link
+              className={styles.cust_name}
+              to={`/customer/details/${customer.customer_id}`}
+            >
+              {customer.customer_name}
+            </Link>
+          </h1>
           <p>
             <i class='fas fa-envelope'></i> {customer.customer_email_id}
           </p>

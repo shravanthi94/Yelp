@@ -10,13 +10,13 @@ import {
 import styles from './form.module.css';
 
 const Orders = ({
-  order: { allOrders },
+  order: { allOrders, loading },
   getAllRestaurantOrders,
   updateOrderStatus,
   cancelOrder,
 }) => {
   const [orderData, setorderData] = useState({
-    status: 'RECIEVED',
+    status: '',
     id: '',
   });
 
@@ -39,7 +39,14 @@ const Orders = ({
       return (
         <Fragment>
           <tr>
-            <td>{order.customer_name}</td>
+            <td>
+              <Link
+                className={styles.display_name}
+                to={`/customer/details/${order.customer_id}`}
+              >
+                {order.customer_name}
+              </Link>
+            </td>
             <td>{order.order_date.substring(0, 10)}</td>
             <td>{order.delivery_option}</td>
             <td>{order.order_type}</td>

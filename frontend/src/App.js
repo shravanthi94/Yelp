@@ -15,6 +15,8 @@ import Profile from './components/Profile/Profile';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import updateAbout from './components/profile-forms/EditAbout';
 import updateContact from './components/profile-forms/EditContact';
+import DisplayCustomer from './components/Customer/Customer';
+
 import OrdersCus from './components/Customer/Orders';
 import OrdersCusRec from './components/Customer/OrdersRec';
 import OrdersCusPrep from './components/Customer/OrdersPrep';
@@ -104,6 +106,11 @@ const App = () => {
                 exact
                 path='/update/contact'
                 component={updateContact}
+              />
+              <PrivateRoute
+                exact
+                path='/customer/details/:customerId'
+                component={DisplayCustomer}
               />
 
               <PrivateRoute

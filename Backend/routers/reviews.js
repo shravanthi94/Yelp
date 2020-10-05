@@ -101,4 +101,31 @@ router.get('/restaurant', auth, (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// @route  GET yelp/my/review/:rest_id
+// @desc   Get review given by a customer to a restaurant(rest_id)
+// @access Private
+router.get('/my/review/:rest_id', auth, (req, res) => {
+  const custId = req.user.id;
+  const restId = req.params.rest_id;
+  try {
+    const getRestReviewsQuery = `SELECT * FROM reviews WHERE rest_id=${restId} AND cust_id=${custId}`;
+    dbPool.query(getRestReviewsQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(400).send('Database Error');
+      }
+      if (result.length === 0) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'You have not added any review' }] });
+      }
+      res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

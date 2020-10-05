@@ -124,3 +124,9 @@ input {
 .orders_data {
   margin-top: 3%;
 }
+
+.display_name {
+  font-weight: bolder;
+  color: #d32323;
+  text-decoration: underline;
+}
