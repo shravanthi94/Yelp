@@ -66,6 +66,7 @@ const Event = ({
   ) : (
     <Fragment>
       <div className={styles.container}>
+        <h1 className={styles.heading}>Official Yelp Events</h1>
         <div>
           <input
             className={styles.search_bar}
@@ -82,7 +83,6 @@ const Event = ({
             Search
           </Link>
         </div>
-        <h1 className={styles.heading}>Official Yelp Events</h1>
         <div className={styles.left}>{listAllEvents()}</div>
         <div className={styles.right}>
           <div className={styles.update_links}>

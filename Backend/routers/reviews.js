@@ -102,7 +102,7 @@ router.get('/restaurant', auth, (req, res) => {
   }
 });
 
-// @route  GET yelp/my/review/:rest_id
+// @route  GET yelp/reviews/my/review/:rest_id
 // @desc   Get review given by a customer to a restaurant(rest_id)
 // @access Private
 router.get('/my/review/:rest_id', auth, (req, res) => {

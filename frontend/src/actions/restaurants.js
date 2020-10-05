@@ -11,6 +11,8 @@ import {
   ADD_REVIEW_ERROR,
   GET_RES_MENU,
   GET_RES_MENU_ERROR,
+  GET_CUSTOMER_REVIEW,
+  CUSTOMER_REVIEW_ERROR,
 } from './types';
 
 export const getAllRestaurants = () => async (dispatch) => {
@@ -136,6 +138,28 @@ export const writeReview = (resId, formData, history) => async (dispatch) => {
 
     dispatch({
       type: ADD_REVIEW_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//  Get restaurant review given by  current customer
+export const getCustReviewByRestId = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/reviews/my/review/${id}`);
+    dispatch({
+      type: GET_CUSTOMER_REVIEW,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: CUSTOMER_REVIEW_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

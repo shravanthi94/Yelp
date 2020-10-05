@@ -14,7 +14,7 @@
   font-size: 40px;
   line-height: 1.28571em;
   color: #d32323;
-  margin-top: 80px;
+  margin-top: 35px;
   margin-bottom: 20px;
 }
 
@@ -26,7 +26,6 @@
   font-size: 70px;
   line-height: 1.28571em;
   color: #d32323;
-  margin-top: 50px;
   margin-bottom: 20px;
 }
 
@@ -47,4 +46,11 @@
   text-decoration: none;
   line-height: 1.3125em;
   margin: 45px 20px 10px 0;
+}
+
+.subtitle {
+  font-weight: bolder;
+  margin-bottom: 10px;
+  font-size: 20px;
+  line-height: 1.28571em;
 }

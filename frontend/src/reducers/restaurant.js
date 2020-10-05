@@ -9,11 +9,14 @@ import {
   ADD_REVIEW_ERROR,
   GET_RES_MENU,
   GET_RES_MENU_ERROR,
+  GET_CUSTOMER_REVIEW,
+  CUSTOMER_REVIEW_ERROR,
 } from '../actions/types';
 
 const initialState = {
   restaurant: '',
   menu: '',
+  review: '',
   restaurants: [],
   loading: true,
   error: {},
@@ -43,6 +46,12 @@ export default function (state = initialState, action) {
         menu: payload,
         loading: false,
       };
+    case GET_CUSTOMER_REVIEW:
+      return {
+        ...state,
+        review: payload,
+        loading: false,
+      };
     case PLACEORDER:
       return {
         ...state,
@@ -53,6 +62,7 @@ export default function (state = initialState, action) {
     case PLACEORDER_ERROR:
     case ADD_REVIEW_ERROR:
     case GET_RES_MENU_ERROR:
+    case CUSTOMER_REVIEW_ERROR:
       return {
         ...state,
         error: payload,

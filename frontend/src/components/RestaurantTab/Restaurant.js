@@ -4,19 +4,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './searchbar.module.css';
-import { getRestaurant, getMenuDetails } from '../../actions/restaurants';
+import {
+  getRestaurant,
+  getMenuDetails,
+  getCustReviewByRestId,
+} from '../../actions/restaurants';
 
 const Restaurant = ({
   match,
   getRestaurant,
   getMenuDetails,
-  restaurant: { restaurant, menu, loading },
+  getCustReviewByRestId,
+  restaurant: { restaurant, menu, review, loading },
 }) => {
   const resId = match.params.res_id;
 
   useEffect(() => {
     getRestaurant(resId);
     getMenuDetails(resId);
+    getCustReviewByRestId(resId);
   }, []);
 
   const {
@@ -47,6 +53,22 @@ const Restaurant = ({
         </Fragment>
       );
     });
+  };
+
+  const displayReview = () => {
+    return (
+      <Fragment>
+        <div className='box'>
+          <p className={styles.subtitle}>Rating</p>
+          <p className={styles.headers}>{review[0].rating}</p>
+        </div>
+        <div className='box'>
+          <p className={styles.subtitle}>Review</p>
+          <p className={styles.headers}>{review[0].comment}</p>
+          <small>Review on {review[0].date.substring(0, 10)}</small>
+        </div>
+      </Fragment>
+    );
   };
 
   return loading || !restaurant ? (
@@ -86,6 +108,10 @@ const Restaurant = ({
             <hr />
             <p className={styles.headers}>{description}</p>
             <hr />
+            <h1 className={styles.form_title}>Your Review</h1>
+            <hr />
+            {review ? displayReview() : ''}
+            <hr />
             <h1 className={styles.form_title}>Menu</h1>
             <hr />
             {menu ? (
@@ -115,6 +141,7 @@ const Restaurant = ({
 
 Restaurant.propTypes = {
   getRestaurant: PropTypes.func.isRequired,
+  getCustReviewByRestId: PropTypes.func.isRequired,
   getMenuDetails: PropTypes.func.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
@@ -123,6 +150,8 @@ const mapStateToProps = (state) => ({
   restaurant: state.restaurant,
 });
 
-export default connect(mapStateToProps, { getRestaurant, getMenuDetails })(
-  Restaurant,
-);
+export default connect(mapStateToProps, {
+  getRestaurant,
+  getMenuDetails,
+  getCustReviewByRestId,
+})(Restaurant);

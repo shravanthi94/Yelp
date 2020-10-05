@@ -135,6 +135,7 @@ export const registerEvent = (eventId, history) => async (dispatch) => {
     }
     dispatch({
       type: EVENT_REGISTER_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
