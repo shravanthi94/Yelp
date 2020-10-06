@@ -46,6 +46,15 @@ const Dashboard = ({
     });
   };
 
+  let imgSrc;
+  if (profile) {
+    if (!profile.restaurant_image) {
+      imgSrc = `http://localhost:3001/images/restaurant/none`;
+    } else {
+      imgSrc = `http://localhost:3001/images/restaurant/${profile.restaurant_image}`;
+    }
+  }
+
   return loading && profile === null ? (
     spinner
   ) : (
@@ -53,7 +62,7 @@ const Dashboard = ({
       <div className={styles.container}>
         <div className={styles.left}>
           {/* <h3>{profile.restaurant_name}</h3> */}
-          <img src={profile.restaurant_image} alt='Profile_pic' />
+          <img src={imgSrc} alt='Profile_pic' />
           <h3 className={styles.title}>{profile.restaurant_name}</h3>
           <h3 className={styles.subheading}>Contact information</h3>
           <h4 className={styles.title}>Email</h4>

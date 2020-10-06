@@ -22,7 +22,7 @@ const Orders = ({
 
   useEffect(() => {
     getAllRestaurantOrders();
-  });
+  }, []);
 
   const handleStatusChange = (e) => {
     e.preventDefault();

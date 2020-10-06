@@ -76,7 +76,7 @@ const resstorage = multer.diskStorage({
 
 const resuploads = multer({
   storage: resstorage,
-  limits: { fileSize: 1000000 },
+  limits: { fileSize: 100000000 },
 }).single('image');
 
 router.post('/restaurant', auth, (req, res) => {
@@ -100,6 +100,22 @@ router.post('/restaurant', auth, (req, res) => {
       console.log('Error!');
     }
   });
+});
+
+router.get('/restaurant/:restaurant_image', (req, res) => {
+  const image = `${path.join(__dirname, '..')}/public/uploads/restaurants/${
+    req.params.restaurant_image
+  }`;
+  if (fs.existsSync(image)) {
+    res.sendFile(image);
+  } else {
+    res.sendFile(
+      `${path.join(
+        __dirname,
+        '..',
+      )}/public/uploads/restaurants/placeholderimg.jpg`,
+    );
+  }
 });
 
 module.exports = router;

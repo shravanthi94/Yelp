@@ -7,7 +7,6 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const dbPool = require('../../config/db');
@@ -53,16 +52,9 @@ router.post(
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        //  3. Add gravatar to restaurant
-        const avatar = gravatar.url(email, {
-          s: '200',
-          r: 'pg',
-          d: 'mm',
-        });
-
         //  4. save to restaurant database
         const insertDataQuery = `INSERT into restaurant (restaurant_name, restaurant_email_id, restaurant_password, restaurant_location, restaurant_image )
-              VALUES ('${name}', '${email}', '${hashedPassword}', '${location}', '${avatar}')`;
+              VALUES ('${name}', '${email}', '${hashedPassword}', '${location}', 'none')`;
 
         dbPool.query(insertDataQuery, (error, result) => {
           if (error) {

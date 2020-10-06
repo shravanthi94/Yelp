@@ -6,6 +6,7 @@ import styles from './form.module.css';
 import {
   updateRestaurantProfile,
   getCurrentDashboard,
+  uploadRestaurantImage,
 } from '../../actions/dashboard';
 
 const UpdateProfile = ({
@@ -13,6 +14,7 @@ const UpdateProfile = ({
   updateRestaurantProfile,
   history,
   getCurrentDashboard,
+  uploadRestaurantImage,
 }) => {
   const [formData, setformData] = useState({
     name: '',
@@ -23,6 +25,11 @@ const UpdateProfile = ({
     timings: '',
     delivery: '',
     cuisine: '',
+  });
+
+  const [image, setimage] = useState({
+    file: '',
+    fileText: 'Choose image...',
   });
 
   useEffect(() => {
@@ -50,7 +57,26 @@ const UpdateProfile = ({
         loading || !profile.delivery_method ? '' : profile.delivery_method,
       cuisine: loading || !profile.cuisine ? '' : profile.cuisine,
     });
+
+    setimage({
+      file: loading || !profile.customer_image ? '' : profile.customer_image,
+      fileText: 'Choose new image...',
+    });
   }, [loading]);
+
+  const onImageChange = (e) => {
+    setimage({
+      file: e.target.files[0],
+      fileText: e.target.files[0].name,
+    });
+  };
+
+  const onUpload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image.file);
+    uploadRestaurantImage(formData);
+  };
 
   const {
     name,
@@ -80,6 +106,24 @@ const UpdateProfile = ({
           <i className='fas fa-user'></i> Let's get some information to make
           your profile stand out
         </p>
+        <form onSubmit={(e) => onUpload(e)}>
+          <br />
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Profile picture</label>
+            <br /> <br />
+            <input
+              type='file'
+              class='custom-file-input'
+              name='image'
+              accept='image/*'
+              onChange={(e) => onImageChange(e)}
+            />
+            <label htmlFor='image'>{image.fileText}</label>
+          </div>
+          <button type='submit' className={styles.btn}>
+            Upload
+          </button>
+        </form>
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
           <div className={styles.form_group}>
             <label className={styles.form_label}>Restaurant Name</label>
@@ -201,6 +245,7 @@ const UpdateProfile = ({
 UpdateProfile.propTypes = {
   updateRestaurantProfile: PropTypes.func.isRequired,
   getCurrentDashboard: PropTypes.func.isRequired,
+  uploadRestaurantImage: PropTypes.func.isRequired,
   dashboard: PropTypes.object.isRequired,
 };
 
@@ -211,4 +256,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   updateRestaurantProfile,
   getCurrentDashboard,
+  uploadRestaurantImage,
 })(withRouter(UpdateProfile));

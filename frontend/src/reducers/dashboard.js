@@ -7,6 +7,7 @@ import {
   GET_MENU_ERROR,
   GET_REVIEWS,
   GET_REVIEWS_ERROR,
+  RES_IMAGE_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -50,6 +51,7 @@ export default function (state = initialState, action) {
     case ADD_DISH_ERROR:
     case GET_MENU_ERROR:
     case GET_REVIEWS_ERROR:
+    case RES_IMAGE_ERROR:
       return {
         ...state,
         error: payload,

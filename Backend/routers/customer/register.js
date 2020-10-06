@@ -5,7 +5,6 @@ const express = require('express');
 
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
@@ -52,13 +51,6 @@ router.post(
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        //  3. Add gravatar to customer
-        const avatar = gravatar.url(email, {
-          s: '200',
-          r: 'pg',
-          d: 'mm',
-        });
-
         //  4. save to database
         const monthNames = [
           'January',
@@ -78,8 +70,9 @@ router.post(
         const year = date.getFullYear();
         const month = monthNames[date.getMonth()];
         const yelpingSince = `${month}, ${year}`;
+
         const insertDataQuery = `INSERT into customer (customer_name, customer_email_id, customer_password, customer_image, yelping_since )
-            VALUES ('${name}', '${email}', '${hashedPassword}', '${avatar}', '${yelpingSince}')`;
+            VALUES ('${name}', '${email}', '${hashedPassword}', 'none', '${yelpingSince}')`;
 
         dbPool.query(insertDataQuery, (error, result) => {
           if (error) {
