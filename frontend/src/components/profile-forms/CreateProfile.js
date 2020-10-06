@@ -3,13 +3,18 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './form.module.css';
-import { createBasicsProfile, getCurrentProfile } from '../../actions/profile';
+import {
+  createBasicsProfile,
+  getCurrentProfile,
+  uploadCustomerImage,
+} from '../../actions/profile';
 
 const CreateProfile = ({
   profile: { profile, loading },
   createBasicsProfile,
   history,
   getCurrentProfile,
+  uploadCustomerImage,
 }) => {
   const [formData, setformData] = useState({
     name: '',
@@ -19,6 +24,11 @@ const CreateProfile = ({
     country: '',
     nickName: '',
     headline: '',
+  });
+
+  const [image, setimage] = useState({
+    file: '',
+    fileText: 'Choose image...',
   });
 
   useEffect(() => {
@@ -34,7 +44,26 @@ const CreateProfile = ({
       nickName: loading || !profile.nick_name ? '' : profile.nick_name,
       headline: loading || !profile.headline ? '' : profile.headline,
     });
+
+    setimage({
+      file: loading || !profile.customer_image ? '' : profile.customer_image,
+      fileText: 'Choose new image...',
+    });
   }, [loading]);
+
+  const onImageChange = (e) => {
+    setimage({
+      file: e.target.files[0],
+      fileText: e.target.files[0].name,
+    });
+  };
+
+  const onUpload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image.file);
+    uploadCustomerImage(formData);
+  };
 
   const {
     name,
@@ -63,6 +92,25 @@ const CreateProfile = ({
           <i className='fas fa-user'></i> Let's get some information to make
           your profile stand out
         </p>
+        <form onSubmit={(e) => onUpload(e)}>
+          <br />
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Profile picture</label>
+            <br /> <br />
+            <input
+              type='file'
+              class='custom-file-input'
+              name='image'
+              accept='image/*'
+              onChange={(e) => onImageChange(e)}
+            />
+            <label htmlFor='image'>{image.fileText}</label>
+          </div>
+          <button type='submit' className={styles.btn}>
+            Upload
+          </button>
+        </form>
+        <hr />
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
           <div className={styles.form_group}>
             <label className={styles.form_label}>Full Name</label>
@@ -167,6 +215,7 @@ const CreateProfile = ({
 CreateProfile.propTypes = {
   createBasicsProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
+  uploadCustomerImage: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
@@ -177,4 +226,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   createBasicsProfile,
   getCurrentProfile,
+  uploadCustomerImage,
 })(withRouter(CreateProfile));

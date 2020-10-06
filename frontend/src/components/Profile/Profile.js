@@ -5,23 +5,24 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 import spinner from '../layout/Spinner';
 import styles from './Profile.module.css';
-// import ProfileActions from './ProfileActions';
 
-const Profile = ({
-  getCurrentProfile,
-  auth,
-  profile: { profile, loading },
-}) => {
+const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
   useEffect(() => {
     getCurrentProfile();
   }, []);
+
+  let imgSrc;
+  if (profile) {
+    imgSrc = `http://localhost:3001/images/customer/${profile.customer_image}`;
+  }
+
   return loading && profile === null ? (
     spinner
   ) : (
     <Fragment>
       <div className={styles.container}>
         <div className={styles.left}>
-          <img src={profile.customer_image} alt='Profile_pic' />
+          <img src={imgSrc} alt='Profile_pic' />
           <h3 className={styles.title}>{profile.customer_name}'s Profile</h3>
           <h3 className={styles.subheading}>Contact information</h3>
           <h4 className={styles.title}>Email</h4>

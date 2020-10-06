@@ -9,18 +9,18 @@ const auth = require('../middleware/auth');
 const dbPool = require('../config/db');
 
 const customerstorage = multer.diskStorage({
-  destination: `${path.join(__dirname, '..')}/public/uploads/users`,
+  destination: `${path.join(__dirname, '..')}/public/uploads/customers`,
   filename: (req, file, cb) => {
     cb(
       null,
-      `user${req.user.id}-${Date.now()}${path.extname(file.originalname)}`,
+      `customer${req.user.id}-${Date.now()}${path.extname(file.originalname)}`,
     );
   },
 });
 
 const customeruploads = multer({
   storage: customerstorage,
-  limits: { fileSize: 1000000 },
+  limits: { fileSize: 100000000 },
 }).single('image');
 
 router.post('/customer', auth, (req, res) => {
@@ -44,6 +44,22 @@ router.post('/customer', auth, (req, res) => {
       console.log('Error!');
     }
   });
+});
+
+router.get('/customer/:customer_image', (req, res) => {
+  const image = `${path.join(__dirname, '..')}/public/uploads/customers/${
+    req.params.customer_image
+  }`;
+  if (fs.existsSync(image)) {
+    res.sendFile(image);
+  } else {
+    res.sendFile(
+      `${path.join(
+        __dirname,
+        '..',
+      )}/public/uploads/customers/placeholderimg.jpg`,
+    );
+  }
 });
 
 const resstorage = multer.diskStorage({

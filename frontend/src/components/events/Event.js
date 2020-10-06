@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
@@ -122,4 +122,6 @@ const mapStateToProps = (state) => ({
   event: state.event,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { getAllEvents, registerEvent })(Event);
+export default connect(mapStateToProps, { getAllEvents, registerEvent })(
+  withRouter(Event),
+);
