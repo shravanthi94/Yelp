@@ -12,6 +12,7 @@ const resOrders = require('./routers/restaurant/orders');
 const cusOrders = require('./routers/customer/orders');
 const reviews = require('./routers/reviews');
 const search = require('./routers/restaurant/search');
+const images = require('./routers/images');
 
 /*  Routes for Customers */
 //  Customer - SIGNUP
@@ -41,6 +42,9 @@ app.use('/reviews', reviews);
 
 // Restaurant search bar
 app.use('/search', search);
+
+//  Upload Images
+app.use('/images', images);
 
 //  Connection to a port
 const PORT = process.env.PORT || 3001;
