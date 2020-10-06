@@ -49,6 +49,9 @@ const AttendeeList = ({
         <h1 className={styles.heading}>Attendee List</h1>
         <div className={styles.left}>{listCustomers()}</div>
       </div>
+      <Link to='/event/submitted' className={styles.btn}>
+        Go Back
+      </Link>
     </Fragment>
   );
 };

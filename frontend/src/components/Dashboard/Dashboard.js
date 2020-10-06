@@ -48,11 +48,7 @@ const Dashboard = ({
 
   let imgSrc;
   if (profile) {
-    if (!profile.restaurant_image) {
-      imgSrc = `http://localhost:3001/images/restaurant/none`;
-    } else {
-      imgSrc = `http://localhost:3001/images/restaurant/${profile.restaurant_image}`;
-    }
+    imgSrc = `http://localhost:3001/images/restaurant/${profile.restaurant_image}`;
   }
 
   return loading && profile === null ? (

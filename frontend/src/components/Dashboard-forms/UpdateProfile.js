@@ -109,7 +109,7 @@ const UpdateProfile = ({
         <form onSubmit={(e) => onUpload(e)}>
           <br />
           <div className={styles.form_group}>
-            <label className={styles.form_label}>Profile picture</label>
+            <label className={styles.form_label}>Display picture</label>
             <br /> <br />
             <input
               type='file'
@@ -124,6 +124,7 @@ const UpdateProfile = ({
             Upload
           </button>
         </form>
+        <hr />
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
           <div className={styles.form_group}>
             <label className={styles.form_label}>Restaurant Name</label>
@@ -167,15 +168,18 @@ const UpdateProfile = ({
             <label className={styles.form_label}>Description</label>
             <br />
             <small className={styles.form_text}>
-              We sell continental, Italian...
+              Tell us what you feel about our restaurant...
             </small>
-            <input
-              className={styles.my_text}
+            <textarea
+              className={styles.my_headline}
+              maxlength='1500'
+              size='30'
+              rows='6'
               type='text'
               name='description'
               value={description}
               onChange={(e) => onChange(e)}
-            />
+            ></textarea>
           </div>
           <div className={styles.form_group}>
             <label className={styles.form_label}>Timings</label>

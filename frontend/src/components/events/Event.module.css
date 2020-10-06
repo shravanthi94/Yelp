@@ -114,6 +114,23 @@
   color: white;
 }
 
+.btn {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  margin: 0.5rem;
+  transition: opacity 0.2s ease-in;
+  outline: none;
+  font-weight: bold;
+  background-color: #d32323;
+  color: white;
+  margin-left: 60px;
+  margin-bottom: 100px;
+}
+
 .update_links {
   margin-bottom: 10%;
   border-bottom: 1px solid rgb(187, 176, 176);

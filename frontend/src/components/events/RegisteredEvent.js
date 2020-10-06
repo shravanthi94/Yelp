@@ -40,6 +40,9 @@ const RegisteredEvent = ({
         <h1 className={styles.heading}>Your Registered Events</h1>
         <div className={styles.left}>{listRegisteredEvents()}</div>
       </div>
+      <Link to='/event' className={styles.btn}>
+        Back to Events
+      </Link>
     </Fragment>
   );
 };

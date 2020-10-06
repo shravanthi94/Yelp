@@ -17,13 +17,18 @@ const Customer = ({
     getCustomerDetails(id);
   }, []);
 
+  let imgSrc;
+  if (customer) {
+    imgSrc = `http://localhost:3001/images/customer/${customer.customer_image}`;
+  }
+
   return loading && customer === null ? (
     spinner
   ) : (
     <Fragment>
       <div className={styles.container}>
         <div className={styles.left}>
-          <img src={customer.customer_image} alt='Profile_pic' />
+          <img src={imgSrc} alt='Profile_pic' />
           <h3 className={styles.title}>{customer.customer_name}'s Profile</h3>
           <h3 className={styles.subheading}>Contact information</h3>
           <h4 className={styles.title}>Email</h4>

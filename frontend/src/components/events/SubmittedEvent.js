@@ -49,6 +49,9 @@ const SubmittedEvent = ({
         <h1 className={styles.heading}>Your Submitted Events</h1>
         <div className={styles.left}>{listSubmittedEvents()}</div>
       </div>
+      <Link to='/event' className={styles.btn}>
+        Back to Events
+      </Link>
     </Fragment>
   );
 };

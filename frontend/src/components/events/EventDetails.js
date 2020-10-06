@@ -36,13 +36,17 @@ const EventDetails = ({
         <br />
         <h1 className='title is-1'>{event.event_name}</h1>
         <hr />
-        <button
-          type='submit'
-          className={styles.event_register}
-          onClick={(e) => register(e, event.event_id)}
-        >
-          Register
-        </button>
+        {localStorage.usertype === 'customer' ? (
+          <button
+            type='submit'
+            className={styles.event_register}
+            onClick={(e) => register(e, event.event_id)}
+          >
+            Register
+          </button>
+        ) : (
+          ''
+        )}
         <br />
         <h3 className='title is-4'>Event Date</h3>
         <p>{event.event_date && event.event_date.substring(0, 10)}</p>
@@ -63,7 +67,7 @@ const EventDetails = ({
         <h3 className='title is-4'>#Hashtags</h3>
         <p>{event.event_hashtags}</p>
       </div>
-      <Link to='/event' className={styles.btn_update}>
+      <Link to='/event' className={styles.btn}>
         Back to Events
       </Link>
     </Fragment>

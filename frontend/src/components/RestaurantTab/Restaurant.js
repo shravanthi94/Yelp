@@ -92,18 +92,25 @@ const Restaurant = ({
               <i className='fas fa-clock'></i> {timings}
             </p>
             <br />
-            <Link
-              to={`/customer/restaurant/review/${restaurant_id}`}
-              className={styles.top_btn}
-            >
-              🌟 Write a Review
-            </Link>
-            <Link
-              to={`/customer/placeorder/${restaurant_id}`}
-              className={styles.top_btn}
-            >
-              Order Now
-            </Link>
+            {localStorage.usertype === 'customer' ? (
+              <Fragment>
+                {' '}
+                <Link
+                  to={`/customer/restaurant/review/${restaurant_id}`}
+                  className={styles.top_btn}
+                >
+                  🌟 Write a Review
+                </Link>
+                <Link
+                  to={`/customer/placeorder/${restaurant_id}`}
+                  className={styles.top_btn}
+                >
+                  Order Now
+                </Link>
+              </Fragment>
+            ) : (
+              ''
+            )}
             <h1 className={styles.form_title}>Description</h1>
             <hr />
             <p className={styles.headers}>{description}</p>

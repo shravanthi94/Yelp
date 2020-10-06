@@ -61,13 +61,16 @@ const CreateEvent = ({
             <small className={styles.form_text}>
               Tell us about your event...
             </small>
-            <input
-              className={styles.my_text}
+            <textarea
+              className={styles.my_headline}
+              maxlength='1500'
+              size='30'
+              rows='6'
               type='text'
               name='description'
               value={description}
               onChange={(e) => onChange(e)}
-            />
+            ></textarea>
           </div>
           <div className={styles.form_group}>
             <label className={styles.form_label}>Date</label>
