@@ -258,3 +258,11 @@ th {
 .select-css option {
   font-weight: normal;
 }
+
+.dish_img {
+  height: 300px;
+  width: 300px;
+  margin: 2%;
+  border: 2px solid black;
+  border-radius: 10px;
+}

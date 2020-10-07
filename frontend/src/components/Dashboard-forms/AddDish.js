@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './form.module.css';
-import { addDish } from '../../actions/dashboard';
+import { addDish, uploadDishImage } from '../../actions/dashboard';
 
 const AddDish = ({ addDish, history }) => {
   const [formData, setformData] = useState({
@@ -118,13 +118,9 @@ const AddDish = ({ addDish, history }) => {
 
 AddDish.propTypes = {
   addDish: PropTypes.func.isRequired,
-  dashboard: PropTypes.object.isRequired,
+  uploadDishImage: PropTypes.func.isRequired,
 };
-
-// const mapStateToProps = (state) => ({
-//   dashboard: state.dashboard,
-// });
 
 export default connect(null, {
   addDish,
-})(withRouter(AddDish));
+})(withRouter(AddDish, uploadDishImage));

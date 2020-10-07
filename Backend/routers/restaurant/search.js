@@ -11,7 +11,6 @@ const dbPool = require('../../config/db');
 // @access Public
 router.get('/restaurants/:data', (req, res) => {
   const searchData = req.params.data;
-  console.log(searchData);
   try {
     const query = `SELECT r.restaurant_id
     FROM restaurant r

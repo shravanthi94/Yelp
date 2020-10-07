@@ -196,8 +196,8 @@ router.post(
     const { name, ingredients, price, description, category } = req.body;
 
     try {
-      const addItemQuery = `INSERT into menu_items (item_name, item_ingredients, item_price, item_description, item_category, restaurant_id) 
-      VALUES ('${name}','${ingredients}',${price},'${description}','${category}', ${resId})`;
+      const addItemQuery = `INSERT into menu_items (item_name, item_ingredients, item_image, item_price, item_description, item_category, restaurant_id) 
+      VALUES ('${name}','${ingredients}', '1' ,${price},'${description}','${category}', ${resId})`;
 
       dbPool.query(addItemQuery, (error, result) => {
         if (error) {

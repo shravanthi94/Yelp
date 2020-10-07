@@ -38,6 +38,7 @@ import OrdersRes from './components/Restaurant/Orders';
 import NewOrders from './components/Restaurant/OrdersNew';
 import OrdersDelivered from './components/Restaurant/OrdersDelivered';
 import OrdersCancelled from './components/Restaurant/OrdersCancelled';
+import ViewImages from './components/Dashboard/Images';
 
 import Event from './components/events/Event';
 import EventDetails from './components/events/EventDetails';
@@ -119,6 +120,11 @@ const App = () => {
                 exact
                 path='/restaurant/profile'
                 component={Dashboard}
+              />
+              <PrivateRoute
+                exact
+                path='/restaurant/item/images'
+                component={ViewImages}
               />
               <PrivateRoute
                 exact

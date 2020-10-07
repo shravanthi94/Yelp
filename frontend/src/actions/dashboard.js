@@ -201,3 +201,29 @@ export const uploadRestaurantImage = (formData) => async (dispatch) => {
     });
   }
 };
+
+export const uploadDishImage = (formData, dishId) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    const res = await axios.post(`/images/dish/${dishId}`, formData, config);
+    console.log(res);
+
+    dispatch(setAlert('Item Image Uploaded', 'success'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: RES_IMAGE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};

@@ -4,13 +4,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './form.module.css';
 import spinner from '../layout/Spinner';
-import { updateDish, getCurrentDashboard } from '../../actions/dashboard';
+import {
+  updateDish,
+  getCurrentDashboard,
+  uploadDishImage,
+} from '../../actions/dashboard';
 
 const UpdateItem = ({
   dashboard: { menu, loading },
   updateDish,
   history,
   getCurrentDashboard,
+  uploadDishImage,
   location,
 }) => {
   const [formData, setformData] = useState({
@@ -19,6 +24,11 @@ const UpdateItem = ({
     price: '',
     description: '',
     category: '',
+  });
+
+  const [image, setimage] = useState({
+    file: '',
+    fileText: 'Choose image...',
   });
 
   // Get the state of the item to be updated
@@ -42,6 +52,20 @@ const UpdateItem = ({
 
   const { name, ingredients, price, description, category } = formData;
 
+  const onImageChange = (e) => {
+    setimage({
+      file: e.target.files[0],
+      fileText: e.target.files[0].name,
+    });
+  };
+
+  const onUpload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image.file);
+    uploadDishImage(formData, location.state.itemId);
+  };
+
   const onChange = (e) =>
     setformData({ ...formData, [e.target.name]: e.target.value });
 
@@ -57,6 +81,25 @@ const UpdateItem = ({
       <div className='container profile-title'>
         {' '}
         <h1 className={styles.form_title}>Update Dish</h1>
+        <form onSubmit={(e) => onUpload(e)}>
+          <br />
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Item pictures</label>
+            <br /> <br />
+            <input
+              type='file'
+              class='custom-file-input'
+              name='image'
+              accept='image/*'
+              onChange={(e) => onImageChange(e)}
+            />
+            <label htmlFor='image'>{image.fileText}</label>
+          </div>
+          <button type='submit' className={styles.btn}>
+            Upload
+          </button>
+        </form>
+        <hr />
         <p className='lead'>
           <i class='fas fa-utensils'></i> List your amazing dishes here...
         </p>
@@ -129,7 +172,7 @@ const UpdateItem = ({
               onChange={(e) => onChange(e)}
             />
           </div>
-          <input type='submit' value='Add Dish' className={styles.btn} />
+          <input type='submit' value='Update Dish' className={styles.btn} />
           <div className={styles.btn_grey}>
             <Link to='/restaurant/profile'>Cancel</Link>
           </div>
@@ -142,6 +185,7 @@ const UpdateItem = ({
 UpdateItem.propTypes = {
   updateDish: PropTypes.func.isRequired,
   getCurrentDashboard: PropTypes.func.isRequired,
+  uploadDishImage: PropTypes.func.isRequired,
   dashboard: PropTypes.object.isRequired,
 };
 
@@ -152,4 +196,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   updateDish,
   getCurrentDashboard,
+  uploadDishImage,
 })(withRouter(UpdateItem));

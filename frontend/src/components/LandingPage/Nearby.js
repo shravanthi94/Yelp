@@ -4,30 +4,28 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './Landing.module.css';
-import { getQueryResults } from '../../actions/search';
-import { getAllRestaurants } from '../../actions/restaurants';
-import Geocode from 'react-geocode';
 
 const Nearby = ({
   match,
-  getQueryResults,
   search: { restaurantlist, loading },
   restaurant: { restaurants },
 }) => {
   const data = match.params.filterData;
 
-  useEffect(() => {
-    getQueryResults(data);
-  }, []);
+  console.log('Filter data in nearby file', data);
 
   const displayRestaurants = () => {
     if (restaurantlist.length === 0) {
       return '';
     }
     const ids = restaurantlist.map((each) => each.restaurant_id);
-    console.log('ID:', ids);
+    console.log('Nearby filtered ids:', ids);
+
     return restaurants.map((res) => {
-      if (ids.includes(res.restaurant_id)) {
+      if (
+        ids.includes(res.restaurant_id) &&
+        res.restaurant_location.includes(data)
+      ) {
         return (
           <Fragment>
             <div className='box'>
@@ -85,7 +83,6 @@ const Nearby = ({
 };
 
 Nearby.propTypes = {
-  getQueryResults: PropTypes.func.isRequired,
   search: PropTypes.object.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
@@ -95,6 +92,4 @@ const mapStateToProps = (state) => ({
   restaurant: state.restaurant,
 });
 
-export default connect(mapStateToProps, {
-  getQueryResults,
-})(Nearby);
+export default connect(mapStateToProps)(Nearby);

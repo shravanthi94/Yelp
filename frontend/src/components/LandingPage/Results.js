@@ -30,7 +30,7 @@ const Results = ({
       return '';
     }
     const ids = restaurantlist.map((each) => each.restaurant_id);
-    console.log('ID:', ids);
+    // console.log('ID:', ids);
     return restaurants.map((res) => {
       if (ids.includes(res.restaurant_id)) {
         return (

@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 import { getCurrentDashboard, getMenu } from '../../actions/dashboard';
 import spinner from '../layout/Spinner';
 import styles from './Dashboard.module.css';
-// import menus from './menu.module.css';
 
 const Dashboard = ({
   getCurrentDashboard,
   getMenu,
-  auth,
   dashboard: { profile, menu, loading },
 }) => {
   useEffect(() => {
@@ -24,22 +22,38 @@ const Dashboard = ({
         <Fragment>
           <tr>
             <td>
-              <div>
+              <div className={styles.bold}>
                 {item.item_name} <br />
                 {item.item_description} <br />
+                <br />
                 <Link
+                  className={styles.update_btn}
                   to={{
                     pathname: '/restaurant/item/update',
                     state: { itemId: item.item_id },
                   }}
                 >
-                  Update item
+                  Update item/Add Images
                 </Link>
+                <br />
+                {item.item_image === '1' || !item.item_image ? (
+                  ''
+                ) : (
+                  <Link
+                    className={styles.update_btn}
+                    to={{
+                      pathname: '/restaurant/item/images',
+                      state: { images: item.item_image },
+                    }}
+                  >
+                    View images
+                  </Link>
+                )}
               </div>
             </td>
-            <td>{item.item_ingredients}</td>
-            <td>{item.item_category}</td>
-            <td>$ {item.item_price}</td>
+            <td className={styles.bold}>{item.item_ingredients}</td>
+            <td className={styles.bold}>{item.item_category}</td>
+            <td className={styles.bold}>${item.item_price}</td>
           </tr>
         </Fragment>
       );
@@ -125,14 +139,13 @@ const Dashboard = ({
 Dashboard.propTypes = {
   getCurrentDashboard: PropTypes.func.isRequired,
   getMenu: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
   dashboard: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  auth: state.auth,
   dashboard: state.dashboard,
 });
 
-export default connect(mapStateToProps, { getCurrentDashboard, getMenu })(
-  Dashboard,
-);
+export default connect(mapStateToProps, {
+  getCurrentDashboard,
+  getMenu,
+})(Dashboard);
