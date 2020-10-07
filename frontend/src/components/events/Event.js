@@ -69,7 +69,7 @@ const Event = ({
         <h1 className={styles.heading}>Official Yelp Events</h1>
         <div>
           <input
-            className={styles.search_bar}
+            className='field request search_bar'
             type='text'
             placeholder='Search by Event Name'
             name='eventSearch'

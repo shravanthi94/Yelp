@@ -11,13 +11,14 @@ const dbPool = require('../../config/db');
 // @access Public
 router.get('/restaurants/:data', (req, res) => {
   const searchData = req.params.data;
+  console.log(searchData);
   try {
     const query = `SELECT r.restaurant_id
     FROM restaurant r
     LEFT OUTER JOIN menu_items m
     ON r.restaurant_id = m.restaurant_id
     WHERE (m.item_name LIKE '%${searchData}%' OR r.cuisine LIKE '%${searchData}%' OR 
-    r.delivery_method LIKE '${searchData}' OR r.restaurant_location LIKE '${searchData}' )`;
+    r.delivery_method LIKE '${searchData}' OR r.restaurant_location LIKE '%${searchData}%' )`;
 
     dbPool.query(query, (error, result) => {
       if (error) {

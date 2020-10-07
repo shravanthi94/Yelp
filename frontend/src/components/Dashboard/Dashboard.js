@@ -61,9 +61,13 @@ const Dashboard = ({
           <img src={imgSrc} alt='Profile_pic' />
           <h3 className={styles.title}>{profile.restaurant_name}</h3>
           <h3 className={styles.subheading}>Contact information</h3>
-          <h4 className={styles.title}>Email</h4>
+          <h4 className={styles.title}>
+            <i class='far fa-envelope-open'></i> Email
+          </h4>
           <p>{profile.restaurant_email_id}</p>
-          <h4 className={styles.title}>Phone</h4>
+          <h4 className={styles.title}>
+            <i class='fas fa-phone'></i> Phone
+          </h4>
           <p>{profile.restaurant_phone}</p>
         </div>
         <div className={styles.middle}>
@@ -78,6 +82,15 @@ const Dashboard = ({
             </h3>
           </div>
           <hr />
+          <h2 className={styles.activity}>Description</h2>
+          {!profile.description ? (
+            <p>Tell us about your restaurant...</p>
+          ) : (
+            <Fragment>
+              <h3 className={styles.description}>{profile.description}</h3>
+            </Fragment>
+          )}
+          <hr />
           <h2 className={styles.activity}>Your Menu</h2>
           <table>
             <tr>
@@ -90,32 +103,19 @@ const Dashboard = ({
           </table>
         </div>
         <div className={styles.right}>
+          <h3 className={styles.right_heading}>Updates</h3>
           <div className={styles.update_links}>
-            <Link to='/restaurant/update/basic' className={styles.btn_update}>
+            <Link to='/restaurant/update/basic' className={styles.btn}>
               <i class='fas fa-address-card'></i> Update Profile
             </Link>
-            <Link to='/restaurant/add/dish' className={styles.btn_update}>
+            <Link to='/restaurant/add/dish' className={styles.btn}>
               <i class='fas fa-utensils'></i> Add Dishes
             </Link>
-            <Link to='/restaurant/view/reviews' className={styles.btn_update}>
+            <h3 className={styles.right_heading}>Reviews</h3>
+            <Link to='/restaurant/view/reviews' className={styles.btn}>
               <i class='fas fa-user-friends'></i> View Reviews
             </Link>
           </div>
-          {/* <div>
-            <h3 className={styles.subheading}>About {profile.customer_name}</h3>
-            <h4 className={styles.title}>Location</h4>
-            <p>
-              {profile.city}, {profile.state}, {profile.country}
-            </p>
-            <h4 className={styles.title}>Yelping Since</h4>
-            <p>{profile.yelping_since}</p>
-            <h4 className={styles.title}>Things I Love</h4>
-            {!profile.things_i_love ? (
-              <p>You haven't added anything yet</p>
-            ) : (
-              <p>{profile.things_i_love}</p>
-            )}
-          </div> */}
         </div>
       </div>
     </Fragment>

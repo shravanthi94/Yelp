@@ -39,7 +39,25 @@ const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
             </h3>
           </div>
           <hr />
-          <h2 className={styles.activity}>Recent Activity</h2>
+          <h2 className={styles.activity}>Headline</h2>
+          {!profile.headline ? (
+            <p>Add your headline...</p>
+          ) : (
+            <Fragment>
+              <h4 className={styles.headline}>{profile.headline}</h4>
+            </Fragment>
+          )}
+
+          {!profile.date_of_birth ? (
+            ''
+          ) : (
+            <Fragment>
+              <h2 className={styles.activity}>Don't forget to wish me on</h2>
+              <h4 className={styles.title}>
+                <i class='fas fa-birthday-cake'></i> {profile.date_of_birth}
+              </h4>
+            </Fragment>
+          )}
         </div>
         <div className={styles.right}>
           <div className={styles.update_links}>
@@ -57,15 +75,52 @@ const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
             <h3 className={styles.subheading}>About {profile.customer_name}</h3>
             <h4 className={styles.title}>Location</h4>
             <p>
-              {profile.city}, {profile.state}, {profile.country}
+              <i class='fas fa-home'></i> {profile.city}, {profile.state},{' '}
+              {profile.country}
             </p>
             <h4 className={styles.title}>Yelping Since</h4>
-            <p>{profile.yelping_since}</p>
+            <p>
+              <i class='fas fa-calendar-day'></i> {profile.yelping_since}
+            </p>
             <h4 className={styles.title}>Things I Love</h4>
             {!profile.things_i_love ? (
-              <p>You haven't added anything yet</p>
+              <p>You haven't told us yet ... do tell!</p>
             ) : (
-              <p>{profile.things_i_love}</p>
+              <p>
+                <i class='fas fa-heart'></i> {profile.things_i_love}
+              </p>
+            )}
+
+            {!profile.find_me_in ? (
+              ''
+            ) : (
+              <Fragment>
+                <h4 className={styles.title}>Find me in</h4>
+                <p>
+                  <i class='fas fa-plane-departure'></i> {profile.hometown}
+                </p>
+              </Fragment>
+            )}
+            {!profile.my_blog ? (
+              ''
+            ) : (
+              <Fragment>
+                <h4 className={styles.title}>My Blog</h4>
+                <p>
+                  <i class='fas fa-blog'></i> {profile.my_blog}
+                </p>
+              </Fragment>
+            )}
+            {!profile.when_not_yelping ? (
+              ''
+            ) : (
+              <Fragment>
+                <h4 className={styles.title}>When not yelping</h4>
+                <p>
+                  <i class='fas fa-hourglass-half'></i>{' '}
+                  {profile.when_not_yelping}
+                </p>
+              </Fragment>
             )}
           </div>
         </div>

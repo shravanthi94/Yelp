@@ -25,7 +25,7 @@ const Landing = ({ clearResults }) => {
       </div>
       <input
         type='text'
-        placeholder="tacos, cheap dinner, Max's"
+        placeholder="biryani, San Jose, Max's"
         className='field request'
         name='query'
         value={query}

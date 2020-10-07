@@ -22,7 +22,7 @@ const Restaurant = ({
   useEffect(() => {
     getRestaurant(resId);
     getMenuDetails(resId);
-    getCustReviewByRestId(resId);
+    localStorage.usertype === 'customer' && getCustReviewByRestId(resId);
   }, []);
 
   const {
@@ -117,14 +117,29 @@ const Restaurant = ({
             ) : (
               ''
             )}
+            <hr />
+            <div>
+              <h1 className={styles.form_title}>Maps location</h1>
+              <img
+                src={`https://maps.googleapis.com/maps/api/staticmap?center=${restaurant.restaurant_location}&zoom=13&size=300x300&maptype=roadmap&markers=${restaurant.restaurant_location}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
+                alt='maps api'
+              />
+            </div>
             <h1 className={styles.form_title}>Description</h1>
             <hr />
             <p className={styles.headers}>{description}</p>
             <hr />
-            <h1 className={styles.form_title}>Your Review</h1>
-            <hr />
-            {review ? displayReview() : ''}
-            <hr />
+            {localStorage.usertype === 'customer' ? (
+              <Fragment>
+                {' '}
+                <h1 className={styles.form_title}>Your Review</h1>
+                <hr />
+                {review ? displayReview() : ''}
+                <hr />
+              </Fragment>
+            ) : (
+              ''
+            )}
             <h1 className={styles.form_title}>Menu</h1>
             <hr />
             {menu ? (

@@ -1,6 +1,6 @@
 /* Utilities */
 .container {
-  max-width: 1100px;
+  max-width: 1800px;
   margin: 5% 0;
   overflow: hidden;
   padding: 0 2rem;
@@ -89,7 +89,36 @@
   color: red;
 }
 
+.btn {
+  display: inline-block;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #d32323;
+  padding: 8px 20px;
+  text-decoration: none;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  margin-left: 30px;
+  font-weight: bold;
+}
+
 .update_links {
   margin-bottom: 10%;
-  border-bottom: 1px solid rgb(187, 176, 176);
+}
+
+.description {
+  font-weight: bolder;
+  font-size: larger;
+  color: black;
+  margin-bottom: 50px;
+}
+
+.right_heading {
+  font-weight: bold;
+  font-size: 22px;
+  border-bottom: 1px solid grey;
+  margin-bottom: 15px;
+  color: black;
 }

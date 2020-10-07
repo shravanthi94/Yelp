@@ -45,14 +45,10 @@ const UpdateProfile = ({
         loading || !profile.restaurant_location
           ? ''
           : profile.restaurant_location,
-      description:
-        loading || !profile.restaurant_description
-          ? ''
-          : profile.restaurant_description,
+      description: loading || !profile.description ? '' : profile.description,
       phone:
         loading || !profile.restaurant_phone ? '' : profile.restaurant_phone,
-      timings:
-        loading || !profile.restaurant_timing ? '' : profile.restaurant_timing,
+      timings: loading || !profile.timings ? '' : profile.timings,
       delivery:
         loading || !profile.delivery_method ? '' : profile.delivery_method,
       cuisine: loading || !profile.cuisine ? '' : profile.cuisine,

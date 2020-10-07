@@ -43,6 +43,9 @@ const ViewReview = ({
           </tr>
           {displayReviews()}
         </table>
+        <Link className={styles.btn} to='/restaurant/profile'>
+          Back
+        </Link>
       </div>
     </Fragment>
   );

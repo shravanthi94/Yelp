@@ -165,6 +165,18 @@ th {
   margin-left: 120px;
 }
 
+.field.request.search_bar {
+  position: relative;
+  display: inline-block;
+  width: 760px;
+  box-sizing: border-box;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 4px;
+  margin-left: 120px;
+}
+
 .field-title {
   position: absolute;
   top: -30.5px;

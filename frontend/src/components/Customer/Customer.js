@@ -45,7 +45,25 @@ const Customer = ({
             </h3>
           </div>
           <hr />
-          <h2 className={styles.activity}>Recent Activity</h2>
+          <h2 className={styles.activity}>Headline</h2>
+          {!customer.headline ? (
+            ''
+          ) : (
+            <Fragment>
+              <h4 className={styles.headline}>{customer.headline}</h4>
+            </Fragment>
+          )}
+
+          {!customer.date_of_birth ? (
+            ''
+          ) : (
+            <Fragment>
+              <h2 className={styles.activity}>Don't forget to wish me on</h2>
+              <h4 className={styles.title}>
+                <i class='fas fa-birthday-cake'></i> {customer.date_of_birth}
+              </h4>
+            </Fragment>
+          )}
         </div>
         <div className={styles.right}>
           <div>
@@ -54,15 +72,52 @@ const Customer = ({
             </h3>
             <h4 className={styles.title}>Location</h4>
             <p>
-              {customer.city}, {customer.state}, {customer.country}
+              <i class='fas fa-home'></i> {customer.city}, {customer.state},{' '}
+              {customer.country}
             </p>
             <h4 className={styles.title}>Yelping Since</h4>
-            <p>{customer.yelping_since}</p>
+            <p>
+              <i class='fas fa-calendar-day'></i> {customer.yelping_since}
+            </p>
             <h4 className={styles.title}>Things I Love</h4>
             {!customer.things_i_love ? (
-              <p>You haven't added anything yet</p>
+              <p>You haven't told us yet ... do tell!</p>
             ) : (
-              <p>{customer.things_i_love}</p>
+              <p>
+                <i class='fas fa-heart'></i> {customer.things_i_love}
+              </p>
+            )}
+
+            {!customer.find_me_in ? (
+              ''
+            ) : (
+              <Fragment>
+                <h4 className={styles.title}>Find me in</h4>
+                <p>
+                  <i class='fas fa-plane-departure'></i> {customer.hometown}
+                </p>
+              </Fragment>
+            )}
+            {!customer.my_blog ? (
+              ''
+            ) : (
+              <Fragment>
+                <h4 className={styles.title}>My Blog</h4>
+                <p>
+                  <i class='fas fa-blog'></i> {customer.my_blog}
+                </p>
+              </Fragment>
+            )}
+            {!customer.when_not_yelping ? (
+              ''
+            ) : (
+              <Fragment>
+                <h4 className={styles.title}>When not yelping</h4>
+                <p>
+                  <i class='fas fa-hourglass-half'></i>{' '}
+                  {customer.when_not_yelping}
+                </p>
+              </Fragment>
             )}
           </div>
         </div>

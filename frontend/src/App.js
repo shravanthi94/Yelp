@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import Landing from './components/LandingPage/Landing';
 import SearchRestaurants from './components/LandingPage/Results';
 import SearchFilters from './components/LandingPage/Filters';
+import Nearby from './components/LandingPage/Nearby';
 
 import Login from './components/Customer/Login';
 import Signup from './components/Customer/Signup';
@@ -84,6 +85,7 @@ const App = () => {
             path='/search/results/:filterData'
             component={SearchFilters}
           />
+          <Route exact path='/search/nearby/:filterData' component={Nearby} />
           <section className='container'>
             <Alert />
             <Switch>

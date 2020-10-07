@@ -91,14 +91,21 @@ const AddDish = ({ addDish, history }) => {
             <small className={styles.form_text}>
               Appetizer, Salads, Main Course , Desserts, Beverages
             </small>
-            <input
-              className={styles.my_text}
-              type='text'
-              name='category'
-              value={category}
-              onChange={(e) => onChange(e)}
-            />
+            <small className={styles.form_text}>This field is required.</small>
           </div>
+          <select
+            className='select-css'
+            name='category'
+            onChange={(e) => onChange(e)}
+            required
+          >
+            <option>Select option</option>
+            <option value='Appetizer'>Appetizer</option>
+            <option value='Salads'>Salads</option>
+            <option value='Main Course'>Main Course</option>
+            <option value='Desserts'>Desserts</option>
+            <option value='Beverages'>Beverages</option>
+          </select>
           <input type='submit' value='Add Dish' className={styles.btn} />
           <div className={styles.btn_grey}>
             <Link to='/restaurant/profile'>Cancel</Link>

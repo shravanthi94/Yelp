@@ -8,21 +8,16 @@ import { getQueryResults } from '../../actions/search';
 import { getAllRestaurants } from '../../actions/restaurants';
 import Geocode from 'react-geocode';
 
-const Results = ({
+const Nearby = ({
   match,
   getQueryResults,
-  getAllRestaurants,
   search: { restaurantlist, loading },
   restaurant: { restaurants },
 }) => {
-  const [filterData, setfilterData] = useState('');
-
-  const searchData = match.params.query;
-  //   console.log('searchData: ', searchData);
+  const data = match.params.filterData;
 
   useEffect(() => {
-    getAllRestaurants();
-    getQueryResults(searchData);
+    getQueryResults(data);
   }, []);
 
   const displayRestaurants = () => {
@@ -72,79 +67,12 @@ const Results = ({
     });
   };
 
-  const displayFilters = () => {
-    return (
-      <Fragment>
-        <select
-          className='select-css'
-          name='status'
-          onChange={(e) => setfilterData(e.target.value)}
-        >
-          <option>Select delivery option</option>
-          <option value='DINEIN'>Dine In</option>
-          <option value='DELIVERY'>Yelp Delivery</option>
-          <option value='CURBSIDE'>Curbside Pickup</option>
-        </select>
-        <br />
-        <Link
-          className={styles.submit_btn}
-          to={{
-            pathname: `/search/results/${filterData}`,
-            state: { query: searchData },
-          }}
-        >
-          Apply
-        </Link>
-        <br />
-        <div className={styles.near}>
-          <button className={styles.btn} onClick={() => getLocation()}>
-            Neighborhoods
-          </button>
-          <br />
-          <Link
-            className={styles.submit_btn}
-            to={`/search/nearby/${filterData}`}
-          >
-            Submit
-          </Link>
-        </div>
-      </Fragment>
-    );
-  };
-
-  let lat, lon;
-
-  const getLocation = () => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      lat = position.coords.latitude.toString();
-      lon = position.coords.longitude.toString();
-      console.log('Latitude is :', lat);
-      console.log('Longitude is :', lon);
-
-      Geocode.setApiKey('AIzaSyDm3j_pnpxldUWSZYWsXolf4PDktU5NiHs');
-      Geocode.setLanguage('en');
-      Geocode.setRegion('es');
-      // Get address from latitude & longitude.
-      Geocode.fromLatLng(lat, lon).then(
-        (response) => {
-          const address = response.results[0].address_components[4].long_name;
-          console.log('Geocode: ', address);
-          setfilterData(address);
-        },
-        (error) => {
-          console.error(error);
-        },
-      );
-    });
-  };
-
   return loading ? (
     spinner
   ) : (
     <Fragment>
       <div className='container'>
-        <h1 className={styles.form_title}>Search Results</h1>
-        {displayFilters()}
+        <h1 className={styles.form_title}>Search Nearby</h1>
         {displayRestaurants()}
         <hr />
         <br />
@@ -156,9 +84,8 @@ const Results = ({
   );
 };
 
-Results.propTypes = {
+Nearby.propTypes = {
   getQueryResults: PropTypes.func.isRequired,
-  getAllRestaurants: PropTypes.func.isRequired,
   search: PropTypes.object.isRequired,
   restaurant: PropTypes.object.isRequired,
 };
@@ -170,5 +97,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getQueryResults,
-  getAllRestaurants,
-})(Results);
+})(Nearby);
