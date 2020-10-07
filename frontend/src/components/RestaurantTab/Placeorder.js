@@ -13,11 +13,7 @@ const Placeorder = ({ match, setAlert, placeorder, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (deliveryOpt == 'DELIVERY' || deliveryOpt == 'PICKUP') {
-      placeorder(resId, deliveryOpt, history);
-    } else {
-      setAlert('Delivery options are either DELIVERY / PICKUP only', 'danger');
-    }
+    placeorder(resId, deliveryOpt, history);
   };
 
   return (
@@ -26,20 +22,15 @@ const Placeorder = ({ match, setAlert, placeorder, history }) => {
         {' '}
         <h1 className={styles.form_title}>Place An Order</h1>
         <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
-          <div className={styles.form_group}>
-            <label className={styles.form_label}>Delivery Option</label>
-            <br />
-            <small className={styles.form_text}>This field is required.</small>
-            <input
-              className={styles.my_text}
-              type='text'
-              placeholder='DELIVERY/PICKUP'
-              name='deliveryOpt'
-              value={deliveryOpt}
-              onChange={(e) => setdeliveryOpt(e.target.value)}
-              required
-            />
-          </div>
+          <select
+            className='select-css'
+            name='deliveryOpt'
+            onChange={(e) => setdeliveryOpt(e.target.value)}
+          >
+            <option>Select option</option>
+            <option value='DELIVERY'>Delivery</option>
+            <option value='PICKUP'>Pick up</option>
+          </select>
           <input type='submit' value='Place Order' className={styles.btn} />
           <div className={styles.btn_grey}>
             <Link to={`/restaurant/details/${resId}`}>Cancel</Link>

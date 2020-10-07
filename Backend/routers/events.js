@@ -126,6 +126,11 @@ router.post('/register/:event_id', auth, (req, res) => {
       dbPool.query(registerQuery, (error, result) => {
         if (error) {
           console.log(error);
+          if (error.errno === 1062) {
+            return res.status(400).json({
+              errors: [{ msg: 'You have already registered' }],
+            });
+          }
           return res.status(500).send('Database Error');
         }
         res.status(200).send('Registered for the event');

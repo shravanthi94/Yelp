@@ -5,7 +5,6 @@ import {
   RESTAURANT_ERROR,
   PLACEORDER,
   PLACEORDER_ERROR,
-  ADD_REVIEW,
   ADD_REVIEW_ERROR,
   GET_RES_MENU,
   GET_RES_MENU_ERROR,
@@ -31,6 +30,7 @@ export default function (state = initialState, action) {
         ...state,
         restaurant: '',
         menu: '',
+        review: '',
         restaurants: payload,
         loading: false,
       };

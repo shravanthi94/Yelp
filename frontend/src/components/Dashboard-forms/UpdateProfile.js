@@ -212,15 +212,17 @@ const UpdateProfile = ({
             <small className={styles.form_text}>
               Dine In, Curb Side Pick Up...
             </small>
-            <input
-              className={styles.my_text}
-              type='text'
-              name='delivery'
-              value={delivery}
-              onChange={(e) => onChange(e)}
-              required
-            />
           </div>
+          <select
+            className='select-css'
+            name='delivery'
+            onChange={(e) => onChange(e)}
+          >
+            <option>Select option</option>
+            <option value='DINEIN'>Dine In</option>
+            <option value='DELIVERY'>Yelp Delivery</option>
+            <option value='CURBSIDE'>Curbside Pick Up</option>
+          </select>
           <div className={styles.form_group}>
             <label className={styles.form_label}>Select Cuisine</label>
             <br />

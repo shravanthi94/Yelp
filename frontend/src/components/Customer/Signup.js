@@ -5,7 +5,6 @@ import styles from './form.module.css';
 import { setAlert } from '../../actions/alert';
 import { signup } from '../../actions/auth';
 import PropTypes from 'prop-types';
-import Alert from '../layout/Alert';
 
 const Signup = ({ setAlert, signup, isAuthenticated }) => {
   const [formData, setformData] = useState({
@@ -95,7 +94,6 @@ const Signup = ({ setAlert, signup, isAuthenticated }) => {
           </small>
         </div>
       </div>
-      <Alert />
     </div>
   );
 };

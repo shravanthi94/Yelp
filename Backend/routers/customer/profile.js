@@ -219,23 +219,4 @@ router.post(
   },
 );
 
-// @route  GET yelp/customer/profile/profile_picture/:image
-// @desc   Upload profile picture of the customer
-// @access Public
-router.get('/profile_picture/:image', (req, res) => {
-  const image = `${path.join(__dirname, '../..')}/public/uploads/customers/${
-    req.params.image
-  }`;
-  if (fs.existsSync(image)) {
-    res.sendFile(image);
-  } else {
-    res.sendFile(
-      `${path.join(
-        __dirname,
-        '../..',
-      )}/public/uploads/customers/userplaceholder.jpg`,
-    );
-  }
-});
-
 module.exports = router;

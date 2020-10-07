@@ -38,6 +38,12 @@ router.post('/insert/:res_id', auth, (req, res) => {
           dbPool.query(addReviewQuery, (error2) => {
             if (error2) {
               console.log(error2);
+
+              if (error2.errno === 1062) {
+                return res.status(400).json({
+                  errors: [{ msg: 'You have already added a review' }],
+                });
+              }
               return res.status(500).send('Database Error');
             }
 

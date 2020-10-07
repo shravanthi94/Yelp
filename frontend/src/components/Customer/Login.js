@@ -4,7 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import styles from './form.module.css';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
-import Alert from '../layout/Alert';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setformData] = useState({
@@ -70,7 +69,6 @@ const Login = ({ login, isAuthenticated }) => {
             </Link>
           </small>
         </div>
-        <Alert />
       </div>
     </div>
   );

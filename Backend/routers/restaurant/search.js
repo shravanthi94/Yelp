@@ -16,7 +16,7 @@ router.get('/restaurants/:data', (req, res) => {
     FROM restaurant r
     LEFT OUTER JOIN menu_items m
     ON r.restaurant_id = m.restaurant_id
-    WHERE (m.item_name LIKE '${searchData}' OR r.cuisine LIKE '${searchData}' OR 
+    WHERE (m.item_name LIKE '%${searchData}%' OR r.cuisine LIKE '%${searchData}%' OR 
     r.delivery_method LIKE '${searchData}' OR r.restaurant_location LIKE '${searchData}' )`;
 
     dbPool.query(query, (error, result) => {

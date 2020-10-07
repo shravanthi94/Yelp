@@ -71,6 +71,11 @@ const Restaurant = ({
     );
   };
 
+  let imgSrc;
+  if (restaurant) {
+    imgSrc = `http://localhost:3001/images/restaurant/${restaurant.restaurant_image}`;
+  }
+
   return loading || !restaurant ? (
     spinner
   ) : (
@@ -78,6 +83,7 @@ const Restaurant = ({
       <div className={styles.container}>
         <div className='columns is-vcentered'>
           <div className='column is-8'>
+            <img src={imgSrc} alt='Restaurant_image' width='400' height='500' />
             <h1 className={styles.name}>{restaurant_name}</h1>
             <p className={styles.headers}>
               <i className='far fa-envelope-open'></i> {restaurant_email_id}

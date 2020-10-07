@@ -80,10 +80,10 @@ const Results = ({
           onChange={(e) => setfilterData(e.target.value)}
         >
           <option>Select filter</option>
-          <option value='DINE IN'>Dine In</option>
-          <option value='YELP DELIVERY'>Yelp Delivery</option>
+          <option value='DINEIN'>Dine In</option>
+          <option value='DELIVERY'>Yelp Delivery</option>
           <option value='CURBSIDE'>Curbside Pickup</option>
-          <option value='NEARBY'>Nearby</option>
+          {/* <option value='NEARBY'>Nearby</option> */}
         </select>
         <br />
         <Link

@@ -23,6 +23,9 @@ const customeruploads = multer({
   limits: { fileSize: 100000000 },
 }).single('image');
 
+// @route  POST yelp/images/customer
+// @desc   Upload profile picture of the customer
+// @access Private
 router.post('/customer', auth, (req, res) => {
   customeruploads(req, res, (err) => {
     if (!err) {
@@ -46,6 +49,9 @@ router.post('/customer', auth, (req, res) => {
   });
 });
 
+// @route  GET yelp/images/customer/:customer_image
+// @desc   View the customer profile picture
+// @access Public
 router.get('/customer/:customer_image', (req, res) => {
   const image = `${path.join(__dirname, '..')}/public/uploads/customers/${
     req.params.customer_image
@@ -67,7 +73,7 @@ const resstorage = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(
       null,
-      `restaurant${req.params.res_id}-${Date.now()}${path.extname(
+      `restaurant${req.user.id}-${Date.now()}${path.extname(
         file.originalname,
       )}`,
     );
@@ -79,6 +85,9 @@ const resuploads = multer({
   limits: { fileSize: 100000000 },
 }).single('image');
 
+// @route  POST yelp/images/restaurant
+// @desc   Upload profile picture of the restaurant
+// @access Private
 router.post('/restaurant', auth, (req, res) => {
   resuploads(req, res, (err) => {
     if (!err) {
@@ -102,6 +111,9 @@ router.post('/restaurant', auth, (req, res) => {
   });
 });
 
+// @route  GET yelp/images/restaurant/:restaurant_image
+// @desc   View the restaurant profile picture
+// @access Public
 router.get('/restaurant/:restaurant_image', (req, res) => {
   const image = `${path.join(__dirname, '..')}/public/uploads/restaurants/${
     req.params.restaurant_image
