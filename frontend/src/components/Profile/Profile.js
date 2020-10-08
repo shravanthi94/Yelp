@@ -37,6 +37,16 @@ const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
               <i class='fas fa-home'></i> {profile.city}, {profile.state},{' '}
               {profile.country}
             </h3>
+            {!profile.nick_name ? (
+              ''
+            ) : (
+              <Fragment>
+                <h3>
+                  <i class='fas fa-chess-pawn'></i>
+                  {'   '} Call me *{profile.nick_name}*
+                </h3>
+              </Fragment>
+            )}
           </div>
           <hr />
           <h2 className={styles.activity}>Headline</h2>
@@ -97,7 +107,7 @@ const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
               <Fragment>
                 <h4 className={styles.title}>Find me in</h4>
                 <p>
-                  <i class='fas fa-plane-departure'></i> {profile.hometown}
+                  <i class='fas fa-plane-departure'></i> {profile.find_me_in}
                 </p>
               </Fragment>
             )}

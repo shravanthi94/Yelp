@@ -28,8 +28,8 @@ const Signup = ({ signupRestaurant, isAuthenticated }) => {
   }
 
   return (
-    <div className='container'>
-      <div className={styles.form_flow}>
+    <div className='columns'>
+      <div className={styles.form_flow} className='column is-two-fifths'>
         <h2 className={styles.form_title}>Sign Up for Yelp</h2>
         <div className={styles.container}>
           <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
@@ -102,6 +102,11 @@ const Signup = ({ signupRestaurant, isAuthenticated }) => {
           </small>
         </div>
       </div>
+      <img
+        src='https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_large_assets/3780032cdbe6/assets/img/home/hero_photos/TaW5o-S7q8-QYkLTWtRYFw.jpg'
+        alt='dessert-cream'
+        className='login-pics'
+      />
     </div>
   );
 };

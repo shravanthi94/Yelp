@@ -33,6 +33,7 @@ const Restaurant = ({
     restaurant_phone,
     description,
     timings,
+    delivery_method,
   } = restaurant;
 
   const displayMenuItems = () => {
@@ -44,6 +45,20 @@ const Restaurant = ({
               <div>
                 {item.item_name} <br />
                 {item.item_description}
+                <br />
+                {item.item_image === '1' || !item.item_image ? (
+                  ''
+                ) : (
+                  <Link
+                    className={styles.update_btn}
+                    to={{
+                      pathname: '/restaurant/item/images',
+                      state: { images: item.item_image },
+                    }}
+                  >
+                    View images
+                  </Link>
+                )}
               </div>
             </td>
             <td>{item.item_ingredients}</td>
@@ -60,11 +75,14 @@ const Restaurant = ({
       <Fragment>
         <div className='box'>
           <p className={styles.subtitle}>Rating</p>
-          <p className={styles.headers}>{review[0].rating}</p>
-        </div>
-        <div className='box'>
+          <p className={styles.headers}>
+            {' '}
+            <i className='fa fa-star'></i> <strong>{review[0].rating}</strong>
+          </p>
           <p className={styles.subtitle}>Review</p>
-          <p className={styles.headers}>{review[0].comment}</p>
+          <p className={styles.headers}>
+            <strong>{review[0].comment}</strong>
+          </p>
           <small>Review on {review[0].date.substring(0, 10)}</small>
         </div>
       </Fragment>
@@ -82,48 +100,64 @@ const Restaurant = ({
     <Fragment>
       <div className={styles.container}>
         <div className='columns is-vcentered'>
-          <div className='column is-8'>
-            <img src={imgSrc} alt='Restaurant_image' width='400' height='500' />
-            <h1 className={styles.name}>{restaurant_name}</h1>
-            <p className={styles.headers}>
-              <i className='far fa-envelope-open'></i> {restaurant_email_id}
-            </p>
-            <p className={styles.headers}>
-              <i className='fas fa-phone'></i> {restaurant_phone}
-            </p>
-            <p className={styles.headers}>
-              <i className='fas fa-map-marker-alt'></i> {restaurant_location}
-            </p>
-            <p className={styles.headers}>
-              <i className='fas fa-clock'></i> {timings}
-            </p>
-            <br />
-            {localStorage.usertype === 'customer' ? (
-              <Fragment>
-                {' '}
-                <Link
-                  to={`/customer/restaurant/review/${restaurant_id}`}
-                  className={styles.top_btn}
-                >
-                  🌟 Write a Review
-                </Link>
-                <Link
-                  to={`/customer/placeorder/${restaurant_id}`}
-                  className={styles.top_btn}
-                >
-                  Order Now
-                </Link>
-              </Fragment>
-            ) : (
-              ''
-            )}
-            <hr />
-            <div>
-              <h1 className={styles.form_title}>Maps location</h1>
-              <img
-                src={`https://maps.googleapis.com/maps/api/staticmap?center=${restaurant.restaurant_location}&zoom=13&size=300x300&maptype=roadmap&markers=${restaurant.restaurant_location}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
-                alt='maps api'
-              />
+          <div className='column is-10'>
+            <div className='columns'>
+              <div className='column is-6'>
+                <h1 className={styles.name}>{restaurant_name}</h1>
+                <img
+                  src={imgSrc}
+                  alt='Restaurant_image'
+                  width='400'
+                  height='500'
+                />
+                <br /> <br />
+                <p className={styles.headers}>
+                  <i class='fas fa-check' style={{ color: 'green' }}></i>{' '}
+                  {delivery_method}
+                </p>
+                <p className={styles.headers}>
+                  <i className='far fa-envelope-open'></i> {restaurant_email_id}
+                </p>
+                <p className={styles.headers}>
+                  <i className='fas fa-phone'></i> {restaurant_phone}
+                </p>
+                <p className={styles.headers}>
+                  <i className='fas fa-map-marker-alt'></i>{' '}
+                  {restaurant_location}
+                </p>
+                <p className={styles.headers}>
+                  <i className='fas fa-clock'></i> {timings}
+                </p>
+                <br />
+                {localStorage.usertype === 'customer' ? (
+                  <Fragment>
+                    {' '}
+                    <Link
+                      to={`/customer/restaurant/review/${restaurant_id}`}
+                      className={styles.top_btn}
+                    >
+                      🌟 Write a Review
+                    </Link>
+                    <Link
+                      to={`/customer/placeorder/${restaurant_id}`}
+                      className={styles.top_btn}
+                    >
+                      Order Now
+                    </Link>
+                  </Fragment>
+                ) : (
+                  ''
+                )}
+              </div>
+              <div className='column is-6'>
+                <div>
+                  <h1 className={styles.maps}>Find us here...</h1>
+                  <img
+                    src={`https://maps.googleapis.com/maps/api/staticmap?center=${restaurant.restaurant_location}&zoom=13&size=500x500&maptype=roadmap&markers=${restaurant.restaurant_location}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
+                    alt='maps api'
+                  />
+                </div>
+              </div>
             </div>
             <h1 className={styles.form_title}>Description</h1>
             <hr />

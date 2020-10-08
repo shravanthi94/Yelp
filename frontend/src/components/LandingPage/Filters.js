@@ -24,33 +24,54 @@ const Filters = ({
       if (ids.includes(res.restaurant_id) && res.delivery_method == data) {
         return (
           <Fragment>
-            <div className='box'>
+            <div className='box' style={{ color: 'black' }}>
               <article className='media'>
                 <div className='media-content'>
-                  <div className='content'>
-                    <p>
-                      <strong>
-                        <Link to={`/restaurant/details/${res.restaurant_id}`}>
-                          {res.restaurant_name}
-                        </Link>
-                      </strong>
-                      <br />
-                    </p>
-                    <p>
-                      <i className='far fa-envelope-open'></i>{' '}
-                      {res.restaurant_email_id}
-                    </p>
-                    <p>
-                      <i className='fas fa-phone'></i> {res.restaurant_phone}
-                    </p>
-                    <p>
-                      <i className='fas fa-map-marker-alt'></i>{' '}
-                      {res.restaurant_location}
-                    </p>
-                    <p>
-                      <i className='fas fa-clock'></i> {res.timings}
-                    </p>
-                    <p>{res.description}</p>
+                  <div class='content'>
+                    <div className='columns'>
+                      <div className='column is-4'>
+                        <img
+                          className={styles.img}
+                          src={`http://localhost:3001/images/restaurant/${res.restaurant_image}`}
+                          alt='Restaurant_image'
+                        />
+                      </div>
+                      <div className='column is-8'>
+                        <p>
+                          <strong>
+                            <Link
+                              className={styles.rest_name}
+                              to={`/restaurant/details/${res.restaurant_id}`}
+                            >
+                              {res.restaurant_name}
+                            </Link>
+                          </strong>
+                          <br />
+                        </p>
+                        <p>
+                          <i
+                            class='fas fa-check'
+                            style={{ color: 'green' }}
+                          ></i>{' '}
+                          {res.delivery_method}
+                        </p>
+                        <p>
+                          <i class='far fa-envelope-open'></i>{' '}
+                          {res.restaurant_email_id}
+                        </p>
+                        <p>
+                          <i class='fas fa-phone'></i> {res.restaurant_phone}
+                        </p>
+                        <p>
+                          <i class='fas fa-map-marker-alt'></i>{' '}
+                          {res.restaurant_location}
+                        </p>
+                        <p>
+                          <i class='fas fa-clock'></i> {res.timings}
+                        </p>
+                        <p>{res.description}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </article>

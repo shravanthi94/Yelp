@@ -7,6 +7,13 @@
   --success-color: #28a745;
 }
 
+body {
+  color: #313030;
+  font-size: 1.5em;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -29,7 +36,7 @@ th {
 /* Utilities */
 .container {
   max-width: 1100px;
-  margin: auto;
+  /* margin: auto; */
   /* overflow: hidden; */
   padding: 0 2rem;
   margin-top: 6rem;
@@ -265,4 +272,10 @@ th {
   margin: 2%;
   border: 2px solid black;
   border-radius: 10px;
+}
+
+.login-pics {
+  height: 1000px;
+  width: 1200px;
+  margin-top: 12px;
 }

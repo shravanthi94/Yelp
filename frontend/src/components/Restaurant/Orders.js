@@ -65,7 +65,7 @@ const Orders = ({
                   }
                 >
                   <option>Select Status</option>
-                  <option value='RECIEVED'>Order Recieved</option>
+                  <option value='RECEIVED'>Order Recieved</option>
                   <option value='PREPARING'>Preparing</option>
                   {order.delivery_option === 'PICKUP' ? (
                     <Fragment>

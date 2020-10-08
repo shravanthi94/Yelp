@@ -30,6 +30,7 @@ const Landing = ({ clearResults }) => {
         name='query'
         value={query}
         onChange={(e) => setquery(e.target.value)}
+        required
       />
       <Link to={`/search/restaurants/${query}`} className='search-button'>
         Search

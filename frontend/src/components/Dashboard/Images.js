@@ -7,7 +7,6 @@ import { setAlert } from '../../actions/alert';
 
 const Images = ({ location, setAlert }) => {
   const images = location.state.images;
-  console.log(images);
   if (images === '1' || !images) {
     setAlert('No images added', 'danger');
   }
@@ -32,9 +31,9 @@ const Images = ({ location, setAlert }) => {
       <div className={styles.container}>
         <h1 className={styles.heading}>Dish Images:</h1>
         <p>{displayImages()}</p>
-        <Link to='/restaurant/profile' className={styles.btn}>
+        {/* <Link to='/restaurant/profile' className={styles.btn}>
           Back
-        </Link>
+        </Link> */}
       </div>
     </Fragment>
   );

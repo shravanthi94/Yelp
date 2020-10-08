@@ -25,8 +25,8 @@ const Login = ({ loginRestaurant, isAuthenticated }) => {
     return <Redirect to='/restaurant/profile' />;
   }
   return (
-    <div className='container'>
-      <div className={styles.form_flow}>
+    <div className='columns'>
+      <div className={styles.form_flow} className='column is-two-fifths'>
         <h2 className={styles.form_title}>Log in to Yelp</h2>
         <div className={styles.container}>
           <form className={styles.yform} onSubmit={(e) => onSubmit(e)}>
@@ -67,6 +67,11 @@ const Login = ({ loginRestaurant, isAuthenticated }) => {
           </small>
         </div>
       </div>
+      <img
+        src='https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_large_assets/f1767b5aca82/assets/img/home/hero_photos/H8OvnEBJ4Tiu2a1oLfrbcA.jpg'
+        alt='burger-pic'
+        className='login-pics'
+      />
     </div>
   );
 };

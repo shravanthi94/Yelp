@@ -23,8 +23,8 @@ const Dashboard = ({
           <tr>
             <td>
               <div className={styles.bold}>
-                {item.item_name} <br />
-                {item.item_description} <br />
+                {item.item_name} <br /> <br />
+                <i>({item.item_description})</i> <br />
                 <br />
                 <Link
                   className={styles.update_btn}
