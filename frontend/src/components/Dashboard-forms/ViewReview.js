@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import spinner from '../layout/Spinner';
 import styles from './form.module.css';
 import { getRestaurantReviews } from '../../actions/dashboard';
+import Rating from 'react-rating';
 
 const ViewReview = ({
   dashboard: { reviews, loading },
@@ -18,12 +19,22 @@ const ViewReview = ({
     return reviews.map((review) => {
       return (
         <Fragment>
-          <tr>
-            <td>{review.cust_name}</td>
-            <td>{review.comment}</td>
-            <td>{review.rating}</td>
-            <td>{review.date.substring(0, 10)}</td>
-          </tr>
+          <div className='box review'>
+            <div className='rating'>
+              <Rating
+                emptySymbol='far fa-star'
+                fullSymbol='fas fa-star'
+                fractions={2}
+                readonly
+                initialRating={review.rating}
+              />
+              {'  '}
+              <small>Review on {review.date.substring(0, 10)}</small>
+            </div>
+            <p className={styles.headers}>
+              <strong>{review.comment}</strong>
+            </p>
+          </div>
         </Fragment>
       );
     });
@@ -34,15 +45,7 @@ const ViewReview = ({
     <Fragment>
       <div className='container profile-title'>
         <h1 className={styles.form_title}>Reviews given by customers</h1>
-        <table>
-          <tr>
-            <th>Customer Name</th>
-            <th>Review</th>
-            <th>Rating</th>
-            <th>Date</th>
-          </tr>
-          {displayReviews()}
-        </table>
+        {displayReviews()}
         <Link className={styles.btn} to='/restaurant/profile'>
           Back
         </Link>

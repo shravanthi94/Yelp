@@ -14,7 +14,7 @@ const Landing = ({ clearResults }) => {
   return (
     <div className={styles.landing}>
       <div className='main-logo'>
-        <a href='javascript:void(0);'>
+        <a href='#'>
           <img
             src='https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/c3484759c57a/assets/img/logos/logo_desktop_xlarge.png'
             alt='yelp logo'

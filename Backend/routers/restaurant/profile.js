@@ -70,7 +70,7 @@ router.get('/:res_id', (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'restaurant not found' }] });
       }
       res.status(200).json(result[0]);

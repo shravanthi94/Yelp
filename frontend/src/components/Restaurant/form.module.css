@@ -122,7 +122,8 @@ input {
 }
 
 .orders_data {
-  margin-top: 3%;
+  margin-top: 5%;
+  padding: 2%;
 }
 
 .display_name {

@@ -8,6 +8,7 @@
   align-items: center;
   padding: var(--element-padding);
   background-color: red;
+  /* position: fixed; */
 }
 
 .left {

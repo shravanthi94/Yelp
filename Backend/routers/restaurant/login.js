@@ -39,7 +39,7 @@ router.post(
         //  2. Handle for invalid credentials
         if (result.length === 0) {
           return res
-            .status(201)
+            .status(400)
             .send({ errors: [{ msg: 'Invalid Credentails.' }] });
         }
 
@@ -51,7 +51,7 @@ router.post(
 
         if (!isMatch) {
           return res
-            .status(201)
+            .status(400)
             .send({ errors: [{ msg: 'Invalid Credentials.' }] });
         }
 

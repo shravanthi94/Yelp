@@ -43,7 +43,7 @@ router.get('/', auth, (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'Customer not found' }] });
       }
       res.status(200).json(result[0]);
@@ -70,7 +70,7 @@ router.get('/display/:customer_id', async (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'Customer not found' }] });
       }
       res.status(200).json(result[0]);
@@ -142,7 +142,7 @@ router.get('/about', auth, async (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'Customer about details not added.' }] });
       }
       res.status(200).json(result[0]);

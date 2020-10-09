@@ -63,7 +63,7 @@ const CreateEvent = ({
             </small>
             <textarea
               className={styles.my_headline}
-              maxlength='1500'
+              maxlength='3000'
               size='30'
               rows='6'
               type='text'

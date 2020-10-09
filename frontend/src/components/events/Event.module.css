@@ -13,10 +13,12 @@
 
 /* Utilities */
 .container {
-  max-width: 1300px;
+  max-width: 1500px;
   margin: 5% 0;
   overflow: hidden;
   padding: 0 2rem;
+  color: black;
+  font-size: 17px;
 }
 
 .name {
@@ -53,7 +55,7 @@
 .left {
   float: left;
   padding: 10px;
-  width: 75%;
+  /* width: 85%; */
 }
 
 .right {
@@ -114,6 +116,22 @@
   color: white;
 }
 
+.view_all {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  border: none;
+  float: right;
+  cursor: pointer;
+  margin: 0.5rem;
+  transition: opacity 0.2s ease-in;
+  outline: none;
+  font-weight: bold;
+  background-color: #d32323;
+  color: white;
+}
+
 .btn {
   display: inline-block;
   border-radius: 10px;
@@ -133,14 +151,15 @@
 
 .update_links {
   margin-bottom: 10%;
-  border-bottom: 1px solid rgb(187, 176, 176);
+  margin-top: 10%;
+  /* border-bottom: 1px solid rgb(187, 176, 176); */
 }
 
 .event_card {
   height: 400px;
   width: 350px;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 10px solid rgb(143, 139, 139);
   background: #fffffb;
   position: relative;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);

@@ -65,7 +65,7 @@
   color: #d32323;
   margin-top: 20px;
   margin-bottom: 20px;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .img {
@@ -82,4 +82,13 @@
   color: #d32323;
   margin-top: 70px;
   margin-bottom: 20px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  padding: 2%;
 }

@@ -47,7 +47,7 @@ router.get('/new', auth, (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'No orders to display' }] });
       }
       res.status(200).json(result);
@@ -72,7 +72,7 @@ router.get('/delivered', auth, (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'No orders to display' }] });
       }
       res.status(200).json(result);
@@ -97,7 +97,7 @@ router.get('/cancelled', auth, (req, res) => {
       }
       if (result.length === 0) {
         return res
-          .status(201)
+          .status(400)
           .json({ errors: [{ msg: 'No orders to display' }] });
       }
       res.status(200).json(result);

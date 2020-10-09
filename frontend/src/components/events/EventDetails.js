@@ -31,43 +31,47 @@ const EventDetails = ({
   ) : (
     <Fragment>
       <div className={styles.container}>
-        <h1 className={styles.heading}>Event Details</h1>
-        <hr />
-        <br />
-        <h1 className='title is-1'>{event.event_name}</h1>
-        <hr />
-        {localStorage.usertype === 'customer' ? (
-          <button
-            type='submit'
-            className={styles.event_register}
-            onClick={(e) => register(e, event.event_id)}
-          >
-            Register
-          </button>
-        ) : (
-          ''
-        )}
-        <br />
-        <h3 className='title is-4'>Event Date</h3>
-        <p>{event.event_date && event.event_date.substring(0, 10)}</p>
-        <br />
-        <br />
-        <h3 className='title is-4'>Event Time</h3>
-        <p>{event.event_time}</p>
-        <br />
-        <br />
-        <h3 className='title is-4'>Venue</h3>
-        <p>{event.event_location}</p>
-        <br />
-        <br />
-        <h3 className='title is-4'>Description</h3>
-        <p>{event.event_description}</p>
-        <br />
-        <br />
-        <h3 className='title is-4'>#Hashtags</h3>
-        <p>{event.event_hashtags}</p>
+        <div className='columns'>
+          <div className='column is-8'>
+            <h1 className='title is-1'>{event.event_name}</h1>
+            <p>
+              {' '}
+              <i class='fas fa-calendar-check'></i>{' '}
+              {event.event_date && event.event_date.substring(0, 10)}{' '}
+            </p>
+            <p>
+              {' '}
+              <i class='fas fa-clock'></i> {event.event_time}{' '}
+            </p>
+            <p>
+              {' '}
+              <i class='fas fa-map-marker-alt'></i> {event.event_location}{' '}
+            </p>
+            <hr />
+            <h3 className='event-red'>What/Why</h3>
+            <p>{event.event_description}</p>
+            <br />
+            <h3 className='event-red'>#hashtags</h3>
+            <p>{event.event_hashtags}</p>
+            <br />
+          </div>
+          <div className='column is-4'>
+            <p className='event-red'>Are you interested?</p>{' '}
+            {localStorage.usertype === 'customer' ? (
+              <button
+                type='submit'
+                className={styles.btn}
+                onClick={(e) => register(e, event.event_id)}
+              >
+                RSVP
+              </button>
+            ) : (
+              ''
+            )}
+          </div>
+        </div>
       </div>
-      <Link to='/event' className={styles.btn}>
+      <Link to='/event' className={styles.btn} style={{ margin: 30 }}>
         Back to Events
       </Link>
     </Fragment>

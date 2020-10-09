@@ -117,7 +117,7 @@ router.get('/status/:order_status', auth, (req, res) => {
         return res.status(500).send('Database Error');
       }
       if (result.length === 0) {
-        return res.status(201).json({ errors: [{ msg: 'No orders' }] });
+        return res.status(400).json({ errors: [{ msg: 'No orders' }] });
       }
       res.status(200).json(result);
     });

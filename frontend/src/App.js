@@ -87,6 +87,11 @@ const App = () => {
             component={SearchFilters}
           />
           <Route exact path='/search/nearby/:filterData' component={Nearby} />
+          <PrivateRoute
+            exact
+            path='/customer/restaurants'
+            component={AllRest}
+          />
           <section className='container'>
             <Alert />
             <Switch>
@@ -220,11 +225,11 @@ const App = () => {
                 component={AttendeeList}
               />
 
-              <PrivateRoute
+              {/* <PrivateRoute
                 exact
                 path='/customer/restaurants'
                 component={AllRest}
-              />
+              /> */}
               <PrivateRoute
                 exact
                 path='/restaurant/details/:res_id'

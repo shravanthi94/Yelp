@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './searchbar.module.css';
+import Rating from 'react-rating';
 import {
   getRestaurant,
   getMenuDetails,
@@ -74,16 +75,20 @@ const Restaurant = ({
     return (
       <Fragment>
         <div className='box'>
-          <p className={styles.subtitle}>Rating</p>
-          <p className={styles.headers}>
-            {' '}
-            <i className='fa fa-star'></i> <strong>{review[0].rating}</strong>
-          </p>
-          <p className={styles.subtitle}>Review</p>
+          <div className='rating'>
+            <Rating
+              emptySymbol='far fa-star'
+              fullSymbol='fas fa-star'
+              fractions={2}
+              readonly
+              initialRating={review[0].rating}
+            />
+            {'  '}
+            <small>Review on {review[0].date.substring(0, 10)}</small>
+          </div>
           <p className={styles.headers}>
             <strong>{review[0].comment}</strong>
           </p>
-          <small>Review on {review[0].date.substring(0, 10)}</small>
         </div>
       </Fragment>
     );
@@ -98,6 +103,7 @@ const Restaurant = ({
     spinner
   ) : (
     <Fragment>
+      {restaurant_id == 6 && <img src='biryani.jpg' alt='pic' />}
       <div className={styles.container}>
         <div className='columns is-vcentered'>
           <div className='column is-10'>

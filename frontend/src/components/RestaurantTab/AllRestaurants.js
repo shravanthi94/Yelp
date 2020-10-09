@@ -18,7 +18,7 @@ const AllRestaurants = ({
     return restaurants.map((res) => {
       return (
         <Fragment>
-          <div class='box' style={{ color: 'black' }}>
+          <div class='box border' style={{ color: 'black' }}>
             <article class='media'>
               <div class='media-content'>
                 <div class='content'>
@@ -72,13 +72,32 @@ const AllRestaurants = ({
     });
   };
 
+  let mapsInput = '';
+  console.log(mapsInput);
+  const displayMaps = () => {
+    restaurants.forEach((res) => {
+      mapsInput = mapsInput + '|' + res.restaurant_location;
+    });
+    return (
+      <img
+        className='main-map'
+        src={`https://maps.googleapis.com/maps/api/staticmap?size=512x512&maptype=roadmap\&markers=size:mid%7Ccolor:red%20${mapsInput}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
+        alt='maps-locations'
+      ></img>
+    );
+  };
+
   return loading ? (
     spinner
   ) : (
     <Fragment>
-      <div className='container'>
-        <h1 className={styles.form_title}>All Restaurants</h1>
-        {displayRestaurants()}
+      <div className='columns'>
+        <div className='column is-7' className={styles.left}>
+          {' '}
+          <h1 className={styles.form_title}>All Restaurants</h1>
+          {displayRestaurants()}
+        </div>
+        <div className='column is-5'>{displayMaps()}</div>
       </div>
     </Fragment>
   );

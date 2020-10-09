@@ -23,12 +23,12 @@ table {
 td {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 2%;
 }
 
 th {
   text-align: left;
-  padding: 8px;
+  padding: 2%;
   background-color: #a8acb1;
   height: 30px;
 }
@@ -277,5 +277,35 @@ th {
 .login-pics {
   height: 1000px;
   width: 1200px;
-  margin-top: 12px;
+  margin-top: -70px;
+  overflow: hidden;
+  z-index: -1;
+  margin-left: 500px;
+  position: fixed;
+}
+
+.border {
+  border: 1px solid rgb(153, 152, 152);
+  margin: 5%;
+}
+
+.review {
+  width: 600px;
+  border-bottom: 10px solid #eeeeef;
+}
+
+.main-map {
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  z-index: -1;
+  margin-top: -100px;
+  position: fixed;
+}
+
+.event-red {
+  color: #d32323;
+  font-weight: bolder;
+  font-size: 25px;
+  height: 50px;
 }

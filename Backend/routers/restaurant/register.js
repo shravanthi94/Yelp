@@ -44,7 +44,7 @@ router.post(
 
         if (result.length > 0) {
           return res
-            .status(201)
+            .status(400)
             .json({ errors: [{ msg: 'Restaurant already exists.' }] });
         }
 

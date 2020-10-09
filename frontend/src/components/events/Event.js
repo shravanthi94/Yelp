@@ -4,35 +4,47 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import spinner from '../layout/Spinner';
 import styles from './Event.module.css';
-import { getAllEvents, registerEvent } from '../../actions/event';
+import {
+  getAllEvents,
+  registerEvent,
+  getRegisteredEvents,
+} from '../../actions/event';
 
 const Event = ({
   getAllEvents,
-  event: { events, loading },
+  event: { events, registered, loading },
   auth: { restaurant, isAuthenticated },
+  getRegisteredEvents,
   history,
   registerEvent,
 }) => {
   useEffect(() => {
     getAllEvents();
+    getRegisteredEvents();
   }, []);
 
   const [eventSearch, seteventSearch] = useState('');
 
-  if (!isAuthenticated) {
-    return <Redirect to='/login' />;
-  }
+  // if (!isAuthenticated) {
+  //   return <Redirect to='/login' />;
+  // }
 
   const register = (e, eventId) => {
     e.preventDefault();
     registerEvent(eventId, history);
   };
 
-  const listAllEvents = () => {
-    return events.map((event) => {
+  const listAllEvents = (list, button) => {
+    return list.map((event) => {
       return (
         <div className={styles.event_card}>
-          <h1 className={styles.title}>{event.event_name}</h1>
+          <Link
+            to={`/event/details/${event.event_name}`}
+            className={styles.title}
+          >
+            {event.event_name}
+          </Link>
+          <br /> <br />
           <p>
             <i class='fas fa-calendar-day'></i>{' '}
             {event.event_date && event.event_date.substring(0, 10)},{' '}
@@ -43,23 +55,17 @@ const Event = ({
           </p>
           <p className={styles.event_description}>{event.event_description}</p>
           <p className={styles.event_hashtags}>{event.event_hashtags}</p>
-          {!restaurant ? (
-            <button
-              type='submit'
-              className={styles.event_register}
-              onClick={(e) => register(e, event.event_id)}
-            >
-              Register
-            </button>
-          ) : (
-            ''
-          )}
-          <br />
-          <Link to={`/event/details/${event.event_name}`}>Show details</Link>
         </div>
       );
     });
   };
+
+  let miniList = [];
+
+  if (registered.length > 3) {
+    miniList = registered.splice(0, 3);
+  }
+  console.log(miniList);
 
   return loading ? (
     spinner
@@ -83,24 +89,33 @@ const Event = ({
             Search
           </Link>
         </div>
-        <div className={styles.left}>{listAllEvents()}</div>
+        <div className={styles.left}>
+          <h1 className={styles.heading}>Your Registered Events</h1>
+          {miniList.length > 0 ? (
+            <Fragment>
+              {listAllEvents(miniList, false)}{' '}
+              <Link to='/event/registered' className={styles.view_all}>
+                View all
+              </Link>
+              <br />
+              <br />
+              <br /> <hr />
+            </Fragment>
+          ) : (
+            listAllEvents(registered, false)
+          )}
+          <h1 className={styles.heading}>Popular Events</h1>
+          {listAllEvents(events, true)}
+        </div>
         <div className={styles.right}>
           <div className={styles.update_links}>
-            {restaurant ? (
+            {restaurant && (
               <Fragment>
-                <h2 className={styles.title_right}>Your Schedule</h2>
                 <Link to='/event/create' className={styles.btn_update}>
                   Create Event
                 </Link>{' '}
                 <Link to='/event/submitted' className={styles.btn_update}>
                   Events Submitted
-                </Link>
-              </Fragment>
-            ) : (
-              <Fragment>
-                <h2 className={styles.title_right}>Your Schedule</h2>
-                <Link to='/event/registered' className={styles.btn_update}>
-                  Events Attending
                 </Link>
               </Fragment>
             )}
@@ -114,6 +129,7 @@ const Event = ({
 Event.propTypes = {
   getAllEvents: PropTypes.func.isRequired,
   registerEvent: PropTypes.func.isRequired,
+  getRegisteredEvents: PropTypes.func.isRequired,
   event: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
@@ -122,6 +138,8 @@ const mapStateToProps = (state) => ({
   event: state.event,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { getAllEvents, registerEvent })(
-  withRouter(Event),
-);
+export default connect(mapStateToProps, {
+  getAllEvents,
+  registerEvent,
+  getRegisteredEvents,
+})(withRouter(Event));
