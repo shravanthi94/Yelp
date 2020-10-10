@@ -6,7 +6,7 @@ const mysqlConnect = mysql.createPool({
   connectionLimit: 500,
   host: 'localhost',
   user: 'root',
-  password: 'password',
+  password: '[password]',
   port: 3306,
   database: 'yelp',
 });
