@@ -1,9 +1,11 @@
 /* Utilities */
 .container {
-  max-width: 1100px;
+  max-width: 1500px;
   margin: 5% 0;
   overflow: hidden;
   padding: 0 2rem;
+  color: black;
+  font-size: 17px;
 }
 
 .name {
@@ -99,4 +101,14 @@
   font-size: larger;
   color: black;
   margin-bottom: 50px;
+}
+
+.title1 {
+  font-weight: bold;
+  margin-bottom: 6px;
+  line-height: 1.28571em;
+  margin-top: 20px;
+  height: 50px;
+  font-size: 19px;
+  color: #0073bb;
 }

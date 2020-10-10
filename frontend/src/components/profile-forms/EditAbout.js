@@ -117,7 +117,6 @@ const EditAbout = ({
             <input
               className={styles.my_headline}
               type='text'
-              placeholder='Headline'
               name='whenNotYelping'
               value={whenNotYelping}
               onChange={(e) => onChange(e)}

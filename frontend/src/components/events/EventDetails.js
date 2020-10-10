@@ -56,15 +56,17 @@ const EventDetails = ({
             <br />
           </div>
           <div className='column is-4'>
-            <p className='event-red'>Are you interested?</p>{' '}
             {localStorage.usertype === 'customer' ? (
-              <button
-                type='submit'
-                className={styles.btn}
-                onClick={(e) => register(e, event.event_id)}
-              >
-                RSVP
-              </button>
+              <Fragment>
+                <p className='event-red'>Are you interested?</p>{' '}
+                <button
+                  type='submit'
+                  className={styles.btn}
+                  onClick={(e) => register(e, event.event_id)}
+                >
+                  RSVP
+                </button>
+              </Fragment>
             ) : (
               ''
             )}

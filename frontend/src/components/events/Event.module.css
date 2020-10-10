@@ -221,3 +221,13 @@
   font-size: 1.8rem;
   text-decoration: underline;
 }
+
+.rest_links {
+  float: left;
+  /* margin-top: 40%; */
+  margin-right: 70px;
+}
+
+.display {
+  display: inline-block;
+}

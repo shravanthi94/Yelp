@@ -10,6 +10,7 @@ import {
   GET_REVIEWS,
   GET_REVIEWS_ERROR,
   RES_IMAGE_ERROR,
+  GET_IMAGES,
 } from './types';
 
 //Get current users profile
@@ -221,6 +222,23 @@ export const uploadDishImage = (formData, dishId) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
+    dispatch({
+      type: RES_IMAGE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//  Get all images
+export const getImages = (resId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/images/restaurant/all/${resId}`);
+    console.log(res.data);
+    dispatch({
+      type: GET_IMAGES,
+      payload: res.data,
+    });
+  } catch (err) {
     dispatch({
       type: RES_IMAGE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },

@@ -8,12 +8,14 @@ import {
   GET_REVIEWS,
   GET_REVIEWS_ERROR,
   RES_IMAGE_ERROR,
+  GET_IMAGES,
 } from '../actions/types';
 
 const initialState = {
   profile: '',
   profiles: [],
   dish: '',
+  images: '',
   menu: [],
   reviews: [],
   loading: true,
@@ -28,6 +30,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: payload,
+        loading: false,
+      };
+    case GET_IMAGES:
+      return {
+        ...state,
+        images: payload,
         loading: false,
       };
     case ADD_DISH_SUCCESS:

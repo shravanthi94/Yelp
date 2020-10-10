@@ -10,12 +10,15 @@ import {
   GET_RES_MENU_ERROR,
   GET_CUSTOMER_REVIEW,
   CUSTOMER_REVIEW_ERROR,
+  RES_IMAGE_ERROR,
+  GET_IMAGES,
 } from '../actions/types';
 
 const initialState = {
   restaurant: '',
   menu: '',
   review: '',
+  images: '',
   restaurants: [],
   loading: true,
   error: {},
@@ -31,6 +34,7 @@ export default function (state = initialState, action) {
         restaurant: '',
         menu: '',
         review: '',
+        images: '',
         restaurants: payload,
         loading: false,
       };
@@ -38,6 +42,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         restaurant: payload,
+        loading: false,
+      };
+    case GET_IMAGES:
+      return {
+        ...state,
+        images: payload,
         loading: false,
       };
     case GET_RES_MENU:
@@ -63,6 +73,7 @@ export default function (state = initialState, action) {
     case ADD_REVIEW_ERROR:
     case GET_RES_MENU_ERROR:
     case CUSTOMER_REVIEW_ERROR:
+    case RES_IMAGE_ERROR:
       return {
         ...state,
         error: payload,

@@ -42,6 +42,7 @@ router.post(
     [
       check('restaurant_id', 'Restaurant ID is required').notEmpty(),
       check('delivery_option', 'Select the delivery option').notEmpty(),
+      check('item', 'Select an item').notEmpty(),
     ],
   ],
   (req, res) => {
@@ -52,6 +53,7 @@ router.post(
     const customerId = req.user.id;
     const restaurantId = req.body.restaurant_id;
     const deliveryOpt = req.body.delivery_option;
+    const { item } = req.body;
 
     try {
       let today = new Date();
@@ -79,8 +81,8 @@ router.post(
                 if (!error1) {
                   const resName = result2[0].restaurant_name;
 
-                  const createOrderQuery = `INSERT into orders (restaurant_id, restaurant_name, customer_id, customer_name, order_date, delivery_option)
-                  VALUES (${restaurantId}, '${resName}', ${customerId}, '${customerName}','${today}','${deliveryOpt}')`;
+                  const createOrderQuery = `INSERT into orders (restaurant_id, restaurant_name, item_name, customer_id, customer_name, order_date, delivery_option, order_type)
+                  VALUES (${restaurantId}, '${resName}', '${item}', ${customerId}, '${customerName}','${today}','${deliveryOpt}', 'NEW')`;
 
                   dbPool.query(createOrderQuery, (error2, result) => {
                     if (error2) {

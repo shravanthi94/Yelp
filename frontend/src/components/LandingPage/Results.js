@@ -18,7 +18,6 @@ const Results = ({
   const [filterData, setfilterData] = useState('');
 
   const searchData = match.params.query;
-  //   console.log('searchData: ', searchData);
 
   useEffect(() => {
     getAllRestaurants();
@@ -35,19 +34,19 @@ const Results = ({
       if (ids.includes(res.restaurant_id)) {
         return (
           <Fragment>
-            <div className='box' style={{ color: 'black' }}>
+            <div className='box border' style={{ color: 'black' }}>
               <article className='media'>
                 <div className='media-content'>
                   <div class='content'>
                     <div className='columns'>
-                      <div className='column is-4'>
+                      <div className='column is-5'>
                         <img
                           className={styles.img}
                           src={`http://localhost:3001/images/restaurant/${res.restaurant_image}`}
                           alt='Restaurant_image'
                         />
                       </div>
-                      <div className='column is-8'>
+                      <div className='column is-7'>
                         <p>
                           <strong>
                             <Link
@@ -96,26 +95,28 @@ const Results = ({
   const displayFilters = () => {
     return (
       <Fragment>
-        <select
-          className='select-css'
-          name='status'
-          onChange={(e) => setfilterData(e.target.value)}
-        >
-          <option>Select delivery option</option>
-          <option value='DINEIN'>Dine In</option>
-          <option value='DELIVERY'>Yelp Delivery</option>
-          <option value='CURBSIDE'>Curbside Pickup</option>
-        </select>
-        <br />
-        <Link
-          className={styles.submit_btn}
-          to={{
-            pathname: `/search/results/${filterData}`,
-            state: { query: searchData },
-          }}
-        >
-          Apply
-        </Link>
+        <div className={styles.filters}>
+          <select
+            className='select-css'
+            name='status'
+            onChange={(e) => setfilterData(e.target.value)}
+          >
+            <option>Select delivery option</option>
+            <option value='DINEIN'>Dine In</option>
+            <option value='DELIVERY'>Yelp Delivery</option>
+            <option value='CURBSIDE'>Curbside Pickup</option>
+          </select>
+          <br />
+          <Link
+            className={styles.submit_btn}
+            to={{
+              pathname: `/search/results/${filterData}`,
+              state: { query: searchData },
+            }}
+          >
+            Apply
+          </Link>
+        </div>
         <br />
         <div className={styles.near}>
           <button className={styles.btn} onClick={() => getLocation()}>
@@ -124,7 +125,10 @@ const Results = ({
           <br />
           <Link
             className={styles.submit_btn}
-            to={`/search/nearby/${filterData}`}
+            to={{
+              pathname: `/search/nearby/${filterData}`,
+              state: { query: searchData },
+            }}
           >
             Submit
           </Link>
@@ -159,20 +163,52 @@ const Results = ({
     });
   };
 
+  let mapsInput = '';
+  console.log(mapsInput);
+  const displayMaps = () => {
+    if (restaurantlist.length === 0) {
+      return '';
+    }
+    const ids = restaurantlist.map((each) => each.restaurant_id);
+
+    restaurants.forEach((res) => {
+      if (ids.includes(res.restaurant_id)) {
+        mapsInput = mapsInput + '|' + res.restaurant_location;
+      }
+    });
+    return (
+      <img
+        className='main-map'
+        src={`https://maps.googleapis.com/maps/api/staticmap?&size=512x512&maptype=roadmap\&markers=size:mid%7Ccolor:red%20${mapsInput}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
+        alt='maps-locations'
+      ></img>
+    );
+  };
+
   return loading ? (
     spinner
   ) : (
     <Fragment>
-      <div className='container'>
-        <h1 className={styles.form_title}>Search Results</h1>
-        {displayFilters()}
-        {displayRestaurants()}
-        <hr />
-        <br />
-        <Link to='/' className={styles.back_btn}>
-          Back to Search
-        </Link>
+      <div className='columns'>
+        <div
+          className='column is-7'
+          style={{ padding: '2%', marginLeft: '2%' }}
+        >
+          {' '}
+          <h1 className={styles.form_title1}>Search Results</h1>
+          {displayFilters()}
+          {displayRestaurants()}
+        </div>
+        <div className='column is-5'>{displayMaps()}</div>
       </div>
+      <br />
+      <Link
+        to='/'
+        className={styles.back_btn}
+        style={{ marginLeft: '6%', marginBottom: '2%' }}
+      >
+        Back to Search
+      </Link>
     </Fragment>
   );
 };

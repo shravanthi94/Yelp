@@ -21,6 +21,7 @@ export const SUBMITTED_EVENTS_ERROR = 'SUBMITTED_EVENTS_ERROR';
 export const GET_IMAGE = 'GET_IMAGE';
 export const IMAGE_ERROR = 'IMAGE_ERROR';
 export const RES_IMAGE_ERROR = 'RES_IMAGE_ERROR';
+export const GET_IMAGES = 'GET_IMAGES';
 
 export const GET_DASHBOARD = 'GET_DASHBOARD';
 export const DASHBOARD_ERROR = 'DASHBOARD_ERROR';

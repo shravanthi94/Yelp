@@ -2,19 +2,58 @@ import React, { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentDashboard, getMenu } from '../../actions/dashboard';
+import {
+  getCurrentDashboard,
+  getMenu,
+  getImages,
+} from '../../actions/dashboard';
 import spinner from '../layout/Spinner';
 import styles from './Dashboard.module.css';
 
 const Dashboard = ({
   getCurrentDashboard,
   getMenu,
-  dashboard: { profile, menu, loading },
+  getImages,
+  dashboard: { profile, menu, images, loading },
 }) => {
   useEffect(() => {
     getCurrentDashboard();
     getMenu();
   }, []);
+
+  useEffect(() => {
+    if (profile) {
+      getImages(profile.restaurant_id);
+    }
+  }, [profile]);
+
+  console.log(images);
+  let allImages = [],
+    files,
+    allFiles;
+  const splitImages = () => {
+    if (images) {
+      allImages = images.map((img) => img.item_image);
+    }
+    files = allImages.join(',');
+    allFiles = files.split(',');
+  };
+  splitImages();
+  console.log(allFiles);
+
+  const displayImages = () => {
+    return allFiles.map((file) => {
+      if (file !== '1') {
+        return (
+          <img
+            className='dish_img2'
+            src={`http://localhost:3001/images/dish/${file}`}
+            alt='Dish_Image'
+          />
+        );
+      }
+    });
+  };
 
   const displayMenuItems = () => {
     return menu.map((item) => {
@@ -69,6 +108,7 @@ const Dashboard = ({
     spinner
   ) : (
     <Fragment>
+      <div className='top-images'>{displayImages()}</div>
       <div className={styles.container}>
         <div className={styles.left}>
           {/* <h3>{profile.restaurant_name}</h3> */}
@@ -106,11 +146,12 @@ const Dashboard = ({
           )}
           <hr />
           <h2 className={styles.activity}>Your Menu</h2>
+          {/* {displayImages()} */}
           <table>
             <tr>
               <th>Dish Name</th>
               <th>Ingredients</th>
-              <th>Item Category</th>
+              <th>Category</th>
               <th>Price</th>
             </tr>
             {displayMenuItems()}
@@ -140,6 +181,7 @@ Dashboard.propTypes = {
   getCurrentDashboard: PropTypes.func.isRequired,
   getMenu: PropTypes.func.isRequired,
   dashboard: PropTypes.object.isRequired,
+  getImages: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   dashboard: state.dashboard,
@@ -148,4 +190,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getCurrentDashboard,
   getMenu,
+  getImages,
 })(Dashboard);

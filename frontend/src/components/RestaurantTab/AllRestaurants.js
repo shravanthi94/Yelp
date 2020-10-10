@@ -23,14 +23,14 @@ const AllRestaurants = ({
               <div class='media-content'>
                 <div class='content'>
                   <div className='columns'>
-                    <div className='column is-4'>
+                    <div className='column is-5'>
                       <img
                         className={styles.img}
                         src={`http://localhost:3001/images/restaurant/${res.restaurant_image}`}
                         alt='Restaurant_image'
                       />
                     </div>
-                    <div className='column is-8'>
+                    <div className='column is-7'>
                       <p>
                         <strong>
                           <Link
@@ -81,7 +81,7 @@ const AllRestaurants = ({
     return (
       <img
         className='main-map'
-        src={`https://maps.googleapis.com/maps/api/staticmap?size=512x512&maptype=roadmap\&markers=size:mid%7Ccolor:red%20${mapsInput}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
+        src={`https://maps.googleapis.com/maps/api/staticmap?&size=512x512&maptype=roadmap\&markers=size:mid%7Ccolor:red%20${mapsInput}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
         alt='maps-locations'
       ></img>
     );

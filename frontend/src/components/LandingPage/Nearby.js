@@ -9,10 +9,10 @@ const Nearby = ({
   match,
   search: { restaurantlist, loading },
   restaurant: { restaurants },
+  location,
 }) => {
   const data = match.params.filterData;
-
-  console.log('Filter data in nearby file', data);
+  const backData = location.state.query;
 
   const displayRestaurants = () => {
     if (restaurantlist.length === 0) {
@@ -28,7 +28,7 @@ const Nearby = ({
       ) {
         return (
           <Fragment>
-            <div className='box' style={{ color: 'black' }}>
+            <div className='box border' style={{ color: 'black' }}>
               <article className='media'>
                 <div className='media-content'>
                   <div class='content'>
@@ -86,19 +86,54 @@ const Nearby = ({
     });
   };
 
+  let mapsInput = '';
+  console.log(mapsInput);
+  const displayMaps = () => {
+    if (restaurantlist.length === 0) {
+      return '';
+    }
+    const ids = restaurantlist.map((each) => each.restaurant_id);
+
+    restaurants.forEach((res) => {
+      if (
+        ids.includes(res.restaurant_id) &&
+        res.restaurant_location.includes(data)
+      ) {
+        mapsInput = mapsInput + '|' + res.restaurant_location;
+      }
+    });
+    return (
+      <img
+        className='main-map'
+        src={`https://maps.googleapis.com/maps/api/staticmap?&size=512x512&maptype=roadmap\&markers=size:mid%7Ccolor:red%20${mapsInput}&key=AIzaSyCKDg7Z_A4RDYYz0Sv1qCWnXX28XyDONCk`}
+        alt='maps-locations'
+      ></img>
+    );
+  };
+
   return loading ? (
     spinner
   ) : (
     <Fragment>
-      <div className='container'>
-        <h1 className={styles.form_title}>Search Nearby</h1>
-        {displayRestaurants()}
-        <hr />
-        <br />
-        <Link to='/' className={styles.top_btn}>
-          Back to Search
-        </Link>
+      <div className='columns'>
+        <div
+          className='column is-7'
+          style={{ padding: '2%', marginLeft: '2%' }}
+        >
+          {' '}
+          <h1 className={styles.form_title1}>Search Results</h1>
+          {displayRestaurants()}
+        </div>
+        <div className='column is-5'>{displayMaps()}</div>
       </div>
+      <br />
+      <Link
+        to={`/search/restaurants/${backData}`}
+        className={styles.back_btn}
+        style={{ marginLeft: '6%', marginBottom: '2%' }}
+      >
+        Back to Search
+      </Link>
     </Fragment>
   );
 };

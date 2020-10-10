@@ -16,6 +16,7 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
       return (
         <tr>
           <td>{order.restaurant_name}</td>
+          <td>{order.item_name}</td>
           <td>{order.order_date.substring(0, 10)}</td>
           <td>{order.delivery_option}</td>
           <td>{order.order_status}</td>
@@ -48,6 +49,7 @@ const Orders = ({ getAllOrders, orders: { allorders, loading } }) => {
         <table>
           <tr>
             <th>Restaurant Name</th>
+            <th>Item Name</th>
             <th>Order Date</th>
             <th>Delivery Option</th>
             <th>Order Status</th>

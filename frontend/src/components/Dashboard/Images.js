@@ -8,7 +8,8 @@ import { setAlert } from '../../actions/alert';
 const Images = ({ location, setAlert }) => {
   const images = location.state.images;
   if (images === '1' || !images) {
-    setAlert('No images added', 'danger');
+    // setAlert('No images added', 'danger');
+    return;
   }
   let files = images.split(',');
   console.log(files);

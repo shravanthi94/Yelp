@@ -13,6 +13,10 @@
   margin: auto;
   display: block;
 }
+.img {
+  height: 300px;
+  width: 450px;
+}
 
 .top_btn {
   -webkit-border-radius: 5;
@@ -37,6 +41,18 @@
   line-height: 1.28571em;
   color: #d32323;
   margin-top: 80px;
+  margin-bottom: 20px;
+}
+
+.form_title1 {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 40px;
+  line-height: 1.28571em;
+  color: #d32323;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
@@ -101,4 +117,16 @@
   text-decoration: none;
   line-height: 1.3125em;
   margin: 45px 20px 100px 0;
+}
+
+.filters {
+  display: inline-block;
+  width: 110%;
+}
+
+.bottom_icons {
+  color: white;
+  font-weight: 700;
+  display: flex;
+  text-align: center;
 }

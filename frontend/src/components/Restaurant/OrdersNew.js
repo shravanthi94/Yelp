@@ -43,6 +43,10 @@ const OrdersNew = ({ order: { allOrders }, setAlert }) => {
           </tr>
           {displayOrders(newOrders)}
         </table>
+        <br /> <br />
+        <Link to='/restaurant/orders' className={styles.top_btn}>
+          Back
+        </Link>
       </div>
     </Fragment>
   );

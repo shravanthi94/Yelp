@@ -5,10 +5,17 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 import spinner from '../layout/Spinner';
 import styles from './Profile.module.css';
+import { getRegisteredEvents } from '../../actions/event';
 
-const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
+const Profile = ({
+  getCurrentProfile,
+  profile: { profile, loading },
+  getRegisteredEvents,
+  event: { registered, loading: loading_event },
+}) => {
   useEffect(() => {
     getCurrentProfile();
+    getRegisteredEvents();
   }, []);
 
   let imgSrc;
@@ -16,6 +23,42 @@ const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
     imgSrc = `http://localhost:3001/images/customer/${profile.customer_image}`;
   }
 
+  const displayEvents = () => {
+    return registered.map((event) => {
+      return (
+        <Fragment>
+          <div class='box' style={{ color: 'black' }}>
+            <article class='media'>
+              <div class='media-content'>
+                <div class='content'>
+                  <p>
+                    You registered for{' '}
+                    <strong className={styles.title1}>
+                      <Link
+                        to={`/event/details/${event.event_name}`}
+                        className={styles.title1}
+                      >
+                        {event.event_name}
+                      </Link>
+                    </strong>{' '}
+                    <small>@{event.event_location}</small>
+                    <br />
+                    <small>
+                      {event.event_date && event.event_date.substring(0, 10)} ,{' '}
+                      {event.event_time}{' '}
+                    </small>
+                    <br />
+                    {event.event_description}
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+          <hr />
+        </Fragment>
+      );
+    });
+  };
   return loading && profile === null ? (
     spinner
   ) : (
@@ -68,6 +111,8 @@ const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
               </h4>
             </Fragment>
           )}
+          <h2 className={styles.activity}>Recent Activity</h2>
+          {displayEvents()}
         </div>
         <div className={styles.right}>
           <div className={styles.update_links}>
@@ -141,12 +186,18 @@ const Profile = ({ getCurrentProfile, profile: { profile, loading } }) => {
 
 Profile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  getRegisteredEvents: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  event: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
+  event: state.event,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Profile);
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  getRegisteredEvents,
+})(Profile);

@@ -6,6 +6,19 @@
   padding: 0 2rem;
 }
 
+.container1 {
+  max-width: 1300px;
+  margin: 5% 0;
+  overflow: hidden;
+  padding: 0 2rem;
+  max-width: 1100px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 2rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
 .form_title {
   word-break: break-word !important;
   overflow-wrap: break-word !important;
@@ -27,6 +40,19 @@
   line-height: 1.28571em;
   color: #d32323;
   margin-bottom: 20px;
+}
+.name1 {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  /* font-family: Poppins, Helvetica Neue, Helvetica, Arial, sans-serif; */
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 48px;
+  line-height: 54px;
+  font-weight: 900;
+  color: rgb(41, 39, 39);
+  width: 600px;
+  /* margin-bottom: 20px; */
 }
 
 .headers {

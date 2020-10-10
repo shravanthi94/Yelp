@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 const express = require('express');
 
@@ -173,7 +174,7 @@ router.post('/dish/:dish_id', auth, (req, res) => {
   });
 });
 
-// @route  GET yelp/images/dish/:restaurant_image
+// @route  GET yelp/images/dish/:dish_image
 // @desc   View the restaurant profile picture
 // @access Public
 router.get('/dish/:dish_image', (req, res) => {
@@ -186,6 +187,26 @@ router.get('/dish/:dish_image', (req, res) => {
     res.sendFile(
       `${path.join(__dirname, '..')}/public/uploads/dishes/placeholderimg.png`,
     );
+  }
+});
+
+// @route  GET yelp/images/restaurant/all/:res_id
+// @desc   View the restaurant profile picture
+// @access Public
+router.get('/restaurant/all/:res_id', (req, res) => {
+  const resId = req.params.res_id;
+  try {
+    const getResQuery = `SELECT item_image FROM menu_items WHERE restaurant_id = '${resId}'`;
+    dbPool.query(getResQuery, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send('Server Error');
+      }
+      res.status(200).json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
   }
 });
 

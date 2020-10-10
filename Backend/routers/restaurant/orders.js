@@ -123,9 +123,7 @@ router.post(
     const { status } = req.body;
     try {
       let orderType = '';
-      if (status === 'RECIEVED') {
-        orderType = 'NEW';
-      } else if (status === 'PICKED UP' || status === 'DELIVERED') {
+      if (status === 'PICKED UP' || status === 'DELIVERED') {
         orderType = 'COMPLETED';
       }
       const updateQuery = `UPDATE orders SET order_status= '${status}', 

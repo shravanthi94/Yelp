@@ -72,43 +72,29 @@ const Event = ({
   ) : (
     <Fragment>
       <div className={styles.container}>
-        <h1 className={styles.heading}>Official Yelp Events</h1>
-        <div>
-          <input
-            className='field request search_bar'
-            type='text'
-            placeholder='Search by Event Name'
-            name='eventSearch'
-            value={eventSearch}
-            onChange={(e) => seteventSearch(e.target.value)}
-          />
-          <Link
-            to={`/event/details/${eventSearch}`}
-            className={styles.btn_update}
-          >
-            Search
-          </Link>
-        </div>
-        <div className={styles.left}>
-          <h1 className={styles.heading}>Your Registered Events</h1>
-          {miniList.length > 0 ? (
-            <Fragment>
-              {listAllEvents(miniList, false)}{' '}
-              <Link to='/event/registered' className={styles.view_all}>
-                View all
+        <div className='columns'>
+          <div className='column is-12'>
+            <h1 className={styles.heading}>Official Yelp Events</h1>
+            <div className={styles.display}>
+              <input
+                className='field request search_bar'
+                type='text'
+                placeholder='Search by Event Name'
+                name='eventSearch'
+                value={eventSearch}
+                onChange={(e) => seteventSearch(e.target.value)}
+              />
+              <Link
+                to={`/event/details/${eventSearch}`}
+                className={styles.btn_update}
+              >
+                Search
               </Link>
-              <br />
-              <br />
-              <br /> <hr />
-            </Fragment>
-          ) : (
-            listAllEvents(registered, false)
-          )}
-          <h1 className={styles.heading}>Popular Events</h1>
-          {listAllEvents(events, true)}
+            </div>
+          </div>
         </div>
-        <div className={styles.right}>
-          <div className={styles.update_links}>
+        <div>
+          <div className={styles.rest_links}>
             {restaurant && (
               <Fragment>
                 <Link to='/event/create' className={styles.btn_update}>
@@ -120,6 +106,31 @@ const Event = ({
               </Fragment>
             )}
           </div>
+        </div>
+        <div className={styles.left}>
+          {localStorage.usertype == 'restaurant' ? (
+            ''
+          ) : (
+            <Fragment>
+              {' '}
+              <h1 className={styles.heading}>Your Registered Events</h1>
+              {miniList.length > 0 ? (
+                <Fragment>
+                  {listAllEvents(miniList, false)}{' '}
+                  <Link to='/event/registered' className={styles.view_all}>
+                    View all
+                  </Link>
+                  <br />
+                  <br />
+                  <br /> <hr />
+                </Fragment>
+              ) : (
+                listAllEvents(registered, false)
+              )}
+            </Fragment>
+          )}
+          <h1 className={styles.heading}>Popular Events</h1>
+          {listAllEvents(events, true)}
         </div>
       </div>
     </Fragment>

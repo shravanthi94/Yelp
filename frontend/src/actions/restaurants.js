@@ -13,6 +13,8 @@ import {
   GET_RES_MENU_ERROR,
   GET_CUSTOMER_REVIEW,
   CUSTOMER_REVIEW_ERROR,
+  GET_IMAGES,
+  RES_IMAGE_ERROR,
 } from './types';
 
 export const getAllRestaurants = () => async (dispatch) => {
@@ -80,7 +82,9 @@ export const getMenuDetails = (resId) => async (dispatch) => {
   }
 };
 
-export const placeorder = (resId, deliveryOpt, history) => async (dispatch) => {
+export const placeorder = (resId, deliveryOpt, item, history) => async (
+  dispatch,
+) => {
   try {
     const config = {
       headers: {
@@ -90,7 +94,7 @@ export const placeorder = (resId, deliveryOpt, history) => async (dispatch) => {
     const restaurant_id = resId,
       delivery_option = deliveryOpt;
 
-    const body = JSON.stringify({ restaurant_id, delivery_option });
+    const body = JSON.stringify({ restaurant_id, delivery_option, item });
     const res = await axios.post(`/customer/orders/placeorder`, body, config);
 
     dispatch(setAlert('Order placed', 'success'));
@@ -160,6 +164,23 @@ export const getCustReviewByRestId = (id) => async (dispatch) => {
 
     dispatch({
       type: CUSTOMER_REVIEW_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//  Get all images
+export const getImages = (resId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/images/restaurant/all/${resId}`);
+    console.log(res.data);
+    dispatch({
+      type: GET_IMAGES,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: RES_IMAGE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

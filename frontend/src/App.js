@@ -92,6 +92,16 @@ const App = () => {
             path='/customer/restaurants'
             component={AllRest}
           />
+          <PrivateRoute
+            exact
+            path='/restaurant/details/:res_id'
+            component={Restaurant}
+          />
+          <PrivateRoute
+            exact
+            path='/restaurant/profile'
+            component={Dashboard}
+          />
           <section className='container'>
             <Alert />
             <Switch>
@@ -121,11 +131,11 @@ const App = () => {
                 component={DisplayCustomer}
               />
 
-              <PrivateRoute
+              {/* <PrivateRoute
                 exact
                 path='/restaurant/profile'
                 component={Dashboard}
-              />
+              /> */}
               <PrivateRoute
                 exact
                 path='/restaurant/item/images'
@@ -230,11 +240,11 @@ const App = () => {
                 path='/customer/restaurants'
                 component={AllRest}
               /> */}
-              <PrivateRoute
+              {/* <PrivateRoute
                 exact
                 path='/restaurant/details/:res_id'
                 component={Restaurant}
-              />
+              /> */}
               <PrivateRoute
                 exact
                 path='/customer/placeorder/:res_id'

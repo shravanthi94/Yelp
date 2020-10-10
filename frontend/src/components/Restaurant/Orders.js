@@ -22,7 +22,7 @@ const Orders = ({
 
   useEffect(() => {
     getAllRestaurantOrders();
-  }, []);
+  }, [allOrders]);
 
   const handleStatusChange = (e) => {
     e.preventDefault();
@@ -47,6 +47,7 @@ const Orders = ({
                 {order.customer_name}
               </Link>
             </td>
+            <td>{order.item_name}</td>
             <td>{order.order_date.substring(0, 10)}</td>
             <td>{order.delivery_option}</td>
             <td>{order.order_type}</td>
@@ -118,6 +119,7 @@ const Orders = ({
         <table className={styles.orders_data}>
           <tr>
             <th>Customer name</th>
+            <th>Item name</th>
             <th>Order Date</th>
             <th>Delivery Option</th>
             <th>Order Type</th>
@@ -126,6 +128,8 @@ const Orders = ({
           </tr>
           {displayOrders(allOrders)}
         </table>
+        <br />
+        <br />
       </div>
     </Fragment>
   );

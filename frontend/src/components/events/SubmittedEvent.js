@@ -18,7 +18,13 @@ const SubmittedEvent = ({
     return submitted.map((event) => {
       return (
         <div className={styles.event_card}>
-          <h1 className={styles.title}>{event.event_name}</h1>
+          <Link
+            to={`/event/details/${event.event_name}`}
+            className={styles.title}
+          >
+            {event.event_name}
+          </Link>
+          <br /> <br />
           <p>
             <i class='fas fa-calendar-day'></i>{' '}
             {event.event_date.substring(0, 10)}, {event.event_time}
