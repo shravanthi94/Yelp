@@ -109,6 +109,7 @@ const Profile = ({
               <h4 className={styles.title}>
                 <i class='fas fa-birthday-cake'></i> {profile.date_of_birth}
               </h4>
+              <br />
             </Fragment>
           )}
           <h2 className={styles.activity}>Recent Activity</h2>
