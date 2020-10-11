@@ -47,7 +47,7 @@ const Dashboard = ({
         return (
           <img
             className='dish_img2'
-            src={`http://localhost:3001/images/dish/${file}`}
+            src={`http://54.183.239.208:3001/images/dish/${file}`}
             alt='Dish_Image'
           />
         );
