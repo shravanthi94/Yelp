@@ -36,7 +36,7 @@ const Nearby = ({
                       <div className='column is-4'>
                         <img
                           className={styles.img}
-                          src={`http://localhost:3001/images/restaurant/${res.restaurant_image}`}
+                          src={`http://54.183.239.208:3001/images/restaurant/${res.restaurant_image}`}
                           alt='Restaurant_image'
                         />
                       </div>

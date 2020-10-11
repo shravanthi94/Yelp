@@ -20,7 +20,7 @@ const Profile = ({
 
   let imgSrc;
   if (profile) {
-    imgSrc = `http://localhost:3001/images/customer/${profile.customer_image}`;
+    imgSrc = `http://54.183.239.208:3001/images/customer/${profile.customer_image}`;
   }
 
   const displayEvents = () => {

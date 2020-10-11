@@ -20,7 +20,9 @@ const Event = ({
 }) => {
   useEffect(() => {
     getAllEvents();
-    getRegisteredEvents();
+    if (localStorage.usertype == 'customer') {
+      getRegisteredEvents();
+    }
   }, []);
 
   const [eventSearch, seteventSearch] = useState('');
@@ -29,10 +31,10 @@ const Event = ({
   //   return <Redirect to='/login' />;
   // }
 
-  const register = (e, eventId) => {
-    e.preventDefault();
-    registerEvent(eventId, history);
-  };
+  // const register = (e, eventId) => {
+  //   e.preventDefault();
+  //   registerEvent(eventId, history);
+  // };
 
   const listAllEvents = (list, button) => {
     return list.map((event) => {

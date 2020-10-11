@@ -19,7 +19,7 @@ const Customer = ({
 
   let imgSrc;
   if (customer) {
-    imgSrc = `http://localhost:3001/images/customer/${customer.customer_image}`;
+    imgSrc = `http://54.183.239.208:3001/images/customer/${customer.customer_image}`;
   }
 
   return loading && customer === null ? (

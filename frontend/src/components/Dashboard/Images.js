@@ -20,7 +20,7 @@ const Images = ({ location, setAlert }) => {
       return (
         <img
           className='dish_img'
-          src={`http://localhost:3001/images/dish/${file}`}
+          src={`http://54.183.239.208:3001/images/dish/${file}`}
           alt='Dish_Image'
         />
       );

@@ -101,7 +101,7 @@ const Dashboard = ({
 
   let imgSrc;
   if (profile) {
-    imgSrc = `http://localhost:3001/images/restaurant/${profile.restaurant_image}`;
+    imgSrc = `http://54.183.239.208:3001/images/restaurant/${profile.restaurant_image}`;
   }
 
   return loading && profile === null ? (

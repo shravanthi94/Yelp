@@ -54,7 +54,7 @@ const Restaurant = ({
         return (
           <img
             className='dish_img2'
-            src={`http://localhost:3001/images/dish/${file}`}
+            src={`http://54.183.239.208:3001/images/dish/${file}`}
             alt='Dish_Image'
           />
         );
@@ -133,7 +133,7 @@ const Restaurant = ({
 
   let imgSrc;
   if (restaurant) {
-    imgSrc = `http://localhost:3001/images/restaurant/${restaurant.restaurant_image}`;
+    imgSrc = `http://54.183.239.208:3001/images/restaurant/${restaurant.restaurant_image}`;
   }
 
   return loading || !restaurant ? (
